@@ -1,0 +1,6 @@
+#set(Project project,Navbar navbar)
+${include("../panel/navbar_left.httl#panel_html")}${panel_html}
+
+<script type="text/javascript">
+${include("../panel/navbar_left.httl#panel_js")}${panel_js}
+</script>

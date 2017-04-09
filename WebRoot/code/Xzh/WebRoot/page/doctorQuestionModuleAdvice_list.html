@@ -1,0 +1,130 @@
+<div class="jarviswidget some-cool-class" id="my-id-here" data-widget-fullscreenbutton="false">
+    <header style="border-bottom:0">
+        <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+        <h2>
+           	 医生模块建议列表
+        </h2>
+    </header>
+	<div class="widget-body" style="padding:0;border:0px;">
+		<table id="panel_list_doctorQuestionModuleAdvice_list" idField="id"
+	        pagination="true" fitColumns="true" singleSelect="true" pageSize="20"
+	        toolbar="#panel_search_doctorQuestionModuleAdvice_list" style="width:100%;height:590px;border:0px;" border="false">
+		    <thead>
+			  <tr>
+		    	<th field="cordon" width="100">警戒值</th>
+		    	<th field="average" width="100">平均分</th>
+		    	<th field="score" width="100">获得分数</th>
+		    	<th field="qoctorQuestionRecordId" width="100">记录Id</th>
+		    	<th field="title" width="100">标题</th>
+		    	<th field="title" width="100">标题</th>
+		    	<th field="note" width="100">指导</th>
+		    	<th field="id" formatter="lc.ns.doctorQuestionModuleAdvice_list.formatAction" width="100">操作</th>
+		      </tr>
+		    </thead>
+		</table>
+	</div>
+</div>
+
+<div id="panel_search_doctorQuestionModuleAdvice_list" style="padding:2px 5px;">
+	<form id="form_search_doctorQuestionModuleAdvice_list">
+		警戒值:<input name="cordon" class="easyui-textbox" style="width:120px;"/>
+		平均分:<input name="average" class="easyui-textbox" style="width:120px;"/>
+		获得分数:<input name="score" class="easyui-textbox" style="width:120px;"/>
+		记录Id:<input name="qoctorQuestionRecordId" class="easyui-textbox" style="width:120px;"/>
+		标题:<input name="title" class="easyui-textbox" style="width:120px;"/>
+		标题:<input name="title" class="easyui-textbox" style="width:120px;"/>
+		指导:<input name="note" class="easyui-textbox" style="width:120px;"/>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="lc.ns.doctorQuestionModuleAdvice_list.search()">查询</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="lc.ns.doctorQuestionModuleAdvice_list.openAddPanel()">添加</a>
+	</form>
+</div>
+
+<div id="panel_read_doctorQuestionModuleAdvice_list" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_read_buttons_doctorQuestionModuleAdvice_list" title="查看医生模块建议详情">
+    <div class="ftitle">查看医生模块建议详情</div>
+    <form id="form_read_doctorQuestionModuleAdvice_list" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>警戒值:</label>
+            <input name="cordon" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>平均分:</label>
+            <input name="average" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>获得分数:</label>
+            <input name="score" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>记录Id:</label>
+            <input name="qoctorQuestionRecordId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>标题:</label>
+            <input name="title" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>标题:</label>
+            <input name="title" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>指导:</label>
+            <input name="note" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_read_buttons_doctorQuestionModuleAdvice_list">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_read_doctorQuestionModuleAdvice_list').dialog('close')">关闭</a>
+</div> 
+
+
+<script type="text/javascript">
+lc.initNs("doctorQuestionModuleAdvice_list");
+lc.ns.doctorQuestionModuleAdvice_list.loadList = function(data){
+	data = data==null?{}:data;
+	$("#panel_list_doctorQuestionModuleAdvice_list").datagrid({
+		url:"private/doctorQuestionModuleAdvice/list.action",
+		queryParams:data
+	});
+}
+
+
+
+
+
+
+
+lc.ns.doctorQuestionModuleAdvice_list.formatAction = function(val,row,index){
+    var html =
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.doctorQuestionModuleAdvice_list.openReadPanel(\''+val+'\')">查看</a>&nbsp;';
+    return html;
+}
+
+
+lc.ns.doctorQuestionModuleAdvice_list.search = function(){
+	var params = $("#form_search_doctorQuestionModuleAdvice_list").formToObject();
+	lc.ns.doctorQuestionModuleAdvice_list.loadList(params);
+}
+
+lc.ns.doctorQuestionModuleAdvice_list.openReadPanel = function(id){
+    id?$("#panel_list_doctorQuestionModuleAdvice_list").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_doctorQuestionModuleAdvice_list").datagrid("getSelected");
+    if (row){
+		$("#panel_read_doctorQuestionModuleAdvice_list").dialog("open");
+        $("#form_read_doctorQuestionModuleAdvice_list").form("load",row);
+    }
+}
+
+
+lc.ns.doctorQuestionModuleAdvice_list.onPageChange = function(){
+	$("#panel_list_doctorQuestionModuleAdvice_list").datagrid("reload");
+}
+
+lc.currPageInit = function(){
+	lc.ns.doctorQuestionModuleAdvice_list.loadList();
+}
+$(function(){
+	lc.currPageInit();
+	$.parser.parse("#lc_content");
+});
+</script>

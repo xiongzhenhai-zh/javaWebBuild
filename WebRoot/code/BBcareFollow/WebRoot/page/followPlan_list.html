@@ -1,0 +1,116 @@
+<div class="jarviswidget some-cool-class" id="my-id-here" data-widget-fullscreenbutton="false">
+    <header style="border-bottom:0">
+        <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+        <h2>
+           	 随访计划列表
+        </h2>
+    </header>
+	<div class="widget-body" style="padding:0;border:0px;">
+		<table id="panel_list_followPlan_list" idField="id"
+	        pagination="true" fitColumns="true" singleSelect="true" pageSize="20"
+	        toolbar="#panel_search_followPlan_list" style="width:100%;height:590px;border:0px;" border="false">
+		    <thead>
+			  <tr>
+				<th field="followModelName" width="100">随访模型</th>
+		    	<th field="babyId" width="100">随访宝宝</th>
+		    	<th field="startTime" width="100">开始时间</th>
+		    	<th field="createDoctorId" width="100">创建医生</th>
+		    	<th field="createTime" width="100">创建时间</th>
+		    	<th field="id" formatter="lc.ns.followPlan_list.formatAction" width="100">操作</th>
+		      </tr>
+		    </thead>
+		</table>
+	</div>
+</div>
+
+<div id="panel_search_followPlan_list" style="padding:2px 5px;">
+	<form id="form_search_followPlan_list">
+		随访宝宝:<input name="babyId" class="easyui-textbox" style="width:120px;"/>
+		开始时间:<input name="startTime" class="easyui-textbox" style="width:120px;"/>
+		创建医生:<input name="createDoctorId" class="easyui-textbox" style="width:120px;"/>
+		创建时间:<input name="createTime" class="easyui-textbox" style="width:120px;"/>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="lc.ns.followPlan_list.search()">查询</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="lc.ns.followPlan_list.openAddPanel()">添加</a>
+	</form>
+</div>
+
+<div id="panel_read_followPlan_list" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_read_buttons_followPlan_list" title="查看随访计划详情">
+    <div class="ftitle">查看随访计划详情</div>
+    <form id="form_read_followPlan_list" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>随访模型:</label>
+			<input name="followModelName" class="easyui-textbox" style="width:120px;" readonly="readonly"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>随访宝宝:</label>
+            <input name="babyId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>开始时间:</label>
+            <input name="startTime" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>创建医生:</label>
+            <input name="createDoctorId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>创建时间:</label>
+            <input name="createTime" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_read_buttons_followPlan_list">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_read_followPlan_list').dialog('close')">关闭</a>
+</div> 
+
+
+<script type="text/javascript">
+lc.initNs("followPlan_list");
+lc.ns.followPlan_list.loadList = function(data){
+	data = data==null?{}:data;
+	$("#panel_list_followPlan_list").datagrid({
+		url:"private/followPlan/list.action",
+		queryParams:data
+	});
+}
+
+
+
+
+lc.ns.followPlan_list.formatAction = function(val,row,index){
+    var html =
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.followPlan_list.openReadPanel(\''+val+'\')">查看</a>&nbsp;';
+    return html;
+}
+
+
+
+lc.ns.followPlan_list.search = function(){
+	var params = $("#form_search_followPlan_list").formToObject();
+	lc.ns.followPlan_list.loadList(params);
+}
+
+lc.ns.followPlan_list.openReadPanel = function(id){
+    id?$("#panel_list_followPlan_list").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_followPlan_list").datagrid("getSelected");
+    if (row){
+		$("#panel_read_followPlan_list").dialog("open");
+        $("#form_read_followPlan_list").form("load",row);
+    }
+}
+
+
+
+lc.ns.followPlan_list.onPageChange = function(){
+	$("#panel_list_followPlan_list").datagrid("reload");
+}
+
+lc.currPageInit = function(){
+	lc.ns.followPlan_list.loadList();
+}
+$(function(){
+	lc.currPageInit();
+	$.parser.parse("#lc_content");
+});
+</script>

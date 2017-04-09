@@ -1,0 +1,25 @@
+#set(Project project,Model model)
+package ${project.pkgName}.dao.impl;
+
+import ${project.pkgName}.entry.${model.name};
+import ${project.pkgName}.dao.I${model.name}DAO;
+import org.springframework.stereotype.Repository;
+import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+#for(Function function:model.functions)${include("impl/"+function.name+".httl#dao_import")}${idao_import}#end
+
+/**
+ * @name:${model.alies}	持久层接口
+ * @author:	${project.author}
+ * @createTime: 
+ */	
+	
+@Repository	
+public class ${model.name}DAO implements I${model.name}DAO {	
+	
+	@Autowired	
+	private HibernateTemplate hibernateTemplate;	
+	
+	#for(Function function:model.functions)${include("impl/"+function.name+".httl#dao_perporty")}${dao_perporty}#end
+	#for(Function function:model.functions)${include("impl/"+function.name+".httl#dao_method")}${dao_method}#end
+}

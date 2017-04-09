@@ -1,0 +1,44 @@
+{
+"name":"Test",
+"alies":"测试项目",
+"datasource":{
+	"name":"MySQL"
+	"type":"mysql"
+	"address":"",
+	"username":"",
+	"password":""
+}
+"models":[
+	{
+		"name":"User",
+		"alies":"用户",
+		"attributes":[
+			{}
+		],
+		"relation":[
+			{}
+		]
+		"function":[
+			{}
+		]
+	}
+],
+"pages":[
+	{
+		"name":"user_admin",
+		"alies":"用户管理",
+		"panels":[
+			{}
+		]
+	}
+],
+"navs":[
+	{
+		name:"home",
+		alies:"主页",
+		children:[
+			{}
+		]
+	}
+]
+}

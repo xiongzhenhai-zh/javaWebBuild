@@ -1,0 +1,50 @@
+#set(Project project,Model model)
+package ${project.pkgName}.action;
+
+#for(ModelAttribute attr : model.attributes)
+#if(attr.type=="Date")
+import java.util.Date;
+#end
+#end
+import ${project.pkgName}.entry.${model.name};
+import ${project.pkgName}.service.I${model.name}Service;
+import com.bbcare.cloud.user.util.JsonResult;
+
+import org.hibernate.criterion.DetachedCriteria;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
+
+#for(Function function:model.functions)${include("impl/"+function.name+".httl#action_import")}${idao_import}#end
+
+/**
+ * @name:${model.alies}控制层实现
+ * @author:	${project.author}
+ * @createTime: 
+ */	
+
+@Controller
+public class ${model.name}Action  {	
+	
+	private static final long serialVersionUID = 1L;	
+	
+	private ${model.name} ${model.lowName};	
+	
+	@Autowired	
+	private I${model.name}Service ${model.lowName}Service;
+	
+	#for(Function function:model.functions)${include("impl/"+function.name+".httl#action_perporty")}${action_perporty}#end
+	#for(Function function:model.functions)${include("impl/"+function.name+".httl#action_method")}${action_method}#end
+	
+	
+}

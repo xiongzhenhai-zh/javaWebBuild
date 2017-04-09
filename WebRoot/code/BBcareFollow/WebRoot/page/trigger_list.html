@@ -1,0 +1,123 @@
+<div class="jarviswidget some-cool-class" id="my-id-here" data-widget-fullscreenbutton="false">
+    <header style="border-bottom:0">
+        <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+        <h2>
+           	 触发器列表
+        </h2>
+    </header>
+	<div class="widget-body" style="padding:0;border:0px;">
+		<table id="panel_list_trigger_list" idField="id"
+	        pagination="true" fitColumns="true" singleSelect="true" pageSize="20"
+	        toolbar="#panel_search_trigger_list" style="width:100%;height:590px;border:0px;" border="false">
+		    <thead>
+			  <tr>
+				<th field="executiveTemplateName" width="100">随访模版</th>
+		    	<th field="name" width="100">触发器名称</th>
+		    	<th field="status" width="100">状态</th>
+		    	<th field="event" width="100">触发事件</th>
+		    	<th field="type" width="100">类型</th>
+		    	<th field="condition" width="100">触发条件</th>
+		    	<th field="id" formatter="lc.ns.trigger_list.formatAction" width="100">操作</th>
+		      </tr>
+		    </thead>
+		</table>
+	</div>
+</div>
+
+<div id="panel_search_trigger_list" style="padding:2px 5px;">
+	<form id="form_search_trigger_list">
+		触发器名称:<input name="name" class="easyui-textbox" style="width:120px;"/>
+		状态:<input name="status" class="easyui-textbox" style="width:120px;"/>
+		触发事件:<input name="event" class="easyui-textbox" style="width:120px;"/>
+		类型:<input name="type" class="easyui-textbox" style="width:120px;"/>
+		触发条件:<input name="condition" class="easyui-textbox" style="width:120px;"/>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="lc.ns.trigger_list.search()">查询</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="lc.ns.trigger_list.openAddPanel()">添加</a>
+	</form>
+</div>
+
+<div id="panel_read_trigger_list" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_read_buttons_trigger_list" title="查看触发器详情">
+    <div class="ftitle">查看触发器详情</div>
+    <form id="form_read_trigger_list" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>随访模版:</label>
+			<input name="executiveTemplateName" class="easyui-textbox" style="width:120px;" readonly="readonly"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>触发器名称:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>状态:</label>
+            <input name="status" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>触发事件:</label>
+            <input name="event" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>类型:</label>
+            <input name="type" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>触发条件:</label>
+            <input name="condition" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_read_buttons_trigger_list">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_read_trigger_list').dialog('close')">关闭</a>
+</div> 
+
+
+<script type="text/javascript">
+lc.initNs("trigger_list");
+lc.ns.trigger_list.loadList = function(data){
+	data = data==null?{}:data;
+	$("#panel_list_trigger_list").datagrid({
+		url:"private/trigger/list.action",
+		queryParams:data
+	});
+}
+
+
+
+
+
+lc.ns.trigger_list.formatAction = function(val,row,index){
+    var html =
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.trigger_list.openReadPanel(\''+val+'\')">查看</a>&nbsp;';
+    return html;
+}
+
+
+
+lc.ns.trigger_list.search = function(){
+	var params = $("#form_search_trigger_list").formToObject();
+	lc.ns.trigger_list.loadList(params);
+}
+
+lc.ns.trigger_list.openReadPanel = function(id){
+    id?$("#panel_list_trigger_list").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_trigger_list").datagrid("getSelected");
+    if (row){
+		$("#panel_read_trigger_list").dialog("open");
+        $("#form_read_trigger_list").form("load",row);
+    }
+}
+
+
+
+lc.ns.trigger_list.onPageChange = function(){
+	$("#panel_list_trigger_list").datagrid("reload");
+}
+
+lc.currPageInit = function(){
+	lc.ns.trigger_list.loadList();
+}
+$(function(){
+	lc.currPageInit();
+	$.parser.parse("#lc_content");
+});
+</script>

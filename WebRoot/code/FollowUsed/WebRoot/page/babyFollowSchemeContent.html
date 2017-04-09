@@ -1,0 +1,365 @@
+<div class="jarviswidget some-cool-class" id="my-id-here" data-widget-fullscreenbutton="false">
+    <header style="border-bottom:0">
+        <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+        <h2>
+           	 宝宝随访任务内容列表
+        </h2>
+    </header>
+	<div class="widget-body" style="padding:0;border:0px;">
+		<table id="panel_list_babyFollowSchemeContent" idField="id"
+	        pagination="true" fitColumns="true" singleSelect="true" pageSize="20"
+	        toolbar="#panel_search_babyFollowSchemeContent" style="width:100%;height:590px;border:0px;" border="false">
+		    <thead>
+			  <tr>
+				<th field="babyFollowSchemeTaskName" width="100">宝宝随访任务</th>
+		    	<th field="status" width="100">状态</th>
+		    	<th field="name" width="100">任务名称</th>
+		    	<th field="sort" width="100">排序</th>
+		    	<th field="sourceId" width="100">来源Id</th>
+		    	<th field="sourceType" width="100">来源类型</th>
+		    	<th field="userType" width="100">使用者类型</th>
+		    	<th field="type" width="100">类型</th>
+		    	<th field="data" width="100">数据</th>
+		    	<th field="firstRecord" width="100">建档信息</th>
+		    	<th field="createTime" width="100">创建时间</th>
+		    	<th field="id" formatter="lc.ns.babyFollowSchemeContent.formatAction" width="150">操作</th>
+		      </tr>
+		    </thead>
+		</table>
+	</div>
+</div>
+
+<div id="panel_search_babyFollowSchemeContent" style="padding:2px 5px;">
+	<form id="form_search_babyFollowSchemeContent">
+		状态:<input name="status" class="easyui-textbox" style="width:120px;"/>
+		任务名称:<input name="name" class="easyui-textbox" style="width:120px;"/>
+		排序:<input name="sort" class="easyui-textbox" style="width:120px;"/>
+		来源Id:<input name="sourceId" class="easyui-textbox" style="width:120px;"/>
+		来源类型:<input name="sourceType" class="easyui-textbox" style="width:120px;"/>
+		使用者类型:<input name="userType" class="easyui-textbox" style="width:120px;"/>
+		类型:<input name="type" class="easyui-textbox" style="width:120px;"/>
+		数据:<input name="data" class="easyui-textbox" style="width:120px;"/>
+		建档信息:<input name="firstRecord" class="easyui-textbox" style="width:120px;"/>
+		创建时间:<input name="createTime" class="easyui-textbox" style="width:120px;"/>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="lc.ns.babyFollowSchemeContent.search()">查询</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="lc.ns.babyFollowSchemeContent.openAddPanel()">添加</a>
+	</form>
+</div>
+
+<div id="panel_add_babyFollowSchemeContent" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_add_buttons_babyFollowSchemeContent" title="添加宝宝随访任务内容">
+    <div class="ftitle">添加宝宝随访任务内容</div>
+    <form id="form_add_babyFollowSchemeContent" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>宝宝随访任务:</label>
+			<input name="babyFollowSchemeTask.id" class="form_input_combo_babyFollowSchemeContent_babyFollowSchemeTask" style="width:120px;"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>状态:</label>
+            <input name="status" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>任务名称:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>排序:</label>
+            <input name="sort" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>来源Id:</label>
+            <input name="sourceId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>来源类型:</label>
+            <input name="sourceType" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>使用者类型:</label>
+            <input name="userType" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>类型:</label>
+            <input name="type" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>数据:</label>
+            <input name="data" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>建档信息:</label>
+            <input name="firstRecord" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>创建时间:</label>
+            <input name="createTime" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_add_buttons_babyFollowSchemeContent">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.babyFollowSchemeContent.addSave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_add_babyFollowSchemeContent').dialog('close')">取消</a>
+</div> 
+
+
+<div id="panel_modify_babyFollowSchemeContent" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_modify_buttons_babyFollowSchemeContent" title="修改宝宝随访任务内容">
+    <div class="ftitle">修改宝宝随访任务内容</div>
+    <form id="form_modify_babyFollowSchemeContent" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>宝宝随访任务:</label>
+			<input name="babyFollowSchemeTask.id" class="form_input_combo_babyFollowSchemeContent_babyFollowSchemeTask" style="width:120px;"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>状态:</label>
+            <input name="status" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>任务名称:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>排序:</label>
+            <input name="sort" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>来源Id:</label>
+            <input name="sourceId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>来源类型:</label>
+            <input name="sourceType" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>使用者类型:</label>
+            <input name="userType" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>类型:</label>
+            <input name="type" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>数据:</label>
+            <input name="data" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>建档信息:</label>
+            <input name="firstRecord" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>创建时间:</label>
+            <input name="createTime" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_modify_buttons_babyFollowSchemeContent">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.babyFollowSchemeContent.modifySave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_modify_babyFollowSchemeContent').dialog('close')">取消</a>
+</div> 
+
+<div id="panel_read_babyFollowSchemeContent" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_read_buttons_babyFollowSchemeContent" title="查看宝宝随访任务内容详情">
+    <div class="ftitle">查看宝宝随访任务内容详情</div>
+    <form id="form_read_babyFollowSchemeContent" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>宝宝随访任务:</label>
+			<input name="babyFollowSchemeTaskName" class="easyui-textbox" style="width:120px;" readonly="readonly"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>状态:</label>
+            <input name="status" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>任务名称:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>排序:</label>
+            <input name="sort" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>来源Id:</label>
+            <input name="sourceId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>来源类型:</label>
+            <input name="sourceType" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>使用者类型:</label>
+            <input name="userType" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>类型:</label>
+            <input name="type" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>数据:</label>
+            <input name="data" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>建档信息:</label>
+            <input name="firstRecord" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>创建时间:</label>
+            <input name="createTime" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_read_buttons_babyFollowSchemeContent">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_read_babyFollowSchemeContent').dialog('close')">关闭</a>
+</div> 
+
+
+<script type="text/javascript">
+lc.initNs("babyFollowSchemeContent");
+lc.ns.babyFollowSchemeContent.loadList = function(data){
+	data = data==null?{}:data;
+	$("#panel_list_babyFollowSchemeContent").datagrid({
+		url:"private/babyFollowSchemeContent/list.action",
+		queryParams:data
+	});
+}
+
+
+
+
+
+
+
+
+
+
+lc.ns.babyFollowSchemeContent.formatAction = function(val,row,index){
+    var html =
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.babyFollowSchemeContent.openReadPanel(\''+val+'\')">查看</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.babyFollowSchemeContent.openModifyPanel(\''+val+'\')">编辑</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.babyFollowSchemeContent.destroy(\''+val+'\')">删除</a>';
+    return html;
+}
+
+
+
+lc.ns.babyFollowSchemeContent.search = function(){
+	var params = $("#form_search_babyFollowSchemeContent").formToObject();
+	lc.ns.babyFollowSchemeContent.loadList(params);
+}
+
+lc.ns.babyFollowSchemeContent.openAddPanel = function(){
+	$("#panel_add_babyFollowSchemeContent").dialog("open");
+    $("#form_add_babyFollowSchemeContent").form("reset");
+}
+lc.ns.babyFollowSchemeContent.addSave = function(){
+	$("#form_add_babyFollowSchemeContent").form("submit",{
+        url: "private/babyFollowSchemeContent/add.action",
+        onSubmit: function(){
+            return $(this).form("validate");
+        },
+        success: function(result){
+            var result = eval("("+result+")");
+            if (result&&result.success){
+            	$("#panel_add_babyFollowSchemeContent").dialog("close");
+            	if(lc.ns.babyFollowSchemeContent.onPageChange){
+            		lc.ns.babyFollowSchemeContent.onPageChange();
+            	}
+            } else {
+                $.messager.show({
+                    title: "保存失败",
+                    msg: result.message
+                });
+            }
+        }
+    });
+}
+lc.ns.babyFollowSchemeContent.initBabyFollowSchemeTaskCombobox = function(){
+	$(".form_input_combo_babyFollowSchemeContent_babyFollowSchemeTask").combobox({
+	    url:"private/babyFollowSchemeTask/combo.action"
+	});
+}
+
+
+lc.ns.babyFollowSchemeContent.destroy = function(id){
+	id?$("#panel_list_babyFollowSchemeContent").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_babyFollowSchemeContent").datagrid("getSelected");
+    if (row){
+		 $.messager.confirm("提示","你确定要删除该宝宝随访任务内容?",function(r){
+	        if (r){
+	            $.post("private/babyFollowSchemeContent/remove.action",{"id":row.id},function(result){
+		            if (result&&result.success){
+		                if(lc.ns.babyFollowSchemeContent.onPageChange){
+		            		lc.ns.babyFollowSchemeContent.onPageChange();
+		            	}
+		            } else {
+		                $.messager.show({
+		                    title: "删除失败",
+		                    msg: result.message
+		                });
+		            }
+	            },"json");
+	        }
+	    });
+	}
+}
+
+lc.ns.babyFollowSchemeContent.openModifyPanel = function(id){
+    id?$("#panel_list_babyFollowSchemeContent").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_babyFollowSchemeContent").datagrid("getSelected");
+    if (row){
+		$("#panel_modify_babyFollowSchemeContent").dialog("open");
+        $("#form_modify_babyFollowSchemeContent").form("load",row);
+    }else{
+    	console.log("...");
+    }
+}
+lc.ns.babyFollowSchemeContent.modifySave = function(){
+	var row = $("#panel_list_babyFollowSchemeContent").datagrid("getSelected");
+	if(row){
+		$("#form_modify_babyFollowSchemeContent").form("submit",{
+	        url: "private/babyFollowSchemeContent/modify.action?id="+row.id,
+	        onSubmit: function(){
+	            return $(this).form("validate");
+	        },
+	        success: function(result){
+	            var result = eval("("+result+")");
+	            if (result&&result.success){
+	            	$("#panel_modify_babyFollowSchemeContent").dialog("close");
+	                if(lc.ns.babyFollowSchemeContent.onPageChange){
+	            		lc.ns.babyFollowSchemeContent.onPageChange();
+	            	}
+	            } else {
+	                $.messager.show({
+	                    title: "保存失败",
+	                    msg: result.message
+	                });
+	            }
+	        }
+	    });
+	}
+}
+
+
+lc.ns.babyFollowSchemeContent.openReadPanel = function(id){
+    id?$("#panel_list_babyFollowSchemeContent").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_babyFollowSchemeContent").datagrid("getSelected");
+    if (row){
+		$("#panel_read_babyFollowSchemeContent").dialog("open");
+        $("#form_read_babyFollowSchemeContent").form("load",row);
+    }
+}
+
+
+
+lc.ns.babyFollowSchemeContent.onPageChange = function(){
+	$("#panel_list_babyFollowSchemeContent").datagrid("reload");
+}
+
+lc.currPageInit = function(){
+	lc.ns.babyFollowSchemeContent.loadList();
+	lc.ns.babyFollowSchemeContent.initBabyFollowSchemeTaskCombobox();
+}
+$(function(){
+	lc.currPageInit();
+	$.parser.parse("#lc_content");
+});
+</script>

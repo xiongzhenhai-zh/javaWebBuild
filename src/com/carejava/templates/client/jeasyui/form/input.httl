@@ -1,0 +1,9 @@
+## CSS
+#macro(pp_css)#end
+
+## JavaScprit
+#macro(pp_js)#end
+
+## HTML
+#macro(pp_html)
+#set(PanelPerporty pp,Panel panel)<input name="${pp.name}" class="easyui-textbox" style="width:120px;"/>#end

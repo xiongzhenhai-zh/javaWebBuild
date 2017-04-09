@@ -1,0 +1,123 @@
+<div class="jarviswidget some-cool-class" id="my-id-here" data-widget-fullscreenbutton="false">
+    <header style="border-bottom:0">
+        <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+        <h2>
+           	 乐慧母乳调查临时列表
+        </h2>
+    </header>
+	<div class="widget-body" style="padding:0;border:0px;">
+		<table id="panel_list_lehuiMuRuRecord_list" idField="id"
+	        pagination="true" fitColumns="true" singleSelect="true" pageSize="20"
+	        toolbar="#panel_search_lehuiMuRuRecord_list" style="width:100%;height:590px;border:0px;" border="false">
+		    <thead>
+			  <tr>
+		    	<th field="questionId" width="100">问题Id</th>
+		    	<th field="followTemplateId" width="100">问卷Id</th>
+		    	<th field="createTime" width="100">创建日期</th>
+		    	<th field="note" width="100">题目</th>
+		    	<th field="openId" width="100">openId</th>
+		    	<th field="answer" width="100">答案</th>
+		    	<th field="id" formatter="lc.ns.lehuiMuRuRecord_list.formatAction" width="100">操作</th>
+		      </tr>
+		    </thead>
+		</table>
+	</div>
+</div>
+
+<div id="panel_search_lehuiMuRuRecord_list" style="padding:2px 5px;">
+	<form id="form_search_lehuiMuRuRecord_list">
+		问题Id:<input name="questionId" class="easyui-textbox" style="width:120px;"/>
+		问卷Id:<input name="followTemplateId" class="easyui-textbox" style="width:120px;"/>
+		创建日期:<input name="createTime" class="easyui-textbox" style="width:120px;"/>
+		题目:<input name="note" class="easyui-textbox" style="width:120px;"/>
+		openId:<input name="openId" class="easyui-textbox" style="width:120px;"/>
+		答案:<input name="answer" class="easyui-textbox" style="width:120px;"/>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="lc.ns.lehuiMuRuRecord_list.search()">查询</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="lc.ns.lehuiMuRuRecord_list.openAddPanel()">添加</a>
+	</form>
+</div>
+
+<div id="panel_read_lehuiMuRuRecord_list" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_read_buttons_lehuiMuRuRecord_list" title="查看乐慧母乳调查临时详情">
+    <div class="ftitle">查看乐慧母乳调查临时详情</div>
+    <form id="form_read_lehuiMuRuRecord_list" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>问题Id:</label>
+            <input name="questionId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>问卷Id:</label>
+            <input name="followTemplateId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>创建日期:</label>
+            <input name="createTime" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>题目:</label>
+            <input name="note" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>openId:</label>
+            <input name="openId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>答案:</label>
+            <input name="answer" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_read_buttons_lehuiMuRuRecord_list">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_read_lehuiMuRuRecord_list').dialog('close')">关闭</a>
+</div> 
+
+
+<script type="text/javascript">
+lc.initNs("lehuiMuRuRecord_list");
+lc.ns.lehuiMuRuRecord_list.loadList = function(data){
+	data = data==null?{}:data;
+	$("#panel_list_lehuiMuRuRecord_list").datagrid({
+		url:"private/lehuiMuRuRecord/list.action",
+		queryParams:data
+	});
+}
+
+
+
+
+
+
+lc.ns.lehuiMuRuRecord_list.formatAction = function(val,row,index){
+    var html =
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.lehuiMuRuRecord_list.openReadPanel(\''+val+'\')">查看</a>&nbsp;';
+    return html;
+}
+
+
+lc.ns.lehuiMuRuRecord_list.search = function(){
+	var params = $("#form_search_lehuiMuRuRecord_list").formToObject();
+	lc.ns.lehuiMuRuRecord_list.loadList(params);
+}
+
+lc.ns.lehuiMuRuRecord_list.openReadPanel = function(id){
+    id?$("#panel_list_lehuiMuRuRecord_list").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_lehuiMuRuRecord_list").datagrid("getSelected");
+    if (row){
+		$("#panel_read_lehuiMuRuRecord_list").dialog("open");
+        $("#form_read_lehuiMuRuRecord_list").form("load",row);
+    }
+}
+
+
+lc.ns.lehuiMuRuRecord_list.onPageChange = function(){
+	$("#panel_list_lehuiMuRuRecord_list").datagrid("reload");
+}
+
+lc.currPageInit = function(){
+	lc.ns.lehuiMuRuRecord_list.loadList();
+}
+$(function(){
+	lc.currPageInit();
+	$.parser.parse("#lc_content");
+});
+</script>

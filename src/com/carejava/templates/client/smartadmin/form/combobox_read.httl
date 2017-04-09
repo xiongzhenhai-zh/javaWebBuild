@@ -1,0 +1,9 @@
+## CSS
+#macro(pp_css)#end
+
+## JavaScprit
+#macro(pp_js)#end
+
+## HTML
+#macro(pp_html)
+#set(Relation relation,Panel panel)<input name="${relation.name}Name" class="easyui-textbox" style="width:120px;" readonly="readonly"/>#end

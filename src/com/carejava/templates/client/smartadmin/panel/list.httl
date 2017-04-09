@@ -1,0 +1,53 @@
+## CSS
+#macro(panel_css)#end
+
+## JavaScprit
+#macro(panel_js)
+#set(Project project,Page page,Panel panel)
+lc.ns.${page.name}.loadList = function(data){
+	data = data==null?{}:data;
+	$("#panel_list_${page.name}").datagrid({
+		url:"private/${panel.store.model.lowName}/${panel.store.function.name}.action",
+		queryParams:data
+	});
+}
+#for(PanelPerporty pp:panel.perporties)
+${include("../"+pp.type+"/"+pp.template+".httl#pp_js")}${pp_js}
+#end
+#for(Relation relation : panel.store.model.relations)
+#if(relation.type=="ManyToOne"||relation.type=="OneToOne")
+${include("../grid/combobox_read.httl#pp_js")}${pp_js}
+#end
+#end
+#end
+
+## HTML
+#macro(panel_html)
+#set(Project project,Panel panel,Page page)
+<div class="jarviswidget some-cool-class" id="my-id-here" data-widget-fullscreenbutton="false">
+    <header style="border-bottom:0">
+        <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+        <h2>
+           	 ${panel.alies}
+        </h2>
+    </header>
+	<div class="widget-body" style="padding:0;border:0px;">
+		<table id="panel_list_${page.name}" idField="id"
+	        pagination="true" fitColumns="true" singleSelect="true" pageSize="20"
+	        toolbar="#panel_search_${page.name}" style="width:100%;height:590px;border:0px;" border="false">
+		    <thead>
+			  <tr>
+				#for(Relation relation : panel.store.model.relations)
+				#if(relation.type=="ManyToOne"||relation.type=="OneToOne")
+				${include("../grid/combobox_read.httl#pp_html")}${pp_html}
+				#end
+				#end
+		    	#for(PanelPerporty pp:panel.perporties)
+		    	${include("../"+pp.type+"/"+pp.template+".httl#pp_html")}${pp_html}
+				#end
+		      </tr>
+		    </thead>
+		</table>
+	</div>
+</div>
+#end

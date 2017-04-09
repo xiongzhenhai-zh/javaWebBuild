@@ -1,0 +1,108 @@
+#set(Project project,Model model)
+package ${project.pkgName}.vo;	
+
+#for(Relation relation : model.relations)
+	#if(relation.type=="OneToMany" || relation.type=="ManyToMany")
+import java.util.List;
+	#end
+	#break(relation.type=="OneToMany" || relation.type=="ManyToMany")
+#end
+#for(ModelAttribute attr : model.attributes)
+#if(attr.type=="Date")
+import java.util.Date;
+#end
+#end
+import ${project.pkgName}.entry.${model.name};
+
+/**
+ * @name:${model.alies}	数据对象模型
+ * @author:	${project.author}
+ * @createTime: 
+ */	
+public class V${model.name} {
+	#if(model.idType=="uuid")
+	
+	private String id;
+	#else
+	
+	private Long id;
+	#end
+	#for(ModelAttribute attr : model.attributes)
+	
+	//${attr.alies}	
+	private ${attr.type} ${attr.name};	
+	#end
+	#for(Relation relation : model.relations)
+	#if(relation.type=="ManyToOne")
+	
+	//关联${relation.relation.model.alies}Id
+    private String ${relation.name}Id;
+    
+    //关联${relation.relation.model.alies}名称
+    private String ${relation.name}Name;
+	#end
+	#end
+	
+	public V${model.name}(){}
+	
+	public V${model.name}(${model.name} po){
+		this.setId(po.getId());
+		#for(ModelAttribute attr : model.attributes)
+		this.set${attr.upName}(po.get${attr.upName}());
+		#end
+		#for(Relation relation : model.relations)
+		#if(relation.type=="ManyToOne")
+		this.set${relation.upName}Name(po.get${relation.upName}Name());
+		#end
+		#end
+	}
+	#if(model.idType=="uuid")
+	
+	public String getId() {	
+		return id;	
+	}	
+	
+	public void setId(String id) {	
+		this.id = id;	
+	}
+	#else
+	
+	public Long getId() {	
+		return id;	
+	}	
+	
+	public void setId(Long id) {	
+		this.id = id;	
+	}
+	#end
+	#for(ModelAttribute attr : model.attributes)
+	
+	public ${attr.type} get${attr.upName}() {	
+		return ${attr.name};	
+	}	
+	
+	public void set${attr.upName}(${attr.type} ${attr.name}) {	
+		this.${attr.name} = ${attr.name};	
+	}
+	#end
+	#for(Relation relation : model.relations)
+	#if(relation.type=="ManyToOne")
+	
+	public String get${relation.upName}Id() {	
+		return ${relation.name}Id;	
+	}
+	
+	public void set${relation.upName}Id(String ${relation.name}Id) {	
+		this.${relation.name}Id = ${relation.name}Id;	
+	}
+	
+	public String get${relation.upName}Name() {	
+		return ${relation.name}Name;	
+	}
+	
+	public void set${relation.upName}Name(String ${relation.name}Name) {	
+		this.${relation.name}Name = ${relation.name}Name;	
+	}
+	#end
+	#end
+}

@@ -1,0 +1,49 @@
+#set(Project project,Page page)
+<div class="easyui-layout" fit="true">
+	<div data-options="region:'west'" style="width:40%;">
+	#for(Panel panel:page.panels)
+	#if(panel.template=="tree_mgr")
+	${include("../panel/tree_mgr.httl#panel_html")}${panel_html}
+	#end
+	#end
+	</div>
+	<div data-options="region:'center'">
+	#for(Panel panel:page.panels)
+	#if(panel.template=="list")
+	${include("../panel/list.httl#panel_html")}${panel_html}
+	#end
+	#end
+	</div>
+</div>
+#for(Panel panel:page.panels)
+#if(panel.template!="tree_mgr"&&panel.template!="list")
+${include("../panel/"+panel.template+".httl#panel_html")}${panel_html}
+#end
+#end
+
+<script type="text/javascript">
+lc.initNs("${page.name}");
+lc.ns.${page.name}.data = {};
+#for(Panel panel:page.panels)
+${include("../panel/"+panel.template+".httl#panel_js")}${panel_js}
+#end
+
+lc.ns.${page.name}.onPageChange = function(){
+	$("#panel_list_${page.name}").datagrid("reload");
+	$("#panel_tree_${page.name}").tree("reload");
+}
+
+lc.currPageInit = function(){
+	lc.ns.${page.name}.loadList();
+	lc.ns.${page.name}.tree();
+	#for(Panel panel:page.panels)
+	#if(panel.template=="add")
+	#for(Relation relation:panel.store.model.relations)
+	#if((relation.type=="ManyToOne"||relation.type=="OneToOne")&&relation.name!="parent")
+	lc.ns.${page.name}.init${relation.relation.model.name}Combobox();
+	#end
+	#end
+	#end
+	#end
+}
+</script>

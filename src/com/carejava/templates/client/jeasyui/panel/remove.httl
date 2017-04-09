@@ -1,0 +1,32 @@
+## CSS
+#macro(panel_css)#end
+
+## JavaScprit
+#macro(panel_js)
+#set(Project project,Page page,Panel panel)
+lc.ns.${page.name}.destroy = function(id){
+	id?$("#panel_list_${page.name}").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_${page.name}").datagrid("getSelected");
+    if (row){
+		 $.messager.confirm("提示","你确定要删除该${panel.store.model.alies}?",function(r){
+	        if (r){
+	            $.post("private/${panel.store.model.lowName}/${panel.store.function.name}.action",{"id":row.id},function(result){
+		            if (result&&result.success){
+		                if(lc.ns.${page.name}.onPageChange){
+		            		lc.ns.${page.name}.onPageChange();
+		            	}
+		            } else {
+		                $.messager.show({
+		                    title: "删除失败",
+		                    msg: result.message
+		                });
+		            }
+	            },"json");
+	        }
+	    });
+	}
+}
+#end
+
+## HTML
+#macro(panel_html)#end

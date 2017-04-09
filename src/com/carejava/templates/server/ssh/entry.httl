@@ -1,0 +1,225 @@
+#set(Project project,Model model)
+package ${project.pkgName}.entry;	
+
+import ${project.pkgName}.vo.V${model.name};
+#for(Relation relation : model.relations)
+	#if(relation.type=="OneToMany" || relation.type=="ManyToMany")
+import java.util.List;
+	#end
+	#break(relation.type=="OneToMany" || relation.type=="ManyToMany")
+#end
+#for(ModelAttribute attr : model.attributes)
+#if(attr.type=="Date")
+import java.util.Date;
+#end
+#end
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+#for(Relation relation : model.relations)
+	#if(relation.type=="OneToOne")
+import javax.persistence.OneToOne;	
+	#end
+#end
+#for(Relation relation : model.relations)
+	#if(relation.type=="OneToOne" && relation.position==1)
+import javax.persistence.JoinColumn;
+	#end
+#end
+#for(Relation relation : model.relations)
+	#if(relation.type=="OneToMany")
+import javax.persistence.OneToMany;
+	#end
+	#break(relation.type=="OneToMany")
+#end
+#for(Relation relation : model.relations)
+	#if(relation.type=="ManyToOne")
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+	#end
+#end
+#for(Relation relation : model.relations)
+	#if(relation.type=="ManyToMany")
+import javax.persistence.ManyToMany;
+	#end
+	#break(relation.type=="ManyToMany")
+#end
+#for(Relation relation : model.relations)
+	#if(relation.type=="ManyToMany" && relation.position==1)
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+	#end
+	#break(relation.type=="ManyToMany" && relation.position==1)
+#end
+
+#if(model.idType=="uuid")
+import org.hibernate.annotations.GenericGenerator;
+#end
+
+/**
+ * @name:${model.alies}	实体对象模型
+ * @author:	${project.author}
+ * @createTime: 
+ */	
+	
+@Entity	
+@Table(name="t_${model.lowName}")	
+public class ${model.name} {	
+	#if(model.idType=="uuid")
+	
+	@Id	
+	@GenericGenerator(name="systemUUID",strategy="uuid")	
+	@GeneratedValue(generator="systemUUID")	
+	@Column(name="_id")
+	private String id;
+	#else
+	
+	@Id	
+	@GeneratedValue
+	@Column(name="_id")
+	private Long id;
+	#end
+	#for(ModelAttribute attr : model.attributes)
+	
+	//${attr.alies}	
+	@Column(name="_${attr.name}")
+	private ${attr.type} ${attr.name};	
+	#end
+	#for(Relation relation : model.relations)
+	#if(relation.type=="OneToOne" && relation.position==1)
+	
+	//关联${relation.relation.model.alies}
+	@OneToOne
+    @JoinColumn(name="_${relation.name}_id")
+    private ${relation.relation.model.name} ${relation.name};
+    
+    //关联${relation.relation.model.alies}名称
+	@Column(name="_${relation.name}_name")
+    private String ${relation.name}Name;
+	#else(relation.type=="OneToOne" && relation.position==2)
+
+	//所属${relation.relation.model.alies}
+	@OneToOne(mappedBy="${relation.relation.name}")
+    private ${relation.relation.model.name} ${relation.name};
+    
+    //关联${relation.relation.model.alies}名称
+	@Column(name="_${relation.name}_name")
+    private String ${relation.name}Name;
+	#else(relation.type=="OneToMany")
+	
+	//包含${relation.relation.model.alies}
+	@OneToMany(mappedBy="${relation.relation.name}")
+    private List<${relation.relation.model.name}> ${relation.name};
+	#else(relation.type=="ManyToOne")
+	
+	//所属${relation.relation.model.alies}
+	@ManyToOne
+    @JoinColumn(name="_${relation.name}_id")
+    private ${relation.relation.model.name} ${relation.name};
+    
+    //关联${relation.relation.model.alies}名称
+	@Column(name="_${relation.name}_name")
+    private String ${relation.name}Name;
+	#else(relation.type=="ManyToMany" && relation.position==1)
+	
+	//关联${relation.relation.model.alies}
+	@ManyToMany
+	@JoinTable(  
+            name="t_${model.lowName}_${relation.relation.model.lowName}",  
+            joinColumns=@JoinColumn(name="_${relation.name}_id"),
+            inverseJoinColumns=@JoinColumn(name="_${relation.relation.name}_id"))
+    private List<${relation.relation.model.name}> ${relation.name};
+	#else(relation.type=="ManyToMany" && relation.position==2)
+	
+	//关联${relation.relation.model.alies}
+	@ManyToMany(mappedBy="${relation.relation.name}")
+    private List<${relation.relation.model.name}> ${relation.name};
+	#end
+	#end
+	
+	public ${model.name}(){}
+	
+	public ${model.name}(V${model.name} vo){
+		this.setId(vo.getId());
+		#for(ModelAttribute attr : model.attributes)
+		this.set${attr.upName}(vo.get${attr.upName}());
+		#end
+		#for(Relation relation : model.relations)
+		#if(relation.type=="ManyToOne")
+		this.set${relation.upName}Name(vo.get${relation.upName}Name());
+		#end
+		#end
+	}
+	#if(model.idType=="uuid")
+	
+	public String getId() {	
+		return id;	
+	}	
+	
+	public void setId(String id) {	
+		this.id = id;	
+	}
+	#else
+	
+	public Long getId() {	
+		return id;	
+	}	
+	
+	public void setId(Long id) {	
+		this.id = id;	
+	}
+	#end
+	#for(ModelAttribute attr : model.attributes)
+	
+	public ${attr.type} get${attr.upName}() {	
+		return ${attr.name};	
+	}	
+	
+	public void set${attr.upName}(${attr.type} ${attr.name}) {	
+		this.${attr.name} = ${attr.name};	
+	}
+	#end
+	#for(Relation relation : model.relations)
+	#if(relation.type=="OneToOne" || relation.type=="ManyToOne")
+	
+	public ${relation.relation.model.name} get${relation.upName}() {	
+		return ${relation.name};	
+	}
+	
+	public void set${relation.upName}(${relation.relation.model.name} ${relation.name}) {	
+		this.${relation.name} = ${relation.name};	
+	}
+	
+	public String get${relation.upName}Name() {	
+		return ${relation.name}Name;	
+	}
+	
+	public void set${relation.upName}Name(String ${relation.name}Name) {	
+		this.${relation.name}Name = ${relation.name}Name;	
+	}
+	#else(relation.type=="OneToMany" || relation.type=="ManyToMany")
+	
+	public List<${relation.relation.model.name}> get${relation.upName}() {	
+		return ${relation.name};	
+	}
+	
+	public void set${relation.upName}(List<${relation.relation.model.name}> ${relation.name}) {	
+		this.${relation.name} = ${relation.name};	
+	}
+	#end
+	#end
+	
+	public void setValues(V${model.name} po){
+		this.setId(po.getId());
+		#for(ModelAttribute attr : model.attributes)
+		this.set${attr.upName}(po.get${attr.upName}());
+		#end
+		#for(Relation relation : model.relations)
+		#if(relation.type=="ManyToOne")
+		this.set${relation.upName}Name(po.get${relation.upName}Name());
+		#end
+		#end
+	}
+}

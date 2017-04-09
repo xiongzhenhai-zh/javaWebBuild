@@ -1,0 +1,230 @@
+<div class="jarviswidget some-cool-class" id="my-id-here" data-widget-fullscreenbutton="false">
+    <header style="border-bottom:0">
+        <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+        <h2>
+           	 宝宝随访详情选项列表
+        </h2>
+    </header>
+	<div class="widget-body" style="padding:0;border:0px;">
+		<table id="panel_list_babyFollowDetailOption" idField="id"
+	        pagination="true" fitColumns="true" singleSelect="true" pageSize="20"
+	        toolbar="#panel_search_babyFollowDetailOption" style="width:100%;height:590px;border:0px;" border="false">
+		    <thead>
+			  <tr>
+				<th field="babyFollowDetailName" width="100">随访情况</th>
+		    	<th field="name" width="100">选项名</th>
+		    	<th field="id" formatter="lc.ns.babyFollowDetailOption.formatAction" width="150">操作</th>
+		      </tr>
+		    </thead>
+		</table>
+	</div>
+</div>
+
+<div id="panel_search_babyFollowDetailOption" style="padding:2px 5px;">
+	<form id="form_search_babyFollowDetailOption">
+		选项名:<input name="name" class="easyui-textbox" style="width:120px;"/>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="lc.ns.babyFollowDetailOption.search()">查询</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="lc.ns.babyFollowDetailOption.openAddPanel()">添加</a>
+	</form>
+</div>
+
+<div id="panel_add_babyFollowDetailOption" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_add_buttons_babyFollowDetailOption" title="添加宝宝随访详情选项">
+    <div class="ftitle">添加宝宝随访详情选项</div>
+    <form id="form_add_babyFollowDetailOption" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>随访情况:</label>
+			<input name="babyFollowDetail.id" class="form_input_combo_babyFollowDetailOption_babyFollowDetail" style="width:120px;"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>选项名:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_add_buttons_babyFollowDetailOption">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.babyFollowDetailOption.addSave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_add_babyFollowDetailOption').dialog('close')">取消</a>
+</div> 
+
+
+<div id="panel_modify_babyFollowDetailOption" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_modify_buttons_babyFollowDetailOption" title="修改宝宝随访详情选项">
+    <div class="ftitle">修改宝宝随访详情选项</div>
+    <form id="form_modify_babyFollowDetailOption" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>随访情况:</label>
+			<input name="babyFollowDetail.id" class="form_input_combo_babyFollowDetailOption_babyFollowDetail" style="width:120px;"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>选项名:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_modify_buttons_babyFollowDetailOption">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.babyFollowDetailOption.modifySave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_modify_babyFollowDetailOption').dialog('close')">取消</a>
+</div> 
+
+<div id="panel_read_babyFollowDetailOption" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_read_buttons_babyFollowDetailOption" title="查看宝宝随访详情选项详情">
+    <div class="ftitle">查看宝宝随访详情选项详情</div>
+    <form id="form_read_babyFollowDetailOption" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>随访情况:</label>
+			<input name="babyFollowDetailName" class="easyui-textbox" style="width:120px;" readonly="readonly"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>选项名:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_read_buttons_babyFollowDetailOption">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_read_babyFollowDetailOption').dialog('close')">关闭</a>
+</div> 
+
+
+<script type="text/javascript">
+lc.initNs("babyFollowDetailOption");
+lc.ns.babyFollowDetailOption.loadList = function(data){
+	data = data==null?{}:data;
+	$("#panel_list_babyFollowDetailOption").datagrid({
+		url:"private/babyFollowDetailOption/list.action",
+		queryParams:data
+	});
+}
+
+lc.ns.babyFollowDetailOption.formatAction = function(val,row,index){
+    var html =
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.babyFollowDetailOption.openReadPanel(\''+val+'\')">查看</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.babyFollowDetailOption.openModifyPanel(\''+val+'\')">编辑</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.babyFollowDetailOption.destroy(\''+val+'\')">删除</a>';
+    return html;
+}
+
+
+
+lc.ns.babyFollowDetailOption.search = function(){
+	var params = $("#form_search_babyFollowDetailOption").formToObject();
+	lc.ns.babyFollowDetailOption.loadList(params);
+}
+
+lc.ns.babyFollowDetailOption.openAddPanel = function(){
+	$("#panel_add_babyFollowDetailOption").dialog("open");
+    $("#form_add_babyFollowDetailOption").form("reset");
+}
+lc.ns.babyFollowDetailOption.addSave = function(){
+	$("#form_add_babyFollowDetailOption").form("submit",{
+        url: "private/babyFollowDetailOption/add.action",
+        onSubmit: function(){
+            return $(this).form("validate");
+        },
+        success: function(result){
+            var result = eval("("+result+")");
+            if (result&&result.success){
+            	$("#panel_add_babyFollowDetailOption").dialog("close");
+            	if(lc.ns.babyFollowDetailOption.onPageChange){
+            		lc.ns.babyFollowDetailOption.onPageChange();
+            	}
+            } else {
+                $.messager.show({
+                    title: "保存失败",
+                    msg: result.message
+                });
+            }
+        }
+    });
+}
+lc.ns.babyFollowDetailOption.initBabyFollowDetailCombobox = function(){
+	$(".form_input_combo_babyFollowDetailOption_babyFollowDetail").combobox({
+	    url:"private/babyFollowDetail/combo.action"
+	});
+}
+
+
+lc.ns.babyFollowDetailOption.destroy = function(id){
+	id?$("#panel_list_babyFollowDetailOption").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_babyFollowDetailOption").datagrid("getSelected");
+    if (row){
+		 $.messager.confirm("提示","你确定要删除该宝宝随访详情选项?",function(r){
+	        if (r){
+	            $.post("private/babyFollowDetailOption/remove.action",{"id":row.id},function(result){
+		            if (result&&result.success){
+		                if(lc.ns.babyFollowDetailOption.onPageChange){
+		            		lc.ns.babyFollowDetailOption.onPageChange();
+		            	}
+		            } else {
+		                $.messager.show({
+		                    title: "删除失败",
+		                    msg: result.message
+		                });
+		            }
+	            },"json");
+	        }
+	    });
+	}
+}
+
+lc.ns.babyFollowDetailOption.openModifyPanel = function(id){
+    id?$("#panel_list_babyFollowDetailOption").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_babyFollowDetailOption").datagrid("getSelected");
+    if (row){
+		$("#panel_modify_babyFollowDetailOption").dialog("open");
+        $("#form_modify_babyFollowDetailOption").form("load",row);
+    }else{
+    	console.log("...");
+    }
+}
+lc.ns.babyFollowDetailOption.modifySave = function(){
+	var row = $("#panel_list_babyFollowDetailOption").datagrid("getSelected");
+	if(row){
+		$("#form_modify_babyFollowDetailOption").form("submit",{
+	        url: "private/babyFollowDetailOption/modify.action?id="+row.id,
+	        onSubmit: function(){
+	            return $(this).form("validate");
+	        },
+	        success: function(result){
+	            var result = eval("("+result+")");
+	            if (result&&result.success){
+	            	$("#panel_modify_babyFollowDetailOption").dialog("close");
+	                if(lc.ns.babyFollowDetailOption.onPageChange){
+	            		lc.ns.babyFollowDetailOption.onPageChange();
+	            	}
+	            } else {
+	                $.messager.show({
+	                    title: "保存失败",
+	                    msg: result.message
+	                });
+	            }
+	        }
+	    });
+	}
+}
+
+
+lc.ns.babyFollowDetailOption.openReadPanel = function(id){
+    id?$("#panel_list_babyFollowDetailOption").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_babyFollowDetailOption").datagrid("getSelected");
+    if (row){
+		$("#panel_read_babyFollowDetailOption").dialog("open");
+        $("#form_read_babyFollowDetailOption").form("load",row);
+    }
+}
+
+
+
+lc.ns.babyFollowDetailOption.onPageChange = function(){
+	$("#panel_list_babyFollowDetailOption").datagrid("reload");
+}
+
+lc.currPageInit = function(){
+	lc.ns.babyFollowDetailOption.loadList();
+	lc.ns.babyFollowDetailOption.initBabyFollowDetailCombobox();
+}
+$(function(){
+	lc.currPageInit();
+	$.parser.parse("#lc_content");
+});
+</script>

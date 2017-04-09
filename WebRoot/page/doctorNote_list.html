@@ -1,0 +1,88 @@
+<div class="jarviswidget some-cool-class" id="my-id-here" data-widget-fullscreenbutton="false">
+    <header style="border-bottom:0">
+        <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+        <h2>
+           	 随访记录列表
+        </h2>
+    </header>
+	<div class="widget-body" style="padding:0;border:0px;">
+		<table id="panel_list_doctorNote_list" idField="id"
+	        pagination="true" fitColumns="true" singleSelect="true" pageSize="20"
+	        toolbar="#panel_search_doctorNote_list" style="width:100%;height:590px;border:0px;" border="false">
+		    <thead>
+			  <tr>
+		    	<th field="cszk" width="100">出生状况</th>
+		    	<th field="id" formatter="lc.ns.doctorNote_list.formatAction" width="100">操作</th>
+		      </tr>
+		    </thead>
+		</table>
+	</div>
+</div>
+
+<div id="panel_search_doctorNote_list" style="padding:2px 5px;">
+	<form id="form_search_doctorNote_list">
+		出生状况:<input name="cszk" class="easyui-textbox" style="width:120px;"/>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="lc.ns.doctorNote_list.search()">查询</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="lc.ns.doctorNote_list.openAddPanel()">添加</a>
+	</form>
+</div>
+
+<div id="panel_read_doctorNote_list" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_read_buttons_doctorNote_list" title="查看随访记录详情">
+    <div class="ftitle">查看随访记录详情</div>
+    <form id="form_read_doctorNote_list" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>出生状况:</label>
+            <input name="cszk" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_read_buttons_doctorNote_list">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_read_doctorNote_list').dialog('close')">关闭</a>
+</div> 
+
+
+<script type="text/javascript">
+lc.initNs("doctorNote_list");
+lc.ns.doctorNote_list.loadList = function(data){
+	data = data==null?{}:data;
+	$("#panel_list_doctorNote_list").datagrid({
+		url:"private/doctorNote/list.action",
+		queryParams:data
+	});
+}
+
+lc.ns.doctorNote_list.formatAction = function(val,row,index){
+    var html =
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.doctorNote_list.openReadPanel(\''+val+'\')">查看</a>&nbsp;';
+    return html;
+}
+
+
+lc.ns.doctorNote_list.search = function(){
+	var params = $("#form_search_doctorNote_list").formToObject();
+	lc.ns.doctorNote_list.loadList(params);
+}
+
+lc.ns.doctorNote_list.openReadPanel = function(id){
+    id?$("#panel_list_doctorNote_list").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_doctorNote_list").datagrid("getSelected");
+    if (row){
+		$("#panel_read_doctorNote_list").dialog("open");
+        $("#form_read_doctorNote_list").form("load",row);
+    }
+}
+
+
+lc.ns.doctorNote_list.onPageChange = function(){
+	$("#panel_list_doctorNote_list").datagrid("reload");
+}
+
+lc.currPageInit = function(){
+	lc.ns.doctorNote_list.loadList();
+}
+$(function(){
+	lc.currPageInit();
+	$.parser.parse("#lc_content");
+});
+</script>

@@ -1,0 +1,9 @@
+## CSS
+#macro(pp_css)#end
+
+## JavaScprit
+#macro(pp_js)
+#set(PanelPerporty pp){field:'${pp.name}',title:'${pp.alies}',width:200}#end
+
+## HTML
+#macro(pp_html)#end

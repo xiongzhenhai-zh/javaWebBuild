@@ -1,0 +1,14 @@
+<!--#set(Project project)-->
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="${project.name}"
+  id="myeclipse.${project.id}"
+  context-root="/${project.name}"
+  j2ee-spec="6.0"
+  archive="${project.name}.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

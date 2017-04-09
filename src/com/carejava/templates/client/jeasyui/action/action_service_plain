@@ -1,0 +1,13 @@
+## CSS
+#macro(list_css)#end
+
+## JavaScprit
+#macro(list_js)
+	
+#end
+
+## HTML
+#macro(button_open_dialog_plain_html)
+	#set(PanelPerporty pp)
+	<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-${pp.icon}" plain="true" onclick="lc.ui.service('${pp.data}')">${pp.alies}</a>
+#end

@@ -1,0 +1,28 @@
+## CSS
+#macro(panel_css)#end
+
+## JavaScprit
+#macro(panel_js)
+#set(Project project,Page page,Panel panel)
+lc.ns.${page.name}.review = function(id,status){
+	id?$("#panel_list_${page.name}").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_${page.name}").datagrid("getSelected");
+    if (row){
+        $.post("private/${panel.store.model.lowName}/review.action",{"id":row.id,"status":status},function(result){
+            if (result&&result.success){
+                if(lc.ns.${page.name}.onPageChange){
+            		lc.ns.${page.name}.onPageChange();
+            	}
+            } else {
+                $.messager.show({
+                    title: "操作失败，请重试",
+                    msg: result.message
+                });
+            }
+        },"json");
+	}
+}
+#end
+
+## HTML
+#macro(panel_html)#end

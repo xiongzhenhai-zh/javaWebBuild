@@ -1,0 +1,43 @@
+## CSS
+#macro(panel_css)#end
+
+## JavaScprit
+#macro(panel_js)
+#set(Project project,Page page,Panel panel)
+lc.ns.${page.name}.loadList = function(data){
+	data = data==null?{}:data;
+	$("#panel_list_${page.name}").datagrid({
+		url:"private/${panel.store.model.lowName}/${panel.store.function.name}.action",
+		queryParams:data
+	});
+}
+#for(PanelPerporty pp:panel.perporties)
+${include("../"+pp.type+"/"+pp.template+".httl#pp_js")}${pp_js}
+#end
+#for(Relation relation : panel.store.model.relations)
+#if(relation.type=="ManyToOne"||relation.type=="OneToOne")
+${include("../grid/combobox_read.httl#pp_js")}${pp_js}
+#end
+#end
+#end
+
+## HTML
+#macro(panel_html)
+#set(Project project,Panel panel,Page page)
+<table id="panel_list_${page.name}" title="${panel.alies}" idField="id"
+        pagination="true" fitColumns="true" singleSelect="true" pageSize="20"
+        toolbar="#panel_search_${page.name}" style="width:100%;height:680px;">
+    <thead>
+	  <tr>
+		#for(Relation relation : panel.store.model.relations)
+		#if(relation.type=="ManyToOne"||relation.type=="OneToOne")
+		${include("../grid/combobox_read.httl#pp_html")}${pp_html}
+		#end
+		#end
+    	#for(PanelPerporty pp:panel.perporties)
+    	${include("../"+pp.type+"/"+pp.template+".httl#pp_html")}${pp_html}
+		#end
+      </tr>
+    </thead>
+</table>
+#end

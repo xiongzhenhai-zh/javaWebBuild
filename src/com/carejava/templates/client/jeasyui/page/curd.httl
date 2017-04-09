@@ -1,0 +1,32 @@
+#set(Project project,Page page)
+#for(Panel panel:page.panels)
+${include("../panel/"+panel.template+".httl#panel_html")}${panel_html}
+#end
+
+<script type="text/javascript">
+lc.initNs("${page.name}");
+#for(Panel panel:page.panels)
+${include("../panel/"+panel.template+".httl#panel_js")}${panel_js}
+#end
+
+lc.ns.${page.name}.onPageChange = function(){
+	$("#panel_list_${page.name}").datagrid("reload");
+}
+
+lc.currPageInit = function(){
+	lc.ns.${page.name}.loadList();
+	#for(Panel panel:page.panels)
+	#if(panel.template=="add")
+	#for(Relation relation:panel.store.model.relations)
+	#if((relation.type=="ManyToOne"||relation.type=="OneToOne")&&relation.name!="parent")
+	lc.ns.${page.name}.init${relation.relation.model.name}Combobox();
+	#end
+	#end
+	#end
+	#end
+}
+$(function(){
+	lc.currPageInit();
+	$.parser.parse("#content");
+});
+</script>

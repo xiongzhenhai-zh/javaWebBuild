@@ -1,0 +1,26 @@
+#set(Project project,Model model)
+package ${project.pkgName}.service.impl;
+
+import ${project.pkgName}.entry.${model.name};
+import ${project.pkgName}.dao.I${model.name}DAO;
+import ${project.pkgName}.service.I${model.name}Service;
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import java.io.Serializable;
+#for(Function function:model.functions)${include("impl/"+function.name+".httl#service_import")}${idao_import}#end
+
+/**
+ * @name:${model.alies}	持久层接口
+ * @author:	${project.author}
+ * @createTime: 
+ */	
+	
+@Service
+public class ${model.name}Service implements I${model.name}Service {
+	
+	@Autowired
+	private I${model.name}DAO ${model.lowName}DAO;	
+	
+	#for(Function function:model.functions)${include("impl/"+function.name+".httl#service_perporty")}${service_perporty}#end
+	#for(Function function:model.functions)${include("impl/"+function.name+".httl#service_method")}${service_method}#end
+}

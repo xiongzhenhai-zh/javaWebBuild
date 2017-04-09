@@ -1,0 +1,122 @@
+<div class="jarviswidget some-cool-class" id="my-id-here" data-widget-fullscreenbutton="false">
+    <header style="border-bottom:0">
+        <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+        <h2>
+           	 随访问卷版本列表
+        </h2>
+    </header>
+	<div class="widget-body" style="padding:0;border:0px;">
+		<table id="panel_list_followQuestionnaire_review" idField="id"
+	        pagination="true" fitColumns="true" singleSelect="true" pageSize="20"
+	        toolbar="#panel_search_followQuestionnaire_review" style="width:100%;height:590px;border:0px;" border="false">
+		    <thead>
+			  <tr>
+				<th field="followLibraryName" width="100">随访库</th>
+		    	<th field="type" width="100">问卷类型</th>
+		    	<th field="status" width="100">状态</th>
+		    	<th field="name" width="100">问卷名</th>
+		    	<th field="createTime" width="100">创建时间</th>
+		    	<th field="id" formatter="lc.ns.followQuestionnaire_review.formatReview"  width="100">审核</th>
+		      </tr>
+		    </thead>
+		</table>
+	</div>
+</div>
+
+
+<div id="panel_read_followQuestionnaire_review" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_read_buttons_followQuestionnaire_review" title="查看随访问卷版本详情">
+    <div class="ftitle">查看随访问卷版本详情</div>
+    <form id="form_read_followQuestionnaire_review" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>随访库:</label>
+			<input name="followLibraryName" class="easyui-textbox" style="width:120px;" readonly="readonly"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>问卷类型:</label>
+            <input name="type" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>状态:</label>
+            <input name="status" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>问卷名:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>创建时间:</label>
+            <input name="createTime" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_read_buttons_followQuestionnaire_review">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_read_followQuestionnaire_review').dialog('close')">关闭</a>
+</div> 
+
+
+<script type="text/javascript">
+lc.initNs("followQuestionnaire_review");
+lc.ns.followQuestionnaire_review.loadList = function(data){
+	data = data==null?{}:data;
+	$("#panel_list_followQuestionnaire_review").datagrid({
+		url:"private/followQuestionnaire/list.action",
+		queryParams:data
+	});
+}
+
+
+
+
+lc.ns.followQuestionnaire_review.formatReview = function(val,row,index){
+	if(row.status==1){
+    	return '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.followQuestionnaire_review.review(\''+row.id+'\',2)">撤销</a>&nbsp;';
+	}else{
+		return '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.followQuestionnaire_review.review(\''+row.id+'\',1)">审核</a>&nbsp;';
+	}
+}
+
+
+
+lc.ns.followQuestionnaire_review.review = function(id,status){
+	id?$("#panel_list_followQuestionnaire_review").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_followQuestionnaire_review").datagrid("getSelected");
+    if (row){
+        $.post("private/followQuestionnaire/review.action",{"id":row.id,"status":status},function(result){
+            if (result&&result.success){
+                if(lc.ns.followQuestionnaire_review.onPageChange){
+            		lc.ns.followQuestionnaire_review.onPageChange();
+            	}
+            } else {
+                $.messager.show({
+                    title: "操作失败，请重试",
+                    msg: result.message
+                });
+            }
+        },"json");
+	}
+}
+
+lc.ns.followQuestionnaire_review.openReadPanel = function(id){
+    id?$("#panel_list_followQuestionnaire_review").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_followQuestionnaire_review").datagrid("getSelected");
+    if (row){
+		$("#panel_read_followQuestionnaire_review").dialog("open");
+        $("#form_read_followQuestionnaire_review").form("load",row);
+    }
+}
+
+
+
+lc.ns.followQuestionnaire_review.onPageChange = function(){
+	$("#panel_list_followQuestionnaire_review").datagrid("reload");
+}
+
+lc.currPageInit = function(){
+	lc.ns.followQuestionnaire_review.loadList();
+}
+$(function(){
+	lc.currPageInit();
+	$.parser.parse("#lc_content");
+});
+</script>

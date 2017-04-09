@@ -1,0 +1,18 @@
+## CSS
+#macro(pp_css)#end
+
+## JavaScprit
+#macro(pp_js)
+#set(PanelPerporty pp,Page page)
+lc.ns.${page.name}.formatAction = function(val,row,index){
+    var html =
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.${page.name}.openReadPanel(\''+val+'\')">查看</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.${page.name}.openModifyPanel(\''+val+'\')">编辑</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.${page.name}.destroy(\''+val+'\')">删除</a>';
+    return html;
+}
+#end
+
+## HTML
+#macro(pp_html)
+#set(PanelPerporty pp,Page page)<th field="${pp.name}" formatter="lc.ns.${page.name}.formatAction">${pp.alies}</th>#end

@@ -1,0 +1,290 @@
+<div class="jarviswidget some-cool-class" id="my-id-here" data-widget-fullscreenbutton="false">
+    <header style="border-bottom:0">
+        <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+        <h2>
+           	 随访模版列表
+        </h2>
+    </header>
+	<div class="widget-body" style="padding:0;border:0px;">
+		<table id="panel_list_followTemplate" idField="id"
+	        pagination="true" fitColumns="true" singleSelect="true" pageSize="20"
+	        toolbar="#panel_search_followTemplate" style="width:100%;height:590px;border:0px;" border="false">
+		    <thead>
+			  <tr>
+				<th field="followModelName" width="100">随访模型</th>
+		    	<th field="name" width="100">模版名称</th>
+		    	<th field="type" width="100">模版类型</th>
+		    	<th field="usedType" width="100">适用者类型</th>
+		    	<th field="usedLevel" width="100">适用者等级</th>
+		    	<th field="sort" width="100">排序</th>
+		    	<th field="id" formatter="lc.ns.followTemplate.formatAction" width="150">操作</th>
+		      </tr>
+		    </thead>
+		</table>
+	</div>
+</div>
+
+<div id="panel_search_followTemplate" style="padding:2px 5px;">
+	<form id="form_search_followTemplate">
+		模版名称:<input name="name" class="easyui-textbox" style="width:120px;"/>
+		模版类型:<input name="type" class="easyui-textbox" style="width:120px;"/>
+		适用者类型:<input name="usedType" class="easyui-textbox" style="width:120px;"/>
+		适用者等级:<input name="usedLevel" class="easyui-textbox" style="width:120px;"/>
+		排序:<input name="sort" class="easyui-textbox" style="width:120px;"/>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="lc.ns.followTemplate.search()">查询</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="lc.ns.followTemplate.openAddPanel()">添加</a>
+	</form>
+</div>
+
+<div id="panel_add_followTemplate" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_add_buttons_followTemplate" title="添加随访模版">
+    <div class="ftitle">添加随访模版</div>
+    <form id="form_add_followTemplate" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>随访模型:</label>
+			<input name="followModel.id" class="form_input_combo_followTemplate_followModel" style="width:120px;"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>模版名称:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>模版类型:</label>
+            <input name="type" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>适用者类型:</label>
+            <input name="usedType" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>适用者等级:</label>
+            <input name="usedLevel" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>排序:</label>
+            <input name="sort" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_add_buttons_followTemplate">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.followTemplate.addSave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_add_followTemplate').dialog('close')">取消</a>
+</div> 
+
+
+<div id="panel_modify_followTemplate" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_modify_buttons_followTemplate" title="修改随访模版">
+    <div class="ftitle">修改随访模版</div>
+    <form id="form_modify_followTemplate" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>随访模型:</label>
+			<input name="followModel.id" class="form_input_combo_followTemplate_followModel" style="width:120px;"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>模版名称:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>模版类型:</label>
+            <input name="type" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>适用者类型:</label>
+            <input name="usedType" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>适用者等级:</label>
+            <input name="usedLevel" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>排序:</label>
+            <input name="sort" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_modify_buttons_followTemplate">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.followTemplate.modifySave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_modify_followTemplate').dialog('close')">取消</a>
+</div> 
+
+<div id="panel_read_followTemplate" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_read_buttons_followTemplate" title="查看随访模版详情">
+    <div class="ftitle">查看随访模版详情</div>
+    <form id="form_read_followTemplate" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>随访模型:</label>
+			<input name="followModelName" class="easyui-textbox" style="width:120px;" readonly="readonly"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>模版名称:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>模版类型:</label>
+            <input name="type" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>适用者类型:</label>
+            <input name="usedType" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>适用者等级:</label>
+            <input name="usedLevel" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>排序:</label>
+            <input name="sort" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_read_buttons_followTemplate">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_read_followTemplate').dialog('close')">关闭</a>
+</div> 
+
+
+<script type="text/javascript">
+lc.initNs("followTemplate");
+lc.ns.followTemplate.loadList = function(data){
+	data = data==null?{}:data;
+	$("#panel_list_followTemplate").datagrid({
+		url:"private/followTemplate/list.action",
+		queryParams:data
+	});
+}
+
+
+
+
+
+lc.ns.followTemplate.formatAction = function(val,row,index){
+    var html =
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.followTemplate.openReadPanel(\''+val+'\')">查看</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.followTemplate.openModifyPanel(\''+val+'\')">编辑</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.followTemplate.destroy(\''+val+'\')">删除</a>';
+    return html;
+}
+
+
+
+lc.ns.followTemplate.search = function(){
+	var params = $("#form_search_followTemplate").formToObject();
+	lc.ns.followTemplate.loadList(params);
+}
+
+lc.ns.followTemplate.openAddPanel = function(){
+	$("#panel_add_followTemplate").dialog("open");
+    $("#form_add_followTemplate").form("reset");
+}
+lc.ns.followTemplate.addSave = function(){
+	$("#form_add_followTemplate").form("submit",{
+        url: "private/followTemplate/add.action",
+        onSubmit: function(){
+            return $(this).form("validate");
+        },
+        success: function(result){
+            var result = eval("("+result+")");
+            if (result&&result.success){
+            	$("#panel_add_followTemplate").dialog("close");
+            	if(lc.ns.followTemplate.onPageChange){
+            		lc.ns.followTemplate.onPageChange();
+            	}
+            } else {
+                $.messager.show({
+                    title: "保存失败",
+                    msg: result.message
+                });
+            }
+        }
+    });
+}
+lc.ns.followTemplate.initFollowModel Combobox = function(){
+	$(".form_input_combo_followTemplate_followModel").combobox({
+	    url:"private/followModel /combo.action"
+	});
+}
+
+
+lc.ns.followTemplate.destroy = function(id){
+	id?$("#panel_list_followTemplate").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_followTemplate").datagrid("getSelected");
+    if (row){
+		 $.messager.confirm("提示","你确定要删除该随访模版?",function(r){
+	        if (r){
+	            $.post("private/followTemplate/remove.action",{"id":row.id},function(result){
+		            if (result&&result.success){
+		                if(lc.ns.followTemplate.onPageChange){
+		            		lc.ns.followTemplate.onPageChange();
+		            	}
+		            } else {
+		                $.messager.show({
+		                    title: "删除失败",
+		                    msg: result.message
+		                });
+		            }
+	            },"json");
+	        }
+	    });
+	}
+}
+
+lc.ns.followTemplate.openModifyPanel = function(id){
+    id?$("#panel_list_followTemplate").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_followTemplate").datagrid("getSelected");
+    if (row){
+		$("#panel_modify_followTemplate").dialog("open");
+        $("#form_modify_followTemplate").form("load",row);
+    }else{
+    	console.log("...");
+    }
+}
+lc.ns.followTemplate.modifySave = function(){
+	var row = $("#panel_list_followTemplate").datagrid("getSelected");
+	if(row){
+		$("#form_modify_followTemplate").form("submit",{
+	        url: "private/followTemplate/modify.action?id="+row.id,
+	        onSubmit: function(){
+	            return $(this).form("validate");
+	        },
+	        success: function(result){
+	            var result = eval("("+result+")");
+	            if (result&&result.success){
+	            	$("#panel_modify_followTemplate").dialog("close");
+	                if(lc.ns.followTemplate.onPageChange){
+	            		lc.ns.followTemplate.onPageChange();
+	            	}
+	            } else {
+	                $.messager.show({
+	                    title: "保存失败",
+	                    msg: result.message
+	                });
+	            }
+	        }
+	    });
+	}
+}
+
+
+lc.ns.followTemplate.openReadPanel = function(id){
+    id?$("#panel_list_followTemplate").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_followTemplate").datagrid("getSelected");
+    if (row){
+		$("#panel_read_followTemplate").dialog("open");
+        $("#form_read_followTemplate").form("load",row);
+    }
+}
+
+
+
+lc.ns.followTemplate.onPageChange = function(){
+	$("#panel_list_followTemplate").datagrid("reload");
+}
+
+lc.currPageInit = function(){
+	lc.ns.followTemplate.loadList();
+	lc.ns.followTemplate.initFollowModel Combobox();
+}
+$(function(){
+	lc.currPageInit();
+	$.parser.parse("#lc_content");
+});
+</script>

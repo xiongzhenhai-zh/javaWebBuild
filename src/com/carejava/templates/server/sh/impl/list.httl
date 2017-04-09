@@ -1,0 +1,274 @@
+## ---------------- 持久层接口  ---------------
+## 持久层接口导包
+#macro(idao_import)
+import java.util.List;
+import org.hibernate.criterion.DetachedCriteria;
+#end
+
+## 持久层接口属性
+#macro(idao_perporty)#end
+
+## 持久层接口方法
+#macro(idao_method)
+	#set(Project project,Model model)
+    /**	
+	 * Name:查询${model.alies}列表	
+	 * Params:	
+	 *		dc:离线查询器	
+	 *		page:页码	
+	 *		rows:每页行数	
+	 * Return:	
+	 *		List<${model.alies}>:${model.alies}列表	
+	 */	
+	public List<${model.name}> list(DetachedCriteria dc,int page,int rows) throws Exception;
+	
+	/**	
+	 * Name:${model.alies}数量查询	
+	 * Params:	
+	 *		dc:离线查询器	
+	 * Return:	
+	 *		Long:${model.alies}总数	
+	 */	
+	public Long getSize(DetachedCriteria dc) throws Exception;
+	
+	/**
+	 * Name:根据hql查询
+	 * @param hql
+	 * @param value
+	 * @param rows 
+	 * @param page 
+	 * @return
+	 */
+	 @SuppressWarnings("rawtypes")
+	public List queryHQL(String hql,Map<String, Object> value, int page, int rows) throws Exception;
+	
+	/**
+	 * Name:根据hql删除或更新
+	 * @param hql
+	 * @param value2
+	 * @return
+	 * @throws Exception
+	 */
+	public Integer queryUpdate(String hql, Map<String, Object> value) throws Exception;	
+	
+#end
+
+## ---------------- 持久层实现  ---------------
+## 持久层实现导包
+#macro(dao_import)
+import java.util.List;
+import org.hibernate.Session;
+import java.sql.SQLException;
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.DetachedCriteria;
+import org.springframework.orm.hibernate3.HibernateCallback;
+#end
+
+## 持久层实现属性
+#macro(dao_perporty)#end
+
+## 持久层实现方法
+#macro(dao_method)
+	#set(Project project,Model model)
+    @SuppressWarnings({"unchecked", "rawtypes" })	
+	public List<${model.name}> list(final DetachedCriteria dc,final int page,final int rows) throws Exception {	
+		return hibernateTemplate.executeFind( new  HibernateCallback(){
+			public List<${model.name}> doInHibernate(Session session)  throws  SQLException,
+			HibernateException {
+				Criteria criteria=dc.getExecutableCriteria(session);
+				if(page!=0&&rows!=0){
+					criteria.setFirstResult((page-1)*rows);
+					criteria.setMaxResults(rows);
+				}
+				return (List<${model.name}>)criteria.list();
+			}
+		});	
+	}	
+	
+	public Long getSize(final DetachedCriteria dc) throws Exception {	
+		return hibernateTemplate.execute(new HibernateCallback<Long>() {
+			@Override
+			public Long doInHibernate(Session session) throws HibernateException, SQLException {
+				Criteria criteria = dc.getExecutableCriteria(session);
+				CriteriaImpl impl=(CriteriaImpl)criteria;
+				Projection projection=impl.getProjection();
+				Long size = (Long)criteria.setProjection(Projections.rowCount()).uniqueResult();
+				criteria.setProjection(projection);
+				if (projection == null) {  
+                    criteria.setResultTransformer(CriteriaSpecification.ROOT_ENTITY);  
+                }  
+				return size;
+			}
+		});	
+	}	
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public List queryHQL(final String hql,final Map<String, Object> value,final int page,final int rows) throws Exception {
+		return hibernateTemplate.executeFind( new  HibernateCallback(){
+			public List doInHibernate(Session session)  throws  SQLException,
+			HibernateException {
+				Query query = session.createQuery(hql);
+				if (value!=null) {
+					Set<String> keySet = value.keySet();  
+		            for (String string : keySet) {  
+		                Object obj = value.get(string);  
+		                //这里考虑传入的参数是什么类型，不同类型使用的方法不同  
+		                if(obj instanceof Collection<?>){  
+		                    query.setParameterList(string, (Collection<?>)obj);  
+		                }else if(obj instanceof Object[]){  
+		                    query.setParameterList(string, (Object[])obj);  
+		                }else{  
+		                    query.setParameter(string, obj);  
+		                }  
+		            }  
+		        }  
+				if (page!=0 && rows!=0) {
+					query.setFirstResult((page-1)*rows);
+					query.setMaxResults(rows);
+					query.setResultTransformer(CriteriaSpecification.ROOT_ENTITY); 
+				}
+				List list = query.list();
+				session.close();
+				return list;
+			}
+		});
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public Integer queryUpdate(final String hql, final Map<String,Object> value)throws Exception {
+		return hibernateTemplate.execute( new HibernateCallback(){
+			public Integer doInHibernate(Session session)  throws  SQLException,
+			HibernateException {
+				Query query = session.createQuery(hql);
+				if (value!=null) {
+					Set<String> keySet = value.keySet();  
+		            for (String string : keySet) {  
+		                Object obj = value.get(string);  
+		                //这里考虑传入的参数是什么类型，不同类型使用的方法不同  
+		                if(obj instanceof Collection<?>){  
+		                    query.setParameterList(string, (Collection<?>)obj);  
+		                }else if(obj instanceof Object[]){  
+		                    query.setParameterList(string, (Object[])obj);  
+		                }else{  
+		                    query.setParameter(string, obj);  
+		                }  
+		            }  
+		        }  
+				Integer result=query.executeUpdate();
+				session.close();
+				return result;
+			}
+		});
+	}
+	
+#end
+
+## ---------------- 业务层接口  ---------------
+## 业务层接口导包
+#macro(iservice_import)
+import java.util.List;
+import org.hibernate.criterion.DetachedCriteria;
+#end
+
+## 业务层接口属性
+#macro(iservice_perporty)#end
+
+## 业务层接口方法
+#macro(iservice_method)
+    #set(Project project,Model model)
+    /**	
+	 * Name:查询${model.alies}列表	
+	 * Params:	
+	 *		dc:离线查询器	
+	 *		page:页码	
+	 *		rows:每页行数	
+	 * Return:	
+	 *		List<${model.alies}>:${model.alies}列表	
+	 */	
+	public List<${model.name}> list(DetachedCriteria dc,int page,int rows) throws Exception;
+	
+	/**	
+	 * Name:${model.alies}数量查询	
+	 * Params:	
+	 *		dc:离线查询器	
+	 * Return:	
+	 *		Long:${model.alies}总数	
+	 */	
+	public Long getSize(DetachedCriteria dc) throws Exception;	
+	
+#end
+
+## ---------------- 业务层实现  ---------------
+## 业务层实现导包
+#macro(service_import)
+import java.util.List;
+import org.hibernate.criterion.DetachedCriteria;
+#end
+
+## 业务层实现属性
+#macro(service_perporty)#end
+
+## 业务层实现方法
+#macro(service_method)
+    #set(Project project,Model model)
+    public List<${model.name}> list(final DetachedCriteria dc,final int page,final int rows) throws Exception {	
+		return ${model.lowName}DAO.list(dc, page, rows);	
+	}	
+	
+	public Long getSize(final DetachedCriteria dc) throws Exception {	
+		return ${model.lowName}DAO.getSize(dc);	
+	}
+	
+#end
+
+## ---------------- 控制层实现  ---------------
+## 控制层实现导包
+#macro(action_import)
+import java.util.List;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.DetachedCriteria;
+#end
+
+## 控制层实现属性
+#macro(action_perporty)#end
+
+## 控制层实现方法
+#macro(action_method)
+    #set(Project project,Model model,Function function)
+    @Action("/private/${model.lowName}/list")	
+	public String list() throws Exception {	
+		DetachedCriteria dc = DetachedCriteria.forClass(${model.name}.class);
+		dc.addOrder(Order.desc("id"));
+		#for(ModelAttribute attr:function.inputs)
+		#if(attr.type=="String")
+		if(${model.lowName}.get${attr.upName}()!=null){
+			dc.add(Restrictions.like("${attr.name}",${model.lowName}.get${attr.upName}(),MatchMode.ANYWHERE));
+		}
+		#else
+		if(${model.lowName}.get${attr.upName}()!=null){
+			dc.add(Restrictions.eq("${attr.name}",${model.lowName}.get${attr.upName}()));
+		}
+		#end
+		#end
+		#for(Relation relation:model.relations)
+		#if(relation.type=="ManyToOne")
+		if(${model.lowName}.get${relation.upName}()!=null&&${model.lowName}.get${relation.upName}().getId()!=null&&${model.lowName}.get${relation.upName}().getId().trim().length()>0){
+			dc.add(Restrictions.eq("${relation.name}",${model.lowName}.get${relation.upName}()));
+		}
+		#end
+		#end
+		
+		Long size = ${model.lowName}Service.getSize(dc);
+		List<${model.name}> list = ${model.lowName}Service.list(dc, page, rows);
+		
+		result.put("success", true);
+		result.put("total", size);
+		result.put("rows", list);
+		return "json";	
+	}
+	
+#end

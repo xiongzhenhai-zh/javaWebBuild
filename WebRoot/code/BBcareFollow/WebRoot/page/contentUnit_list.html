@@ -1,0 +1,116 @@
+<div class="jarviswidget some-cool-class" id="my-id-here" data-widget-fullscreenbutton="false">
+    <header style="border-bottom:0">
+        <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+        <h2>
+           	 内容单位列表
+        </h2>
+    </header>
+	<div class="widget-body" style="padding:0;border:0px;">
+		<table id="panel_list_contentUnit_list" idField="id"
+	        pagination="true" fitColumns="true" singleSelect="true" pageSize="20"
+	        toolbar="#panel_search_contentUnit_list" style="width:100%;height:590px;border:0px;" border="false">
+		    <thead>
+			  <tr>
+		    	<th field="name" width="100">单位名称</th>
+		    	<th field="symbol" width="100">单位符号</th>
+		    	<th field="note" width="100">单位备注</th>
+		    	<th field="type" width="100">单位类别</th>
+		    	<th field="writerId" width="100">所属人ID</th>
+		    	<th field="id" formatter="lc.ns.contentUnit_list.formatAction" width="100">操作</th>
+		      </tr>
+		    </thead>
+		</table>
+	</div>
+</div>
+
+<div id="panel_search_contentUnit_list" style="padding:2px 5px;">
+	<form id="form_search_contentUnit_list">
+		单位名称:<input name="name" class="easyui-textbox" style="width:120px;"/>
+		单位符号:<input name="symbol" class="easyui-textbox" style="width:120px;"/>
+		单位备注:<input name="note" class="easyui-textbox" style="width:120px;"/>
+		单位类别:<input name="type" class="easyui-textbox" style="width:120px;"/>
+		所属人ID:<input name="writerId" class="easyui-textbox" style="width:120px;"/>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="lc.ns.contentUnit_list.search()">查询</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="lc.ns.contentUnit_list.openAddPanel()">添加</a>
+	</form>
+</div>
+
+<div id="panel_read_contentUnit_list" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_read_buttons_contentUnit_list" title="查看内容单位详情">
+    <div class="ftitle">查看内容单位详情</div>
+    <form id="form_read_contentUnit_list" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>单位名称:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>单位符号:</label>
+            <input name="symbol" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>单位备注:</label>
+            <input name="note" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>单位类别:</label>
+            <input name="type" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>所属人ID:</label>
+            <input name="writerId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_read_buttons_contentUnit_list">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_read_contentUnit_list').dialog('close')">关闭</a>
+</div> 
+
+
+<script type="text/javascript">
+lc.initNs("contentUnit_list");
+lc.ns.contentUnit_list.loadList = function(data){
+	data = data==null?{}:data;
+	$("#panel_list_contentUnit_list").datagrid({
+		url:"private/contentUnit/list.action",
+		queryParams:data
+	});
+}
+
+
+
+
+
+lc.ns.contentUnit_list.formatAction = function(val,row,index){
+    var html =
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.contentUnit_list.openReadPanel(\''+val+'\')">查看</a>&nbsp;';
+    return html;
+}
+
+
+lc.ns.contentUnit_list.search = function(){
+	var params = $("#form_search_contentUnit_list").formToObject();
+	lc.ns.contentUnit_list.loadList(params);
+}
+
+lc.ns.contentUnit_list.openReadPanel = function(id){
+    id?$("#panel_list_contentUnit_list").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_contentUnit_list").datagrid("getSelected");
+    if (row){
+		$("#panel_read_contentUnit_list").dialog("open");
+        $("#form_read_contentUnit_list").form("load",row);
+    }
+}
+
+
+lc.ns.contentUnit_list.onPageChange = function(){
+	$("#panel_list_contentUnit_list").datagrid("reload");
+}
+
+lc.currPageInit = function(){
+	lc.ns.contentUnit_list.loadList();
+}
+$(function(){
+	lc.currPageInit();
+	$.parser.parse("#lc_content");
+});
+</script>

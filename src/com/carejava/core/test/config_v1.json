@@ -1,0 +1,4002 @@
+{
+  "name": "nzlcjg",
+  "alies": "农资流通与监控系统",
+  "serverFrame": {},
+  "clientFrame": {},
+  "mobileFrame": {},
+  "pkgName": "com.lechen.nz",
+  "dataSource": {
+    "name": "mysql",
+    "type": "mysql",
+    "url": "mysql://lecbuild.mysql.rds.aliyuncs.com:3306/lctest?createDatabaseIfNotExist\u003dtrue\u0026amp;useUnicode\u003dtrue\u0026amp;characterEncoding\u003dutf-8\u0026amp;zeroDateTimeBehavior\u003dconvertToNull\u0026amp;transformedBitIsBoolean\u003dtrue",
+    "username": "lechen",
+    "password": "cl123456"
+  },
+  "models": [
+    {
+      "name": "Account",
+      "alies": "机构",
+      "idType": "uuid",
+      "attributes": [
+        {
+          "name": "code",
+          "alies": "机构编码",
+          "type": "String"
+        },
+        {
+          "name": "name",
+          "alies": "机构名称",
+          "type": "String"
+        },
+        {
+          "name": "type",
+          "alies": "机构类型",
+          "type": "Integer"
+        },
+        {
+          "name": "note",
+          "alies": "机构简介",
+          "type": "String"
+        }
+      ],
+      "functions": [
+        {
+          "name": "add",
+          "alies": "添加",
+          "level": 1
+        },
+        {
+          "name": "remove",
+          "alies": "删除",
+          "level": 1
+        },
+        {
+          "name": "modify",
+          "alies": "修改",
+          "level": 1
+        },
+        {
+          "name": "read",
+          "alies": "查看详情",
+          "level": 1
+        },
+        {
+          "name": "list",
+          "alies": "查询列表",
+          "level": 1
+        },
+        {
+          "name": "combo",
+          "alies": "键值对查询",
+          "level": 1
+        },
+        {
+          "name": "tree",
+          "alies": "机构树",
+          "level": 1
+        }
+      ],
+      "relations": [
+        {
+          "name": "users",
+          "type": "OneToMany",
+          "position": 0
+        },
+        {
+          "name": "company",
+          "type": "OneToOne",
+          "position": 2
+        },
+        {
+          "name": "parent",
+          "type": "ManyToOne",
+          "position": 0
+        },
+        {
+          "name": "children",
+          "type": "OneToMany",
+          "position": 0
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "alies": "用户",
+      "idType": "uuid",
+      "attributes": [
+        {
+          "name": "username",
+          "alies": "账号",
+          "type": "String"
+        },
+        {
+          "name": "password",
+          "alies": "密码",
+          "type": "String"
+        },
+        {
+          "name": "alies",
+          "alies": "昵称",
+          "type": "String"
+        },
+        {
+          "name": "type",
+          "alies": "类型",
+          "type": "Integer"
+        },
+        {
+          "name": "tel",
+          "alies": "电话",
+          "type": "String"
+        },
+        {
+          "name": "mobile",
+          "alies": "手机",
+          "type": "String"
+        },
+        {
+          "name": "email",
+          "alies": "邮箱",
+          "type": "String"
+        },
+        {
+          "name": "address",
+          "alies": "地址",
+          "type": "String"
+        },
+        {
+          "name": "note",
+          "alies": "备注",
+          "type": "String"
+        }
+      ],
+      "functions": [
+        {
+          "name": "add",
+          "alies": "添加",
+          "level": 1
+        },
+        {
+          "name": "remove",
+          "alies": "删除",
+          "level": 1
+        },
+        {
+          "name": "modify",
+          "alies": "修改",
+          "level": 1
+        },
+        {
+          "name": "read",
+          "alies": "查看详情",
+          "level": 1
+        },
+        {
+          "name": "list",
+          "alies": "查询列表",
+          "level": 1
+        },
+        {
+          "name": "combo",
+          "alies": "键值对查询",
+          "level": 1
+        }
+      ],
+      "relations": [
+        {
+          "name": "account",
+          "type": "ManyToOne",
+          "position": 0
+        },
+        {
+          "name": "roles",
+          "type": "ManyToMany",
+          "position": 2
+        }
+      ]
+    },
+    {
+      "name": "Role",
+      "alies": "角色",
+      "idType": "uuid",
+      "attributes": [
+        {
+          "name": "code",
+          "alies": "角色编码",
+          "type": "String"
+        },
+        {
+          "name": "name",
+          "alies": "角色名称",
+          "type": "String"
+        }
+      ],
+      "functions": [
+        {
+          "name": "add",
+          "alies": "添加",
+          "level": 1
+        },
+        {
+          "name": "remove",
+          "alies": "删除",
+          "level": 1
+        },
+        {
+          "name": "modify",
+          "alies": "修改",
+          "level": 1
+        },
+        {
+          "name": "read",
+          "alies": "查看详情",
+          "level": 1
+        },
+        {
+          "name": "list",
+          "alies": "查询列表",
+          "level": 1
+        },
+        {
+          "name": "combo",
+          "alies": "键值对查询",
+          "level": 1
+        }
+      ],
+      "relations": [
+        {
+          "name": "auths",
+          "type": "ManyToMany",
+          "position": 2
+        },
+        {
+          "name": "users",
+          "type": "ManyToMany",
+          "position": 1
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "alies": "权限",
+      "idType": "uuid",
+      "attributes": [
+        {
+          "name": "code",
+          "alies": "权限编码",
+          "type": "String"
+        },
+        {
+          "name": "name",
+          "alies": "权限名称",
+          "type": "String"
+        },
+        {
+          "name": "path",
+          "alies": "访问地址",
+          "type": "String"
+        }
+      ],
+      "functions": [
+        {
+          "name": "add",
+          "alies": "添加",
+          "level": 1
+        },
+        {
+          "name": "remove",
+          "alies": "删除",
+          "level": 1
+        },
+        {
+          "name": "modify",
+          "alies": "修改",
+          "level": 1
+        },
+        {
+          "name": "read",
+          "alies": "查看详情",
+          "level": 1
+        },
+        {
+          "name": "list",
+          "alies": "查询列表",
+          "level": 1
+        },
+        {
+          "name": "combo",
+          "alies": "键值对查询",
+          "level": 1
+        },
+        {
+          "name": "tree",
+          "alies": "权限树",
+          "level": 1
+        }
+      ],
+      "relations": [
+        {
+          "name": "roles",
+          "type": "ManyToMany",
+          "position": 1
+        },
+        {
+          "name": "parent",
+          "type": "ManyToOne",
+          "position": 0
+        },
+        {
+          "name": "children",
+          "type": "OneToMany",
+          "position": 0
+        }
+      ]
+    },
+    {
+      "name": "Company",
+      "alies": "农资经营户",
+      "idType": "uuid",
+      "attributes": [
+        {
+          "name": "code",
+          "alies": "注册号",
+          "type": "String"
+        },
+        {
+          "name": "name",
+          "alies": "企业名称",
+          "type": "String"
+        },
+        {
+          "name": "adminName",
+          "alies": "负责人",
+          "type": "String"
+        },
+        {
+          "name": "tel",
+          "alies": "联系电话",
+          "type": "String"
+        },
+        {
+          "name": "level",
+          "alies": "信用级别",
+          "type": "String"
+        },
+        {
+          "name": "address",
+          "alies": "地址",
+          "type": "String"
+        },
+        {
+          "name": "status",
+          "alies": "企业状态",
+          "type": "Integer"
+        },
+        {
+          "name": "items",
+          "alies": "经营范围",
+          "type": "String"
+        },
+        {
+          "name": "type",
+          "alies": "连锁性质",
+          "type": "Integer"
+        },
+        {
+          "name": "brand",
+          "alies": "连锁品牌",
+          "type": "String"
+        },
+        {
+          "name": "market",
+          "alies": "所属市场",
+          "type": "String"
+        },
+        {
+          "name": "marketaddress",
+          "alies": "市场地址",
+          "type": "String"
+        },
+        {
+          "name": "positionLat",
+          "alies": "经度",
+          "type": "Float"
+        },
+        {
+          "name": "positionLng",
+          "alies": "纬度",
+          "type": "Float"
+        }
+      ],
+      "functions": [
+        {
+          "name": "add",
+          "alies": "添加",
+          "level": 1
+        },
+        {
+          "name": "remove",
+          "alies": "删除",
+          "level": 1
+        },
+        {
+          "name": "modify",
+          "alies": "修改",
+          "level": 1
+        },
+        {
+          "name": "read",
+          "alies": "查看详情",
+          "level": 1
+        },
+        {
+          "name": "list",
+          "alies": "查询列表",
+          "level": 1
+        },
+        {
+          "name": "combo",
+          "alies": "键值对查询",
+          "level": 1
+        }
+      ],
+      "relations": [
+        {
+          "name": "account",
+          "type": "OneToOne",
+          "position": 1
+        },
+        {
+          "name": "products",
+          "type": "OneToMany",
+          "position": 0
+        },
+        {
+          "name": "suppliers",
+          "type": "OneToMany",
+          "position": 0
+        },
+        {
+          "name": "ledgerOuts",
+          "type": "OneToMany",
+          "position": 0
+        },
+        {
+          "name": "ledgerIns",
+          "type": "OneToMany",
+          "position": 0
+        },
+        {
+          "name": "monitors",
+          "type": "OneToMany",
+          "position": 0
+        }
+      ]
+    },
+    {
+      "name": "Product",
+      "alies": "农资产品",
+      "idType": "uuid",
+      "attributes": [
+        {
+          "name": "name",
+          "alies": "名称",
+          "type": "String"
+        },
+        {
+          "name": "type",
+          "alies": "类别",
+          "type": "Integer"
+        },
+        {
+          "name": "brand",
+          "alies": "商标",
+          "type": "String"
+        }
+      ],
+      "functions": [
+        {
+          "name": "add",
+          "alies": "添加",
+          "level": 1
+        },
+        {
+          "name": "remove",
+          "alies": "删除",
+          "level": 1
+        },
+        {
+          "name": "modify",
+          "alies": "修改",
+          "level": 1
+        },
+        {
+          "name": "read",
+          "alies": "查看详情",
+          "level": 1
+        },
+        {
+          "name": "list",
+          "alies": "查询列表",
+          "level": 1
+        },
+        {
+          "name": "combo",
+          "alies": "键值对查询",
+          "level": 1
+        }
+      ],
+      "relations": [
+        {
+          "name": "company",
+          "type": "ManyToOne",
+          "position": 0
+        },
+        {
+          "name": "supplier",
+          "type": "ManyToOne",
+          "position": 0
+        },
+        {
+          "name": "ledgerOut",
+          "type": "OneToMany",
+          "position": 0
+        },
+        {
+          "name": "ledgerIn",
+          "type": "OneToMany",
+          "position": 0
+        },
+        {
+          "name": "monitors",
+          "type": "OneToMany",
+          "position": 0
+        }
+      ]
+    },
+    {
+      "name": "Supplier",
+      "alies": "供应商",
+      "idType": "uuid",
+      "attributes": [
+        {
+          "name": "code",
+          "alies": "供应商编码",
+          "type": "String"
+        },
+        {
+          "name": "name",
+          "alies": "供应商名称",
+          "type": "String"
+        },
+        {
+          "name": "type",
+          "alies": "供应商类型",
+          "type": "Integer"
+        },
+        {
+          "name": "tel",
+          "alies": "联系电话",
+          "type": "String"
+        },
+        {
+          "name": "address",
+          "alies": "供应商地址",
+          "type": "String"
+        }
+      ],
+      "functions": [
+        {
+          "name": "add",
+          "alies": "添加",
+          "level": 1
+        },
+        {
+          "name": "remove",
+          "alies": "删除",
+          "level": 1
+        },
+        {
+          "name": "modify",
+          "alies": "修改",
+          "level": 1
+        },
+        {
+          "name": "read",
+          "alies": "查看详情",
+          "level": 1
+        },
+        {
+          "name": "list",
+          "alies": "查询列表",
+          "level": 1
+        },
+        {
+          "name": "combo",
+          "alies": "键值对查询",
+          "level": 1
+        }
+      ],
+      "relations": [
+        {
+          "name": "company",
+          "type": "ManyToOne",
+          "position": 0
+        },
+        {
+          "name": "products",
+          "type": "OneToMany",
+          "position": 0
+        }
+      ]
+    },
+    {
+      "name": "LedgerOut",
+      "alies": "销售台账",
+      "idType": "uuid",
+      "attributes": [
+        {
+          "name": "num",
+          "alies": "数量",
+          "type": "String"
+        },
+        {
+          "name": "time",
+          "alies": "时间",
+          "type": "Date"
+        },
+        {
+          "name": "note",
+          "alies": "备注",
+          "type": "String"
+        }
+      ],
+      "functions": [
+        {
+          "name": "add",
+          "alies": "添加",
+          "level": 1
+        },
+        {
+          "name": "remove",
+          "alies": "删除",
+          "level": 1
+        },
+        {
+          "name": "modify",
+          "alies": "修改",
+          "level": 1
+        },
+        {
+          "name": "read",
+          "alies": "查看详情",
+          "level": 1
+        },
+        {
+          "name": "list",
+          "alies": "查询列表",
+          "level": 1
+        },
+        {
+          "name": "combo",
+          "alies": "键值对查询",
+          "level": 1
+        }
+      ],
+      "relations": [
+        {
+          "name": "product",
+          "type": "ManyToOne",
+          "position": 0
+        },
+        {
+          "name": "company",
+          "type": "ManyToOne",
+          "position": 0
+        }
+      ]
+    },
+    {
+      "name": "LedgerIn",
+      "alies": "采购台账",
+      "idType": "uuid",
+      "attributes": [
+        {
+          "name": "num",
+          "alies": "数量",
+          "type": "String"
+        },
+        {
+          "name": "time",
+          "alies": "时间",
+          "type": "Date"
+        },
+        {
+          "name": "note",
+          "alies": "备注",
+          "type": "String"
+        }
+      ],
+      "functions": [
+        {
+          "name": "add",
+          "alies": "添加",
+          "level": 1
+        },
+        {
+          "name": "remove",
+          "alies": "删除",
+          "level": 1
+        },
+        {
+          "name": "modify",
+          "alies": "修改",
+          "level": 1
+        },
+        {
+          "name": "read",
+          "alies": "查看详情",
+          "level": 1
+        },
+        {
+          "name": "list",
+          "alies": "查询列表",
+          "level": 1
+        },
+        {
+          "name": "combo",
+          "alies": "键值对查询",
+          "level": 1
+        }
+      ],
+      "relations": [
+        {
+          "name": "product",
+          "type": "ManyToOne",
+          "position": 0
+        },
+        {
+          "name": "company",
+          "type": "ManyToOne",
+          "position": 0
+        }
+      ]
+    },
+    {
+      "name": "Monitor",
+      "alies": "监测记录",
+      "idType": "uuid",
+      "attributes": [
+        {
+          "name": "name",
+          "alies": "监测名称",
+          "type": "String"
+        },
+        {
+          "name": "context",
+          "alies": "监测内容",
+          "type": "String"
+        },
+        {
+          "name": "status",
+          "alies": "监测状态",
+          "type": "Integer"
+        },
+        {
+          "name": "rst",
+          "alies": "监测结果",
+          "type": "String"
+        },
+        {
+          "name": "punish",
+          "alies": "处罚决定",
+          "type": "String"
+        }
+      ],
+      "functions": [
+        {
+          "name": "add",
+          "alies": "添加",
+          "level": 1
+        },
+        {
+          "name": "remove",
+          "alies": "删除",
+          "level": 1
+        },
+        {
+          "name": "modify",
+          "alies": "修改",
+          "level": 1
+        },
+        {
+          "name": "read",
+          "alies": "查看详情",
+          "level": 1
+        },
+        {
+          "name": "list",
+          "alies": "查询列表",
+          "level": 1
+        },
+        {
+          "name": "combo",
+          "alies": "键值对查询",
+          "level": 1
+        }
+      ],
+      "relations": [
+        {
+          "name": "product",
+          "type": "ManyToOne",
+          "position": 0
+        },
+        {
+          "name": "company",
+          "type": "ManyToOne",
+          "position": 0
+        }
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "account",
+      "alies": "机构管理",
+      "template": "curd",
+      "panels": [
+        {
+          "name": "account_list",
+          "alies": "机构列表",
+          "template": "list",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "list",
+              "alies": "查询列表",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "机构编码",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "name",
+              "alies": "机构名称",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "type",
+              "alies": "机构类型",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "note",
+              "alies": "机构简介",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "id",
+              "alies": "操作",
+              "type": "grid",
+              "template": "rud"
+            }
+          ]
+        },
+        {
+          "name": "account_search",
+          "alies": "查询机构",
+          "template": "search",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "机构编码",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "name",
+              "alies": "机构名称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "type",
+              "alies": "机构类型",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "note",
+              "alies": "机构简介",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "account_add",
+          "alies": "添加机构",
+          "template": "add",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "add",
+              "alies": "添加",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "机构编码",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "name",
+              "alies": "机构名称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "type",
+              "alies": "机构类型",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "note",
+              "alies": "机构简介",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "account_remove",
+          "alies": "删除机构",
+          "template": "remove",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "remove",
+              "alies": "删除",
+              "level": 1
+            }
+          }
+        },
+        {
+          "name": "account_modify",
+          "alies": "修改机构",
+          "template": "modify",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "modify",
+              "alies": "修改",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "机构编码",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "name",
+              "alies": "机构名称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "type",
+              "alies": "机构类型",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "note",
+              "alies": "机构简介",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "account_read",
+          "alies": "查看机构详情",
+          "template": "read",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "read",
+              "alies": "查看详情",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "机构编码",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "name",
+              "alies": "机构名称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "type",
+              "alies": "机构类型",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "note",
+              "alies": "机构简介",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "user",
+      "alies": "用户管理",
+      "template": "curd",
+      "panels": [
+        {
+          "name": "user_list",
+          "alies": "用户列表",
+          "template": "list",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "list",
+              "alies": "查询列表",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "username",
+              "alies": "账号",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "password",
+              "alies": "密码",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "alies",
+              "alies": "昵称",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "type",
+              "alies": "类型",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "tel",
+              "alies": "电话",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "mobile",
+              "alies": "手机",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "email",
+              "alies": "邮箱",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "address",
+              "alies": "地址",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "note",
+              "alies": "备注",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "id",
+              "alies": "操作",
+              "type": "grid",
+              "template": "rud"
+            }
+          ]
+        },
+        {
+          "name": "user_search",
+          "alies": "查询用户",
+          "template": "search",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "perporties": [
+            {
+              "name": "username",
+              "alies": "账号",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "password",
+              "alies": "密码",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "alies",
+              "alies": "昵称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "type",
+              "alies": "类型",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "tel",
+              "alies": "电话",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "mobile",
+              "alies": "手机",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "email",
+              "alies": "邮箱",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "address",
+              "alies": "地址",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "note",
+              "alies": "备注",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "user_add",
+          "alies": "添加用户",
+          "template": "add",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "add",
+              "alies": "添加",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "username",
+              "alies": "账号",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "password",
+              "alies": "密码",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "alies",
+              "alies": "昵称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "type",
+              "alies": "类型",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "tel",
+              "alies": "电话",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "mobile",
+              "alies": "手机",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "email",
+              "alies": "邮箱",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "address",
+              "alies": "地址",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "note",
+              "alies": "备注",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "user_remove",
+          "alies": "删除用户",
+          "template": "remove",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "remove",
+              "alies": "删除",
+              "level": 1
+            }
+          }
+        },
+        {
+          "name": "user_modify",
+          "alies": "修改用户",
+          "template": "modify",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "modify",
+              "alies": "修改",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "username",
+              "alies": "账号",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "password",
+              "alies": "密码",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "alies",
+              "alies": "昵称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "type",
+              "alies": "类型",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "tel",
+              "alies": "电话",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "mobile",
+              "alies": "手机",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "email",
+              "alies": "邮箱",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "address",
+              "alies": "地址",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "note",
+              "alies": "备注",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "user_read",
+          "alies": "查看用户详情",
+          "template": "read",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "read",
+              "alies": "查看详情",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "username",
+              "alies": "账号",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "password",
+              "alies": "密码",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "alies",
+              "alies": "昵称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "type",
+              "alies": "类型",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "tel",
+              "alies": "电话",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "mobile",
+              "alies": "手机",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "email",
+              "alies": "邮箱",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "address",
+              "alies": "地址",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "note",
+              "alies": "备注",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "role",
+      "alies": "角色管理",
+      "template": "curd",
+      "panels": [
+        {
+          "name": "role_list",
+          "alies": "角色列表",
+          "template": "list",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "list",
+              "alies": "查询列表",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "角色编码",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "name",
+              "alies": "角色名称",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "id",
+              "alies": "操作",
+              "type": "grid",
+              "template": "rud"
+            }
+          ]
+        },
+        {
+          "name": "role_search",
+          "alies": "查询角色",
+          "template": "search",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "角色编码",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "name",
+              "alies": "角色名称",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "role_add",
+          "alies": "添加角色",
+          "template": "add",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "add",
+              "alies": "添加",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "角色编码",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "name",
+              "alies": "角色名称",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "role_remove",
+          "alies": "删除角色",
+          "template": "remove",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "remove",
+              "alies": "删除",
+              "level": 1
+            }
+          }
+        },
+        {
+          "name": "role_modify",
+          "alies": "修改角色",
+          "template": "modify",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "modify",
+              "alies": "修改",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "角色编码",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "name",
+              "alies": "角色名称",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "role_read",
+          "alies": "查看角色详情",
+          "template": "read",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "read",
+              "alies": "查看详情",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "角色编码",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "name",
+              "alies": "角色名称",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "auth",
+      "alies": "权限管理",
+      "template": "curd",
+      "panels": [
+        {
+          "name": "auth_list",
+          "alies": "权限列表",
+          "template": "list",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "list",
+              "alies": "查询列表",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "权限编码",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "name",
+              "alies": "权限名称",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "path",
+              "alies": "访问地址",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "id",
+              "alies": "操作",
+              "type": "grid",
+              "template": "rud"
+            }
+          ]
+        },
+        {
+          "name": "auth_search",
+          "alies": "查询权限",
+          "template": "search",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "权限编码",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "name",
+              "alies": "权限名称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "path",
+              "alies": "访问地址",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "auth_add",
+          "alies": "添加权限",
+          "template": "add",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "add",
+              "alies": "添加",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "权限编码",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "name",
+              "alies": "权限名称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "path",
+              "alies": "访问地址",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "auth_remove",
+          "alies": "删除权限",
+          "template": "remove",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "remove",
+              "alies": "删除",
+              "level": 1
+            }
+          }
+        },
+        {
+          "name": "auth_modify",
+          "alies": "修改权限",
+          "template": "modify",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "modify",
+              "alies": "修改",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "权限编码",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "name",
+              "alies": "权限名称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "path",
+              "alies": "访问地址",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "auth_read",
+          "alies": "查看权限详情",
+          "template": "read",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "read",
+              "alies": "查看详情",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "权限编码",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "name",
+              "alies": "权限名称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "path",
+              "alies": "访问地址",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "company",
+      "alies": "农资经营户管理",
+      "template": "curd",
+      "panels": [
+        {
+          "name": "company_list",
+          "alies": "农资经营户列表",
+          "template": "list",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "list",
+              "alies": "查询列表",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "注册号",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "name",
+              "alies": "企业名称",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "adminName",
+              "alies": "负责人",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "tel",
+              "alies": "联系电话",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "level",
+              "alies": "信用级别",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "address",
+              "alies": "地址",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "status",
+              "alies": "企业状态",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "items",
+              "alies": "经营范围",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "type",
+              "alies": "连锁性质",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "brand",
+              "alies": "连锁品牌",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "market",
+              "alies": "所属市场",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "marketaddress",
+              "alies": "市场地址",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "positionLat",
+              "alies": "经度",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "positionLng",
+              "alies": "纬度",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "id",
+              "alies": "操作",
+              "type": "grid",
+              "template": "rud"
+            }
+          ]
+        },
+        {
+          "name": "company_search",
+          "alies": "查询农资经营户",
+          "template": "search",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "注册号",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "name",
+              "alies": "企业名称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "adminName",
+              "alies": "负责人",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "tel",
+              "alies": "联系电话",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "level",
+              "alies": "信用级别",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "address",
+              "alies": "地址",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "status",
+              "alies": "企业状态",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "items",
+              "alies": "经营范围",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "type",
+              "alies": "连锁性质",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "brand",
+              "alies": "连锁品牌",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "market",
+              "alies": "所属市场",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "marketaddress",
+              "alies": "市场地址",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "positionLat",
+              "alies": "经度",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "positionLng",
+              "alies": "纬度",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "company_add",
+          "alies": "添加农资经营户",
+          "template": "add",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "add",
+              "alies": "添加",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "注册号",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "name",
+              "alies": "企业名称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "adminName",
+              "alies": "负责人",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "tel",
+              "alies": "联系电话",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "level",
+              "alies": "信用级别",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "address",
+              "alies": "地址",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "status",
+              "alies": "企业状态",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "items",
+              "alies": "经营范围",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "type",
+              "alies": "连锁性质",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "brand",
+              "alies": "连锁品牌",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "market",
+              "alies": "所属市场",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "marketaddress",
+              "alies": "市场地址",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "positionLat",
+              "alies": "经度",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "positionLng",
+              "alies": "纬度",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "company_remove",
+          "alies": "删除农资经营户",
+          "template": "remove",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "remove",
+              "alies": "删除",
+              "level": 1
+            }
+          }
+        },
+        {
+          "name": "company_modify",
+          "alies": "修改农资经营户",
+          "template": "modify",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "modify",
+              "alies": "修改",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "注册号",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "name",
+              "alies": "企业名称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "adminName",
+              "alies": "负责人",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "tel",
+              "alies": "联系电话",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "level",
+              "alies": "信用级别",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "address",
+              "alies": "地址",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "status",
+              "alies": "企业状态",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "items",
+              "alies": "经营范围",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "type",
+              "alies": "连锁性质",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "brand",
+              "alies": "连锁品牌",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "market",
+              "alies": "所属市场",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "marketaddress",
+              "alies": "市场地址",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "positionLat",
+              "alies": "经度",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "positionLng",
+              "alies": "纬度",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "company_read",
+          "alies": "查看农资经营户详情",
+          "template": "read",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "read",
+              "alies": "查看详情",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "注册号",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "name",
+              "alies": "企业名称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "adminName",
+              "alies": "负责人",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "tel",
+              "alies": "联系电话",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "level",
+              "alies": "信用级别",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "address",
+              "alies": "地址",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "status",
+              "alies": "企业状态",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "items",
+              "alies": "经营范围",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "type",
+              "alies": "连锁性质",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "brand",
+              "alies": "连锁品牌",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "market",
+              "alies": "所属市场",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "marketaddress",
+              "alies": "市场地址",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "positionLat",
+              "alies": "经度",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "positionLng",
+              "alies": "纬度",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "product",
+      "alies": "农资产品管理",
+      "template": "curd",
+      "panels": [
+        {
+          "name": "product_list",
+          "alies": "农资产品列表",
+          "template": "list",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "list",
+              "alies": "查询列表",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "name",
+              "alies": "名称",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "type",
+              "alies": "类别",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "brand",
+              "alies": "商标",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "id",
+              "alies": "操作",
+              "type": "grid",
+              "template": "rud"
+            }
+          ]
+        },
+        {
+          "name": "product_search",
+          "alies": "查询农资产品",
+          "template": "search",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "perporties": [
+            {
+              "name": "name",
+              "alies": "名称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "type",
+              "alies": "类别",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "brand",
+              "alies": "商标",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "product_add",
+          "alies": "添加农资产品",
+          "template": "add",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "add",
+              "alies": "添加",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "name",
+              "alies": "名称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "type",
+              "alies": "类别",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "brand",
+              "alies": "商标",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "product_remove",
+          "alies": "删除农资产品",
+          "template": "remove",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "remove",
+              "alies": "删除",
+              "level": 1
+            }
+          }
+        },
+        {
+          "name": "product_modify",
+          "alies": "修改农资产品",
+          "template": "modify",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "modify",
+              "alies": "修改",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "name",
+              "alies": "名称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "type",
+              "alies": "类别",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "brand",
+              "alies": "商标",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "product_read",
+          "alies": "查看农资产品详情",
+          "template": "read",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "read",
+              "alies": "查看详情",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "name",
+              "alies": "名称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "type",
+              "alies": "类别",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "brand",
+              "alies": "商标",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "supplier",
+      "alies": "供应商管理",
+      "template": "curd",
+      "panels": [
+        {
+          "name": "supplier_list",
+          "alies": "供应商列表",
+          "template": "list",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "list",
+              "alies": "查询列表",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "供应商编码",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "name",
+              "alies": "供应商名称",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "type",
+              "alies": "供应商类型",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "tel",
+              "alies": "联系电话",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "address",
+              "alies": "供应商地址",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "id",
+              "alies": "操作",
+              "type": "grid",
+              "template": "rud"
+            }
+          ]
+        },
+        {
+          "name": "supplier_search",
+          "alies": "查询供应商",
+          "template": "search",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "供应商编码",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "name",
+              "alies": "供应商名称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "type",
+              "alies": "供应商类型",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "tel",
+              "alies": "联系电话",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "address",
+              "alies": "供应商地址",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "supplier_add",
+          "alies": "添加供应商",
+          "template": "add",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "add",
+              "alies": "添加",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "供应商编码",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "name",
+              "alies": "供应商名称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "type",
+              "alies": "供应商类型",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "tel",
+              "alies": "联系电话",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "address",
+              "alies": "供应商地址",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "supplier_remove",
+          "alies": "删除供应商",
+          "template": "remove",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "remove",
+              "alies": "删除",
+              "level": 1
+            }
+          }
+        },
+        {
+          "name": "supplier_modify",
+          "alies": "修改供应商",
+          "template": "modify",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "modify",
+              "alies": "修改",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "供应商编码",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "name",
+              "alies": "供应商名称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "type",
+              "alies": "供应商类型",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "tel",
+              "alies": "联系电话",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "address",
+              "alies": "供应商地址",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "supplier_read",
+          "alies": "查看供应商详情",
+          "template": "read",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "read",
+              "alies": "查看详情",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "供应商编码",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "name",
+              "alies": "供应商名称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "type",
+              "alies": "供应商类型",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "tel",
+              "alies": "联系电话",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "address",
+              "alies": "供应商地址",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ledgerOut",
+      "alies": "销售台账管理",
+      "template": "curd",
+      "panels": [
+        {
+          "name": "ledgerOut_list",
+          "alies": "销售台账列表",
+          "template": "list",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "list",
+              "alies": "查询列表",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "num",
+              "alies": "数量",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "time",
+              "alies": "时间",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "note",
+              "alies": "备注",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "id",
+              "alies": "操作",
+              "type": "grid",
+              "template": "rud"
+            }
+          ]
+        },
+        {
+          "name": "ledgerOut_search",
+          "alies": "查询销售台账",
+          "template": "search",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "perporties": [
+            {
+              "name": "num",
+              "alies": "数量",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "time",
+              "alies": "时间",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "note",
+              "alies": "备注",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "ledgerOut_add",
+          "alies": "添加销售台账",
+          "template": "add",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "add",
+              "alies": "添加",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "num",
+              "alies": "数量",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "time",
+              "alies": "时间",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "note",
+              "alies": "备注",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "ledgerOut_remove",
+          "alies": "删除销售台账",
+          "template": "remove",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "remove",
+              "alies": "删除",
+              "level": 1
+            }
+          }
+        },
+        {
+          "name": "ledgerOut_modify",
+          "alies": "修改销售台账",
+          "template": "modify",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "modify",
+              "alies": "修改",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "num",
+              "alies": "数量",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "time",
+              "alies": "时间",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "note",
+              "alies": "备注",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "ledgerOut_read",
+          "alies": "查看销售台账详情",
+          "template": "read",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "read",
+              "alies": "查看详情",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "num",
+              "alies": "数量",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "time",
+              "alies": "时间",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "note",
+              "alies": "备注",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ledgerIn",
+      "alies": "采购台账管理",
+      "template": "curd",
+      "panels": [
+        {
+          "name": "ledgerIn_list",
+          "alies": "采购台账列表",
+          "template": "list",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "list",
+              "alies": "查询列表",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "num",
+              "alies": "数量",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "time",
+              "alies": "时间",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "note",
+              "alies": "备注",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "id",
+              "alies": "操作",
+              "type": "grid",
+              "template": "rud"
+            }
+          ]
+        },
+        {
+          "name": "ledgerIn_search",
+          "alies": "查询采购台账",
+          "template": "search",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "perporties": [
+            {
+              "name": "num",
+              "alies": "数量",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "time",
+              "alies": "时间",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "note",
+              "alies": "备注",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "ledgerIn_add",
+          "alies": "添加采购台账",
+          "template": "add",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "add",
+              "alies": "添加",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "num",
+              "alies": "数量",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "time",
+              "alies": "时间",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "note",
+              "alies": "备注",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "ledgerIn_remove",
+          "alies": "删除采购台账",
+          "template": "remove",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "remove",
+              "alies": "删除",
+              "level": 1
+            }
+          }
+        },
+        {
+          "name": "ledgerIn_modify",
+          "alies": "修改采购台账",
+          "template": "modify",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "modify",
+              "alies": "修改",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "num",
+              "alies": "数量",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "time",
+              "alies": "时间",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "note",
+              "alies": "备注",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "ledgerIn_read",
+          "alies": "查看采购台账详情",
+          "template": "read",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "read",
+              "alies": "查看详情",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "num",
+              "alies": "数量",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "time",
+              "alies": "时间",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "note",
+              "alies": "备注",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "monitor",
+      "alies": "监测记录管理",
+      "template": "curd",
+      "panels": [
+        {
+          "name": "monitor_list",
+          "alies": "监测记录列表",
+          "template": "list",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "list",
+              "alies": "查询列表",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "name",
+              "alies": "监测名称",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "context",
+              "alies": "监测内容",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "status",
+              "alies": "监测状态",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "rst",
+              "alies": "监测结果",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "punish",
+              "alies": "处罚决定",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "id",
+              "alies": "操作",
+              "type": "grid",
+              "template": "rud"
+            }
+          ]
+        },
+        {
+          "name": "monitor_search",
+          "alies": "查询监测记录",
+          "template": "search",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "perporties": [
+            {
+              "name": "name",
+              "alies": "监测名称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "context",
+              "alies": "监测内容",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "status",
+              "alies": "监测状态",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "rst",
+              "alies": "监测结果",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "punish",
+              "alies": "处罚决定",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "monitor_add",
+          "alies": "添加监测记录",
+          "template": "add",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "add",
+              "alies": "添加",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "name",
+              "alies": "监测名称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "context",
+              "alies": "监测内容",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "status",
+              "alies": "监测状态",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "rst",
+              "alies": "监测结果",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "punish",
+              "alies": "处罚决定",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "monitor_remove",
+          "alies": "删除监测记录",
+          "template": "remove",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "remove",
+              "alies": "删除",
+              "level": 1
+            }
+          }
+        },
+        {
+          "name": "monitor_modify",
+          "alies": "修改监测记录",
+          "template": "modify",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "modify",
+              "alies": "修改",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "name",
+              "alies": "监测名称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "context",
+              "alies": "监测内容",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "status",
+              "alies": "监测状态",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "rst",
+              "alies": "监测结果",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "punish",
+              "alies": "处罚决定",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "monitor_read",
+          "alies": "查看监测记录详情",
+          "template": "read",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "read",
+              "alies": "查看详情",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "name",
+              "alies": "监测名称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "context",
+              "alies": "监测内容",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "status",
+              "alies": "监测状态",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "rst",
+              "alies": "监测结果",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "punish",
+              "alies": "处罚决定",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "account_tree",
+      "alies": "机构管理",
+      "template": "tree_mgr",
+      "panels": [
+        {
+          "name": "account_tree",
+          "alies": "机构列表",
+          "template": "tree_mgr",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "tree",
+              "alies": "树查询",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "机构编码",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "name",
+              "alies": "机构名称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "type",
+              "alies": "机构类型",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "note",
+              "alies": "机构简介",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "account_list",
+          "alies": "机构列表",
+          "template": "list",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "list",
+              "alies": "查询列表",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "机构编码",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "name",
+              "alies": "机构名称",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "type",
+              "alies": "机构类型",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "note",
+              "alies": "机构简介",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "id",
+              "alies": "操作",
+              "type": "grid",
+              "template": "rud"
+            }
+          ]
+        },
+        {
+          "name": "account_search",
+          "alies": "查询机构",
+          "template": "search",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "机构编码",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "name",
+              "alies": "机构名称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "type",
+              "alies": "机构类型",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "note",
+              "alies": "机构简介",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "account_add",
+          "alies": "添加机构",
+          "template": "tree_add",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "add",
+              "alies": "添加",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "机构编码",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "name",
+              "alies": "机构名称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "type",
+              "alies": "机构类型",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "note",
+              "alies": "机构简介",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "account_remove",
+          "alies": "删除机构",
+          "template": "remove",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "remove",
+              "alies": "删除",
+              "level": 1
+            }
+          }
+        },
+        {
+          "name": "account_modify",
+          "alies": "修改机构",
+          "template": "modify",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "modify",
+              "alies": "修改",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "机构编码",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "name",
+              "alies": "机构名称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "type",
+              "alies": "机构类型",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "note",
+              "alies": "机构简介",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "account_read",
+          "alies": "查看机构详情",
+          "template": "read",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "read",
+              "alies": "查看详情",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "机构编码",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "name",
+              "alies": "机构名称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "type",
+              "alies": "机构类型",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "note",
+              "alies": "机构简介",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "auth_tree",
+      "alies": "权限管理",
+      "template": "tree_mgr",
+      "panels": [
+        {
+          "name": "auth_tree",
+          "alies": "权限列表",
+          "template": "tree_mgr",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "tree",
+              "alies": "树查询",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "权限编码",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "name",
+              "alies": "权限名称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "path",
+              "alies": "访问地址",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "auth_list",
+          "alies": "权限列表",
+          "template": "list",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "list",
+              "alies": "查询列表",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "权限编码",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "name",
+              "alies": "权限名称",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "path",
+              "alies": "访问地址",
+              "type": "grid",
+              "template": "text"
+            },
+            {
+              "name": "id",
+              "alies": "操作",
+              "type": "grid",
+              "template": "rud"
+            }
+          ]
+        },
+        {
+          "name": "auth_search",
+          "alies": "查询权限",
+          "template": "search",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "权限编码",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "name",
+              "alies": "权限名称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "path",
+              "alies": "访问地址",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "auth_add",
+          "alies": "添加权限",
+          "template": "tree_add",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "add",
+              "alies": "添加",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "权限编码",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "name",
+              "alies": "权限名称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "path",
+              "alies": "访问地址",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "auth_remove",
+          "alies": "删除权限",
+          "template": "remove",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "remove",
+              "alies": "删除",
+              "level": 1
+            }
+          }
+        },
+        {
+          "name": "auth_modify",
+          "alies": "修改权限",
+          "template": "modify",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "modify",
+              "alies": "修改",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "权限编码",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "name",
+              "alies": "权限名称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "path",
+              "alies": "访问地址",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        },
+        {
+          "name": "auth_read",
+          "alies": "查看权限详情",
+          "template": "read",
+          "showTitle": false,
+          "showBorder": false,
+          "fit": false,
+          "store": {
+            "function": {
+              "name": "read",
+              "alies": "查看详情",
+              "level": 1
+            }
+          },
+          "perporties": [
+            {
+              "name": "code",
+              "alies": "权限编码",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "name",
+              "alies": "权限名称",
+              "type": "form",
+              "template": "input"
+            },
+            {
+              "name": "path",
+              "alies": "访问地址",
+              "type": "form",
+              "template": "input"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "navbars": [
+    {
+      "name": "workspace",
+      "alies": "工作台",
+      "type": 1,
+      "page": "workspace.html",
+      "children": [
+        {
+          "name": "Account",
+          "alies": "机构管理",
+          "type": 1,
+          "page": "account_tree.html"
+        },
+        {
+          "name": "User",
+          "alies": "用户管理",
+          "type": 1,
+          "page": "user.html"
+        },
+        {
+          "name": "Role",
+          "alies": "角色管理",
+          "type": 1,
+          "page": "role.html"
+        },
+        {
+          "name": "Auth",
+          "alies": "权限管理",
+          "type": 1,
+          "page": "auth_tree.html"
+        },
+        {
+          "name": "Company",
+          "alies": "农资经营户管理",
+          "type": 1,
+          "page": "company.html"
+        },
+        {
+          "name": "Product",
+          "alies": "农资产品管理",
+          "type": 1,
+          "page": "product.html"
+        },
+        {
+          "name": "Supplier",
+          "alies": "供应商管理",
+          "type": 1,
+          "page": "supplier.html"
+        },
+        {
+          "name": "LedgerOut",
+          "alies": "销售台账管理",
+          "type": 1,
+          "page": "ledgerOut.html"
+        },
+        {
+          "name": "LedgerIn",
+          "alies": "采购台账管理",
+          "type": 1,
+          "page": "ledgerIn.html"
+        },
+        {
+          "name": "Monitor",
+          "alies": "监测记录管理",
+          "type": 1,
+          "page": "monitor.html"
+        }
+      ]
+    }
+  ]
+}

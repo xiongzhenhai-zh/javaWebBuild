@@ -1,0 +1,35 @@
+## CSS
+#macro(panel_css)#end
+
+## JavaScprit
+#macro(panel_js)
+#set(Project project,Page page,Panel panel)
+lc.ns.${page.name}.search = function(){
+	var params = $("#form_search_${page.name}").formToObject();
+	lc.ns.${page.name}.loadList(params);
+}
+#for(Relation relation : panel.store.model.relations)
+#if(relation.type=="ManyToOne"||relation.type=="OneToOne")
+${include("../form/combobox.httl#pp_js")}${pp_js}
+#end
+#end
+#end
+
+## HTML
+#macro(panel_html)
+#set(Project project,Page page,Panel panel)
+<div id="panel_search_${page.name}" style="padding:2px 5px;">
+	<form id="form_search_${page.name}">
+		#for(Relation relation : panel.store.model.relations)
+		#if(relation.type=="ManyToOne"||relation.type=="OneToOne")
+        ${relation.relation.model.alies}:${include("../form/combobox.httl#pp_html")}${pp_html}
+		#end
+		#end
+		#for(PanelPerporty pp:panel.perporties)
+		${pp.alies}:${include("../"+pp.type+"/"+pp.template+".httl#pp_html")}${pp_html}
+		#end
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="lc.ns.${page.name}.search()">查询</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="lc.ns.${page.name}.openAddPanel()">添加</a>
+	</form>
+</div>
+#end

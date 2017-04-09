@@ -1,0 +1,230 @@
+<div class="jarviswidget some-cool-class" id="my-id-here" data-widget-fullscreenbutton="false">
+    <header style="border-bottom:0">
+        <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+        <h2>
+           	 随访选项列表
+        </h2>
+    </header>
+	<div class="widget-body" style="padding:0;border:0px;">
+		<table id="panel_list_followOption" idField="id"
+	        pagination="true" fitColumns="true" singleSelect="true" pageSize="20"
+	        toolbar="#panel_search_followOption" style="width:100%;height:590px;border:0px;" border="false">
+		    <thead>
+			  <tr>
+				<th field="followContentName" width="100">随访内容</th>
+		    	<th field="name" width="100">选项名</th>
+		    	<th field="id" formatter="lc.ns.followOption.formatAction" width="150">操作</th>
+		      </tr>
+		    </thead>
+		</table>
+	</div>
+</div>
+
+<div id="panel_search_followOption" style="padding:2px 5px;">
+	<form id="form_search_followOption">
+		选项名:<input name="name" class="easyui-textbox" style="width:120px;"/>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="lc.ns.followOption.search()">查询</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="lc.ns.followOption.openAddPanel()">添加</a>
+	</form>
+</div>
+
+<div id="panel_add_followOption" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_add_buttons_followOption" title="添加随访选项">
+    <div class="ftitle">添加随访选项</div>
+    <form id="form_add_followOption" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>随访内容:</label>
+			<input name="followContent.id" class="form_input_combo_followOption_followContent" style="width:120px;"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>选项名:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_add_buttons_followOption">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.followOption.addSave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_add_followOption').dialog('close')">取消</a>
+</div> 
+
+
+<div id="panel_modify_followOption" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_modify_buttons_followOption" title="修改随访选项">
+    <div class="ftitle">修改随访选项</div>
+    <form id="form_modify_followOption" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>随访内容:</label>
+			<input name="followContent.id" class="form_input_combo_followOption_followContent" style="width:120px;"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>选项名:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_modify_buttons_followOption">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.followOption.modifySave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_modify_followOption').dialog('close')">取消</a>
+</div> 
+
+<div id="panel_read_followOption" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_read_buttons_followOption" title="查看随访选项详情">
+    <div class="ftitle">查看随访选项详情</div>
+    <form id="form_read_followOption" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>随访内容:</label>
+			<input name="followContentName" class="easyui-textbox" style="width:120px;" readonly="readonly"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>选项名:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_read_buttons_followOption">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_read_followOption').dialog('close')">关闭</a>
+</div> 
+
+
+<script type="text/javascript">
+lc.initNs("followOption");
+lc.ns.followOption.loadList = function(data){
+	data = data==null?{}:data;
+	$("#panel_list_followOption").datagrid({
+		url:"private/followOption/list.action",
+		queryParams:data
+	});
+}
+
+lc.ns.followOption.formatAction = function(val,row,index){
+    var html =
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.followOption.openReadPanel(\''+val+'\')">查看</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.followOption.openModifyPanel(\''+val+'\')">编辑</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.followOption.destroy(\''+val+'\')">删除</a>';
+    return html;
+}
+
+
+
+lc.ns.followOption.search = function(){
+	var params = $("#form_search_followOption").formToObject();
+	lc.ns.followOption.loadList(params);
+}
+
+lc.ns.followOption.openAddPanel = function(){
+	$("#panel_add_followOption").dialog("open");
+    $("#form_add_followOption").form("reset");
+}
+lc.ns.followOption.addSave = function(){
+	$("#form_add_followOption").form("submit",{
+        url: "private/followOption/add.action",
+        onSubmit: function(){
+            return $(this).form("validate");
+        },
+        success: function(result){
+            var result = eval("("+result+")");
+            if (result&&result.success){
+            	$("#panel_add_followOption").dialog("close");
+            	if(lc.ns.followOption.onPageChange){
+            		lc.ns.followOption.onPageChange();
+            	}
+            } else {
+                $.messager.show({
+                    title: "保存失败",
+                    msg: result.message
+                });
+            }
+        }
+    });
+}
+lc.ns.followOption.initFollowContentCombobox = function(){
+	$(".form_input_combo_followOption_followContent").combobox({
+	    url:"private/followContent/combo.action"
+	});
+}
+
+
+lc.ns.followOption.destroy = function(id){
+	id?$("#panel_list_followOption").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_followOption").datagrid("getSelected");
+    if (row){
+		 $.messager.confirm("提示","你确定要删除该随访选项?",function(r){
+	        if (r){
+	            $.post("private/followOption/remove.action",{"id":row.id},function(result){
+		            if (result&&result.success){
+		                if(lc.ns.followOption.onPageChange){
+		            		lc.ns.followOption.onPageChange();
+		            	}
+		            } else {
+		                $.messager.show({
+		                    title: "删除失败",
+		                    msg: result.message
+		                });
+		            }
+	            },"json");
+	        }
+	    });
+	}
+}
+
+lc.ns.followOption.openModifyPanel = function(id){
+    id?$("#panel_list_followOption").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_followOption").datagrid("getSelected");
+    if (row){
+		$("#panel_modify_followOption").dialog("open");
+        $("#form_modify_followOption").form("load",row);
+    }else{
+    	console.log("...");
+    }
+}
+lc.ns.followOption.modifySave = function(){
+	var row = $("#panel_list_followOption").datagrid("getSelected");
+	if(row){
+		$("#form_modify_followOption").form("submit",{
+	        url: "private/followOption/modify.action?id="+row.id,
+	        onSubmit: function(){
+	            return $(this).form("validate");
+	        },
+	        success: function(result){
+	            var result = eval("("+result+")");
+	            if (result&&result.success){
+	            	$("#panel_modify_followOption").dialog("close");
+	                if(lc.ns.followOption.onPageChange){
+	            		lc.ns.followOption.onPageChange();
+	            	}
+	            } else {
+	                $.messager.show({
+	                    title: "保存失败",
+	                    msg: result.message
+	                });
+	            }
+	        }
+	    });
+	}
+}
+
+
+lc.ns.followOption.openReadPanel = function(id){
+    id?$("#panel_list_followOption").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_followOption").datagrid("getSelected");
+    if (row){
+		$("#panel_read_followOption").dialog("open");
+        $("#form_read_followOption").form("load",row);
+    }
+}
+
+
+
+lc.ns.followOption.onPageChange = function(){
+	$("#panel_list_followOption").datagrid("reload");
+}
+
+lc.currPageInit = function(){
+	lc.ns.followOption.loadList();
+	lc.ns.followOption.initFollowContentCombobox();
+}
+$(function(){
+	lc.currPageInit();
+	$.parser.parse("#lc_content");
+});
+</script>

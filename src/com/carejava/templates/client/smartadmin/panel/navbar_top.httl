@@ -1,0 +1,26 @@
+## CSS
+#macro(panel_css)#end
+
+## JavaScprit
+#macro(panel_js)
+#set(Project project,Navbar navbar)
+		lc.initPage = function(){
+			#set(Navbar child = project.navbars[0])
+			lc.nav('${child.page}');
+		};
+		$(function(){
+			lc.initPage();
+		})
+#end
+
+## HTML
+#macro(panel_html)
+#set(Project project,Navbar navbar)
+	<font size="30px">${project.alies}</font>
+#for(Navbar nav:project.navbars)
+	#if(for.first)
+		<a herf="javascprit:void(0)" onclick="lc.nav('${nav.page}')">${nav.alies}</a>
+	#else
+		<a herf="javascprit:void(0)" onclick="lc.nav('${nav.page}')">${nav.alies}</a>
+	#end#end
+#end

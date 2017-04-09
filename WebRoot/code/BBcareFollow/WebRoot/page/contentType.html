@@ -1,0 +1,222 @@
+<div class="jarviswidget some-cool-class" id="my-id-here" data-widget-fullscreenbutton="false">
+    <header style="border-bottom:0">
+        <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+        <h2>
+           	 内容类型列表
+        </h2>
+    </header>
+	<div class="widget-body" style="padding:0;border:0px;">
+		<table id="panel_list_contentType" idField="id"
+	        pagination="true" fitColumns="true" singleSelect="true" pageSize="20"
+	        toolbar="#panel_search_contentType" style="width:100%;height:590px;border:0px;" border="false">
+		    <thead>
+			  <tr>
+		    	<th field="name" width="100">类型名称</th>
+		    	<th field="writerId" width="100">所属人ID</th>
+		    	<th field="id" formatter="lc.ns.contentType.formatAction" width="150">操作</th>
+		      </tr>
+		    </thead>
+		</table>
+	</div>
+</div>
+
+<div id="panel_search_contentType" style="padding:2px 5px;">
+	<form id="form_search_contentType">
+		类型名称:<input name="name" class="easyui-textbox" style="width:120px;"/>
+		所属人ID:<input name="writerId" class="easyui-textbox" style="width:120px;"/>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="lc.ns.contentType.search()">查询</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="lc.ns.contentType.openAddPanel()">添加</a>
+	</form>
+</div>
+
+<div id="panel_add_contentType" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_add_buttons_contentType" title="添加内容类型">
+    <div class="ftitle">添加内容类型</div>
+    <form id="form_add_contentType" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>类型名称:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>所属人ID:</label>
+            <input name="writerId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_add_buttons_contentType">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.contentType.addSave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_add_contentType').dialog('close')">取消</a>
+</div> 
+
+
+<div id="panel_modify_contentType" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_modify_buttons_contentType" title="修改内容类型">
+    <div class="ftitle">修改内容类型</div>
+    <form id="form_modify_contentType" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>类型名称:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>所属人ID:</label>
+            <input name="writerId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_modify_buttons_contentType">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.contentType.modifySave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_modify_contentType').dialog('close')">取消</a>
+</div> 
+
+<div id="panel_read_contentType" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_read_buttons_contentType" title="查看内容类型详情">
+    <div class="ftitle">查看内容类型详情</div>
+    <form id="form_read_contentType" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>类型名称:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>所属人ID:</label>
+            <input name="writerId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_read_buttons_contentType">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_read_contentType').dialog('close')">关闭</a>
+</div> 
+
+
+<script type="text/javascript">
+lc.initNs("contentType");
+lc.ns.contentType.loadList = function(data){
+	data = data==null?{}:data;
+	$("#panel_list_contentType").datagrid({
+		url:"private/contentType/list.action",
+		queryParams:data
+	});
+}
+
+
+lc.ns.contentType.formatAction = function(val,row,index){
+    var html =
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.contentType.openReadPanel(\''+val+'\')">查看</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.contentType.openModifyPanel(\''+val+'\')">编辑</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.contentType.destroy(\''+val+'\')">删除</a>';
+    return html;
+}
+
+
+lc.ns.contentType.search = function(){
+	var params = $("#form_search_contentType").formToObject();
+	lc.ns.contentType.loadList(params);
+}
+
+lc.ns.contentType.openAddPanel = function(){
+	$("#panel_add_contentType").dialog("open");
+    $("#form_add_contentType").form("reset");
+}
+lc.ns.contentType.addSave = function(){
+	$("#form_add_contentType").form("submit",{
+        url: "private/contentType/add.action",
+        onSubmit: function(){
+            return $(this).form("validate");
+        },
+        success: function(result){
+            var result = eval("("+result+")");
+            if (result&&result.success){
+            	$("#panel_add_contentType").dialog("close");
+            	if(lc.ns.contentType.onPageChange){
+            		lc.ns.contentType.onPageChange();
+            	}
+            } else {
+                $.messager.show({
+                    title: "保存失败",
+                    msg: result.message
+                });
+            }
+        }
+    });
+}
+
+lc.ns.contentType.destroy = function(id){
+	id?$("#panel_list_contentType").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_contentType").datagrid("getSelected");
+    if (row){
+		 $.messager.confirm("提示","你确定要删除该内容类型?",function(r){
+	        if (r){
+	            $.post("private/contentType/remove.action",{"id":row.id},function(result){
+		            if (result&&result.success){
+		                if(lc.ns.contentType.onPageChange){
+		            		lc.ns.contentType.onPageChange();
+		            	}
+		            } else {
+		                $.messager.show({
+		                    title: "删除失败",
+		                    msg: result.message
+		                });
+		            }
+	            },"json");
+	        }
+	    });
+	}
+}
+
+lc.ns.contentType.openModifyPanel = function(id){
+    id?$("#panel_list_contentType").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_contentType").datagrid("getSelected");
+    if (row){
+		$("#panel_modify_contentType").dialog("open");
+        $("#form_modify_contentType").form("load",row);
+    }else{
+    	console.log("...");
+    }
+}
+lc.ns.contentType.modifySave = function(){
+	var row = $("#panel_list_contentType").datagrid("getSelected");
+	if(row){
+		$("#form_modify_contentType").form("submit",{
+	        url: "private/contentType/modify.action?id="+row.id,
+	        onSubmit: function(){
+	            return $(this).form("validate");
+	        },
+	        success: function(result){
+	            var result = eval("("+result+")");
+	            if (result&&result.success){
+	            	$("#panel_modify_contentType").dialog("close");
+	                if(lc.ns.contentType.onPageChange){
+	            		lc.ns.contentType.onPageChange();
+	            	}
+	            } else {
+	                $.messager.show({
+	                    title: "保存失败",
+	                    msg: result.message
+	                });
+	            }
+	        }
+	    });
+	}
+}
+
+lc.ns.contentType.openReadPanel = function(id){
+    id?$("#panel_list_contentType").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_contentType").datagrid("getSelected");
+    if (row){
+		$("#panel_read_contentType").dialog("open");
+        $("#form_read_contentType").form("load",row);
+    }
+}
+
+
+lc.ns.contentType.onPageChange = function(){
+	$("#panel_list_contentType").datagrid("reload");
+}
+
+lc.currPageInit = function(){
+	lc.ns.contentType.loadList();
+}
+$(function(){
+	lc.currPageInit();
+	$.parser.parse("#lc_content");
+});
+</script>

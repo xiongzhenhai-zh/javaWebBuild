@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="cn-ZH">	
+	<head>
+		<meta charset="utf-8">
+		<title>BBcare服务管理系统</title>
+		<meta name="description" content="BBcare服务管理系统">
+		<meta name="author" content="le chen">
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<!-- 导入样式文件 -->
+		<link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" media="screen" href="css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-production-plugins.min.css">
+		<link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-production.min.css">
+		<link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-skins.min.css">
+	    <link rel="stylesheet" type="text/css" media="screen" href="css/theme/bootstrap/easyui.css">
+	    <link rel="stylesheet" type="text/css" media="screen" href="css/theme/icon.css">
+		<link rel="stylesheet" type="text/css" media="screen" href="css/home.css">
+		<link rel="stylesheet" type="text/css" media="screen" href="css/base.min.css">
+
+		<!-- 网页、手机图标设置 -->
+		<link rel="shortcut icon" href="img/favicon/favicon.ico" type="image/x-icon">
+		<link rel="icon" href="img/favicon/favicon.ico" type="image/x-icon">
+<!-- 		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700"> -->
+		<link rel="apple-touch-icon" href="img/splash/sptouch-icon-iphone.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="img/splash/touch-icon-ipad.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="img/splash/touch-icon-iphone-retina.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="img/splash/touch-icon-ipad-retina.png">
+		
+		<!-- iOS Web APP设置 -->
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		
+		<!-- Web APP欢迎图片设置 -->
+		<link rel="apple-touch-startup-image" href="img/splash/ipad-landscape.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)">
+		<link rel="apple-touch-startup-image" href="img/splash/ipad-portrait.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)">
+		<link rel="apple-touch-startup-image" href="img/splash/iphone.png" media="screen and (max-device-width: 320px)">
+
+	</head>
+
+	<body class="smart-style-0">
+
+		<!-- 头部导航栏 -->
+		<header id="header">
+		
+			<div id="logo-group">
+				<span id="logo"> <img src="img/logo.png" alt="BBcare服务管理系统"> </span>
+			</div>
+			
+			<div class="pull-right">
+				
+				<!-- 导航菜单按钮 -->
+				<div id="hide-menu" class="btn-header pull-right">
+					<span> <a href="javascript:void(0);" data-action="toggleMenu" title="Collapse Menu"><i class="fa fa-reorder"></i></a> </span>
+				</div>
+
+				<!-- 退出按钮 -->
+				<div id="logout" class="btn-header transparent pull-right">
+					<span> <a href="login.html" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser"><i class="fa fa-sign-out"></i></a> </span>
+				</div>
+
+				<!-- 搜索栏 -->
+				<div id="search-mobile" class="btn-header transparent pull-right">
+					<span> <a href="javascript:void(0)" title="查询"><i class="fa fa-search"></i></a> </span>
+				</div>
+				
+				<form action="#ajax/search.html" class="header-search pull-right">
+					<input id="search-fld" type="text" name="param" placeholder="请输入查询内容">
+					<button type="submit">
+						<i class="fa fa-search"></i>
+					</button>
+					<a href="javascript:void(0);" id="cancel-search-js" title="清除"><i class="fa fa-times"></i></a>
+				</form>
+
+				<!-- 全屏按钮 -->
+				<div id="fullscreen" class="btn-header transparent pull-right">
+					<span> <a href="javascript:void(0);" data-action="launchFullscreen" title="Full Screen"><i class="fa fa-arrows-alt"></i></a> </span>
+				</div>
+
+			</div>
+		</header>
+
+		<!-- 导航菜单 -->
+		<aside id="left-panel">
+
+			<!-- 用户资料 -->
+			<div class="login-info">
+				<span> <!-- User image size is adjusted inside CSS, it should stay as is --> 
+					
+					<a href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut">
+						<img src="img/avatars/sunny.png" alt="me" class="online" /> 
+						<span>
+							john.doe 
+						</span>
+						<i class="fa fa-angle-down"></i>
+					</a> 
+					
+				</span>
+			</div>
+			
+			<!-- 导航菜单 -->
+			<nav id="lc_nav"></nav>
+			
+			<span class="minifyme" data-action="minifyMenu"> <i class="fa fa-arrow-circle-left hit"></i> </span>
+
+		</aside>
+		
+		<!-- 页面内容显示区域 -->
+		<div id="main" role="main">
+
+			<!-- 页面路径 -->
+			<div id="ribbon">
+				<ol class="breadcrumb">
+					<!-- This is auto generated -->
+				</ol>
+			</div>
+
+			<!-- 页面内容 -->
+			<div id="lc_content" style="padding-top:10px;"></div>
+		</div>
+
+		<!-- 引入JS库  -->
+		<script src="js/libs/jquery-2.1.1.min.js"></script>
+		<script src="js/libs/jquery.easyui.min.js"></script>
+		<script src="js/app.config.js"></script>
+		<script src="js/app.min.js"></script>
+		<script src="js/lc.js"></script>
+
+	</body>
+
+</html>

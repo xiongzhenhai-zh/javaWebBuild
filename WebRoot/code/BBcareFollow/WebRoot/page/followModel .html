@@ -1,0 +1,320 @@
+<div class="jarviswidget some-cool-class" id="my-id-here" data-widget-fullscreenbutton="false">
+    <header style="border-bottom:0">
+        <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+        <h2>
+           	 随访模型列表
+        </h2>
+    </header>
+	<div class="widget-body" style="padding:0;border:0px;">
+		<table id="panel_list_followModel " idField="id"
+	        pagination="true" fitColumns="true" singleSelect="true" pageSize="20"
+	        toolbar="#panel_search_followModel " style="width:100%;height:590px;border:0px;" border="false">
+		    <thead>
+			  <tr>
+				<th field="modelClassName" width="100">模型分类</th>
+		    	<th field="name" width="100">名称</th>
+		    	<th field="doctorId" width="100">医生Id</th>
+		    	<th field="status" width="100">状态</th>
+		    	<th field="introduction" width="100">简介</th>
+		    	<th field="targer" width="100">目标</th>
+		    	<th field="note" width="100">说明</th>
+		    	<th field="createTime" width="100">创建时间</th>
+		    	<th field="id" formatter="lc.ns.followModel .formatAction" width="150">操作</th>
+		      </tr>
+		    </thead>
+		</table>
+	</div>
+</div>
+
+<div id="panel_search_followModel " style="padding:2px 5px;">
+	<form id="form_search_followModel ">
+		名称:<input name="name" class="easyui-textbox" style="width:120px;"/>
+		医生Id:<input name="doctorId" class="easyui-textbox" style="width:120px;"/>
+		状态:<input name="status" class="easyui-textbox" style="width:120px;"/>
+		简介:<input name="introduction" class="easyui-textbox" style="width:120px;"/>
+		目标:<input name="targer" class="easyui-textbox" style="width:120px;"/>
+		说明:<input name="note" class="easyui-textbox" style="width:120px;"/>
+		创建时间:<input name="createTime" class="easyui-textbox" style="width:120px;"/>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="lc.ns.followModel .search()">查询</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="lc.ns.followModel .openAddPanel()">添加</a>
+	</form>
+</div>
+
+<div id="panel_add_followModel " class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_add_buttons_followModel " title="添加随访模型">
+    <div class="ftitle">添加随访模型</div>
+    <form id="form_add_followModel " method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>模型分类:</label>
+			<input name="modelClass.id" class="form_input_combo_followModel _modelClass" style="width:120px;"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>名称:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>医生Id:</label>
+            <input name="doctorId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>状态:</label>
+            <input name="status" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>简介:</label>
+            <input name="introduction" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>目标:</label>
+            <input name="targer" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>说明:</label>
+            <input name="note" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>创建时间:</label>
+            <input name="createTime" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_add_buttons_followModel ">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.followModel .addSave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_add_followModel ').dialog('close')">取消</a>
+</div> 
+
+
+<div id="panel_modify_followModel " class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_modify_buttons_followModel " title="修改随访模型">
+    <div class="ftitle">修改随访模型</div>
+    <form id="form_modify_followModel " method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>模型分类:</label>
+			<input name="modelClass.id" class="form_input_combo_followModel _modelClass" style="width:120px;"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>名称:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>医生Id:</label>
+            <input name="doctorId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>状态:</label>
+            <input name="status" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>简介:</label>
+            <input name="introduction" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>目标:</label>
+            <input name="targer" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>说明:</label>
+            <input name="note" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>创建时间:</label>
+            <input name="createTime" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_modify_buttons_followModel ">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.followModel .modifySave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_modify_followModel ').dialog('close')">取消</a>
+</div> 
+
+<div id="panel_read_followModel " class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_read_buttons_followModel " title="查看随访模型详情">
+    <div class="ftitle">查看随访模型详情</div>
+    <form id="form_read_followModel " method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>模型分类:</label>
+			<input name="modelClassName" class="easyui-textbox" style="width:120px;" readonly="readonly"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>名称:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>医生Id:</label>
+            <input name="doctorId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>状态:</label>
+            <input name="status" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>简介:</label>
+            <input name="introduction" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>目标:</label>
+            <input name="targer" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>说明:</label>
+            <input name="note" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>创建时间:</label>
+            <input name="createTime" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_read_buttons_followModel ">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_read_followModel ').dialog('close')">关闭</a>
+</div> 
+
+
+<script type="text/javascript">
+lc.initNs("followModel ");
+lc.ns.followModel .loadList = function(data){
+	data = data==null?{}:data;
+	$("#panel_list_followModel ").datagrid({
+		url:"private/followModel /list.action",
+		queryParams:data
+	});
+}
+
+
+
+
+
+
+
+lc.ns.followModel .formatAction = function(val,row,index){
+    var html =
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.followModel .openReadPanel(\''+val+'\')">查看</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.followModel .openModifyPanel(\''+val+'\')">编辑</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.followModel .destroy(\''+val+'\')">删除</a>';
+    return html;
+}
+
+
+
+lc.ns.followModel .search = function(){
+	var params = $("#form_search_followModel ").formToObject();
+	lc.ns.followModel .loadList(params);
+}
+
+lc.ns.followModel .openAddPanel = function(){
+	$("#panel_add_followModel ").dialog("open");
+    $("#form_add_followModel ").form("reset");
+}
+lc.ns.followModel .addSave = function(){
+	$("#form_add_followModel ").form("submit",{
+        url: "private/followModel /add.action",
+        onSubmit: function(){
+            return $(this).form("validate");
+        },
+        success: function(result){
+            var result = eval("("+result+")");
+            if (result&&result.success){
+            	$("#panel_add_followModel ").dialog("close");
+            	if(lc.ns.followModel .onPageChange){
+            		lc.ns.followModel .onPageChange();
+            	}
+            } else {
+                $.messager.show({
+                    title: "保存失败",
+                    msg: result.message
+                });
+            }
+        }
+    });
+}
+lc.ns.followModel .initModelClassCombobox = function(){
+	$(".form_input_combo_followModel _modelClass").combobox({
+	    url:"private/modelClass/combo.action"
+	});
+}
+
+
+lc.ns.followModel .destroy = function(id){
+	id?$("#panel_list_followModel ").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_followModel ").datagrid("getSelected");
+    if (row){
+		 $.messager.confirm("提示","你确定要删除该随访模型?",function(r){
+	        if (r){
+	            $.post("private/followModel /remove.action",{"id":row.id},function(result){
+		            if (result&&result.success){
+		                if(lc.ns.followModel .onPageChange){
+		            		lc.ns.followModel .onPageChange();
+		            	}
+		            } else {
+		                $.messager.show({
+		                    title: "删除失败",
+		                    msg: result.message
+		                });
+		            }
+	            },"json");
+	        }
+	    });
+	}
+}
+
+lc.ns.followModel .openModifyPanel = function(id){
+    id?$("#panel_list_followModel ").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_followModel ").datagrid("getSelected");
+    if (row){
+		$("#panel_modify_followModel ").dialog("open");
+        $("#form_modify_followModel ").form("load",row);
+    }else{
+    	console.log("...");
+    }
+}
+lc.ns.followModel .modifySave = function(){
+	var row = $("#panel_list_followModel ").datagrid("getSelected");
+	if(row){
+		$("#form_modify_followModel ").form("submit",{
+	        url: "private/followModel /modify.action?id="+row.id,
+	        onSubmit: function(){
+	            return $(this).form("validate");
+	        },
+	        success: function(result){
+	            var result = eval("("+result+")");
+	            if (result&&result.success){
+	            	$("#panel_modify_followModel ").dialog("close");
+	                if(lc.ns.followModel .onPageChange){
+	            		lc.ns.followModel .onPageChange();
+	            	}
+	            } else {
+	                $.messager.show({
+	                    title: "保存失败",
+	                    msg: result.message
+	                });
+	            }
+	        }
+	    });
+	}
+}
+
+
+lc.ns.followModel .openReadPanel = function(id){
+    id?$("#panel_list_followModel ").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_followModel ").datagrid("getSelected");
+    if (row){
+		$("#panel_read_followModel ").dialog("open");
+        $("#form_read_followModel ").form("load",row);
+    }
+}
+
+
+
+lc.ns.followModel .onPageChange = function(){
+	$("#panel_list_followModel ").datagrid("reload");
+}
+
+lc.currPageInit = function(){
+	lc.ns.followModel .loadList();
+	lc.ns.followModel .initModelClassCombobox();
+}
+$(function(){
+	lc.currPageInit();
+	$.parser.parse("#lc_content");
+});
+</script>

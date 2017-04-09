@@ -1,0 +1,47 @@
+## CSS
+#macro(panel_css)#end
+
+## JavaScprit
+#macro(panel_js)
+#set(Project project,Page page,Panel panel)
+lc.ns.${page.name}.tree = function(){
+	$("#panel_tree_${page.name}").tree({
+		url: "private/${panel.store.model.lowName}/${panel.store.function.name}.action",
+        method: "get",
+        animate: true,
+        loadFilter:function(data){
+			var array = new Array();
+			array[0] = {};
+			array[0].id = "-1";
+			array[0].text = "根节点"
+			if(data.rows&&data.rows.length>0){
+				array[0].children = lc.formatTreeData(data.rows,function(newData,oldData){
+					#for(ModelAttribute attr:panel.store.model.attributes)
+					#if(attr.name!="id"&&attr.name!="text"&&attr.name!="icon"&&attr.name!="parent"&&attr.name!="children")
+					newData.${attr.name} = oldData.${attr.name};
+					#end
+					#end
+					return newData;
+				});
+			}
+			return array;
+		},
+        onSelect:function(node){
+        	lc.ns.${page.name}.data.params = {};
+        	if(node.id!="-1"){
+	        	lc.ns.${page.name}.data.params["parent.id"] = node.id;
+	        	lc.ns.${page.name}.data.params["text"] = node.text;
+	        	lc.ns.${page.name}.loadList({"parent.id":node.id});
+        	}else{
+        		lc.ns.${page.name}.loadList();
+        	}
+        }
+	});
+}
+#end
+
+## HTML
+#macro(panel_html)
+#set(Project project,Page page,Panel panel)
+<ul id="panel_tree_${page.name}"></ul>
+#end

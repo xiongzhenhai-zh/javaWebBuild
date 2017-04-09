@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ant-project" default="run" basedir=".">
+    <!-- 这里的basedir是工程的目录为根目录  一般basedir="."表示的是build.xml文件所在的相对目录为根目录即src -->
+    <echo message="工程的目录是：${basedir}" />
+    
+    <!-- property: init ...  -->
+    <property name="src" value="src" />
+    <property name="dest" value="/${basedir}/WebRoot/WEB-INF/classes" />
+    <!-- 定义发布目录 把工程copy到tomcat的工作目录下-->
+    <property name="webApp" value="deploy/war/" />
+    <property name="lib.dir" location="/${basedir}/WebRoot/WEB-INF/lib" />
+    <property name="classpath" location="/${basedir}/deploy/classes" />
+    <property name="webname" value="BBcareFollow" />
+ 
+    <!-- classpath: init ...  -->
+    <!--定义项目编译的时候,以来的lib包的路径-->
+    <path id="project.class.path">
+       <pathelement path="${classpath}" />
+       <fileset dir="${lib.dir}">
+           <include name="*.jar" />
+       </fileset>
+    </path>
+   
+    <!-- target: init -->
+    <target name="init">
+       <delete dir="/${basedir}/deploy/classes"></delete>
+       <!-- 删除war包-->
+       <delete file="/${basedir}/deploy/${webname}.war"></delete>
+       <!-- 删除war目录-->
+       <delete dir="/${basedir}/deploy/war/"></delete>
+       <!-- 新建目录，比如新建编译需要的class文件路径 -->
+       <mkdir dir="/${basedir}/deploy/classes" />
+    </target>
+   
+	<target name="compile.config">  
+        <copy todir="${dest}" overwrite="true">  
+            <fileset dir="${src}">  
+                <include name="*.xml" />  
+            </fileset>  
+        </copy>  
+    </target>  
+	
+    <!--  target: compile  -->
+    <!-- 编译class文件-->
+    <target name="compile" depends="init,compile.config">
+       <!-- <javac srcdir="${src}" destdir="/${basedir}/deploy/classes"></javac> -->
+       <!-- target="1.4" 表示编译器用1.4的方式编译，当然也可以采用1.6，classpath 中的refid这表示依赖于那些jar包编译 --> 
+        <javac fork="true" target="1.7" srcdir="src" destdir="${classpath}" debug="false"  encoding="utf-8" includeantruntime="on"> 
+            <classpath refid="project.class.path" />
+        </javac> 
+    </target>
+   
+   
+    <!-- target: run -->
+    <target name="run" depends="compile" description="description">
+       <!--除了class文件外，其他文件拷贝到tomcat目录下-->
+       <copy todir="${webApp}" overwrite="true">
+           <fileset dir="${basedir}/WebRoot" excludes="**/*.class" />
+       </copy>
+       <copy todir="${webApp}/WEB-INF/classes/" overwrite="true">
+           <fileset dir="/${basedir}/deploy/classes/">
+              <include name="**/*.class" />
+           </fileset>
+       </copy>
+ 
+       <!--将class文件打包，放到/WEB-INF/lib目录下-->
+       <!--
+       <jar destfile="${webApp}/WEB-INF/lib/test.jar">
+           <fileset dir="/${basedir}/deploy/classes">
+              <include name="**/*.class" />
+           </fileset>
+       </jar>
+       -->
+       <war destfile="D:/Server/Tomcat_7_80/webapps/${webname}.war">
+           <fileset dir="/${basedir}/deploy/war">
+           </fileset>
+       </war>
+    </target>
+   
+</project>

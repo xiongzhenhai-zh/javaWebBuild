@@ -1,0 +1,46 @@
+## CSS
+#macro(panel_css)#end
+
+## JavaScprit
+#macro(panel_js)
+#set(Project project,Page page,Panel panel)
+lc.ns.${page.name}.loadList = function(data){
+	data = data==null?{}:data;
+	$("#panel_list_${page.name}").datagrid({
+		url:"private/${panel.store.model.lowName}/${panel.store.function.name}.action",
+		queryParams:data,
+		view: detailview,
+        detailFormatter:function(index,row){
+        	#for(Panel panel:page.panels)
+        	#if(panel.template=="sub_sublist")
+            return "${include("../panel/sub_sublist.httl#pp_js")}${pp_html}";
+            #end
+            #end
+        },
+        #for(Panel panel:page.panels)
+        #if(panel.template=="sub_sublist")
+        onExpandRow:${include("../panel/sub_sublist.httl#pp_js")}${pp_js}
+        #end
+        #end
+	});
+}
+#for(PanelPerporty pp:panel.perporties)
+${include("../"+pp.type+"/"+pp.template+".httl#pp_js")}${pp_js}
+#end
+#end
+
+## HTML
+#macro(panel_html)
+#set(Project project,Panel panel,Page page)
+<table id="panel_list_${page.name}" title="${panel.alies}" idField="id"
+        pagination="true" fitColumns="true" singleSelect="true" fit="true" pageSize="20"
+        toolbar="#panel_search_${page.name}">
+    <thead>
+		<tr>
+        	#for(PanelPerporty pp:panel.perporties)
+        	${include("../"+pp.type+"/"+pp.template+".httl#pp_html")}${pp_html}
+			#end
+        </tr>
+    </thead>
+</table>
+#end

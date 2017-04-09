@@ -1,0 +1,35 @@
+## CSS
+#macro(panel_css)#end
+
+## JavaScprit
+#macro(panel_js)
+#set(Project project,Page page,Panel panel)
+function(index,row){
+            var ddv = $(this).datagrid("getRowDetail",index).find("table.ddv");
+            ddv.datagrid({
+                url:"private/${panel.store.secondModel.lowName}/${panel.store.secondFunction.name}.action?${panel.store.model.lowName}.id="+row.itemid,
+                fitColumns:true,
+                singleSelect:true,
+                rownumbers:true,
+                loadMsg:"正在加载${panel.store.secondModel.alies}...",
+                height:"auto",
+                columns:[[
+                	#for(PanelPerporty pp:panel.perporties)
+					${include("../"+pp.type+"/"+pp.template+".httl#pp_js")}${pp_js}#if(!for.last),#end#end
+                ]],
+                onResize:function(){
+                    $("#panel_list_${page.name}").datagrid("fixDetailRowHeight",index);
+                },
+                onLoadSuccess:function(){
+                    setTimeout(function(){
+                        $("#panel_list_${page.name}").datagrid("fixDetailRowHeight",index);
+                    },0);
+                }
+            });
+            $("#panel_list_${page.name}").datagrid("fixDetailRowHeight",index);
+        }
+#end
+
+## HTML
+#macro(panel_html)
+#set(Project project,Panel panel,Page page)<div style='padding:2px'><table class='ddv'></table></div>#end

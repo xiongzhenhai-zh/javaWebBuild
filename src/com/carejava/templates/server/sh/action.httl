@@ -1,0 +1,60 @@
+#set(Project project,Model model)
+package ${project.pkgName}.action;
+
+#for(ModelAttribute attr : model.attributes)
+#if(attr.type=="Date")
+import java.util.Date;
+#end
+#end
+import java.util.Map;
+import ${project.pkgName}.entry.${model.name};
+import ${project.pkgName}.util.MyActionSupport;
+import ${project.pkgName}.service.I${model.name}Service;
+import com.opensymphony.xwork2.ModelDriven;
+import org.hibernate.criterion.DetachedCriteria;
+import org.springframework.stereotype.Controller;
+import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.Result;
+import org.apache.struts2.convention.annotation.Results;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.struts2.convention.annotation.ParentPackage;
+
+#for(Function function:model.functions)${include("impl/"+function.name+".httl#action_import")}${idao_import}#end
+
+/**
+ * @name:${model.alies}控制层实现
+ * @author:	${project.author}
+ * @createTime: ${now()}
+ */	
+
+@Controller	
+@ParentPackage("base")	
+@SuppressWarnings("unused")	
+@Results({	
+	@Result(name = "json",type="json", params={"root","result","callbackParameter","callback",
+		"excludeProperties","#for(Relation relation : model.relations)#if(!for.first),#end()rows.*.${relation.name},data.${relation.name}#end"}),	
+	@Result(name = "list",type="json", params={"root","list","callbackParameter","callback",
+		"excludeProperties","#for(Relation relation : model.relations)#if(!for.first),#end()rows.*.${relation.name},data.${relation.name}#end"}),	
+	@Result(name = "tree",type="json", params={"root","result","callbackParameter","callback",
+		"excludeProperties","#for(Relation relation : model.relations)#if(!(relation.type=="OneToMany"&&relation.model==model))#if(!for.first),#end()rows.*.${relation.name},data.${relation.name}#end#end"})	
+})
+public class ${model.name}Action extends MyActionSupport implements ModelDriven<${model.name}> {	
+	
+	private static final long serialVersionUID = 1L;	
+	
+	private ${model.name} ${model.lowName};	
+	
+	@Autowired	
+	private I${model.name}Service ${model.lowName}Service;
+	
+	#for(Function function:model.functions)${include("impl/"+function.name+".httl#action_perporty")}${action_perporty}#end
+	#for(Function function:model.functions)${include("impl/"+function.name+".httl#action_method")}${action_method}#end
+	
+	@Override
+	public ${model.name} getModel() {
+		if(${model.lowName}==null){
+			${model.lowName} = new ${model.name}();
+		}
+		return ${model.lowName};
+	}
+}

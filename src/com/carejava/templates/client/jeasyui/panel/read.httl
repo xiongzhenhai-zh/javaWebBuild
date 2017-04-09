@@ -1,0 +1,48 @@
+## CSS
+#macro(panel_css)#end
+
+## JavaScprit
+#macro(panel_js)
+#set(Project project,Page page,Panel panel)
+lc.ns.${page.name}.openReadPanel = function(id){
+    id?$("#panel_list_${page.name}").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_${page.name}").datagrid("getSelected");
+    if (row){
+		$("#panel_read_${page.name}").dialog("open");
+        $("#form_read_${page.name}").form("load",row);
+    }
+}
+#for(Relation relation : panel.store.model.relations)
+#if(relation.type=="ManyToOne"||relation.type=="OneToOne")
+${include("../form/combobox_read.httl#pp_js")}${pp_js}
+#end
+#end
+#end
+
+## HTML
+#macro(panel_html)
+#set(Project project,Panel panel,Page page)
+<div id="panel_read_${page.name}" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_read_buttons_${page.name}" title="${panel.alies}">
+    <div class="ftitle">${panel.alies}</div>
+    <form id="form_read_${page.name}" method="post" novalidate>
+        #for(Relation relation : panel.store.model.relations)
+		#if(relation.type=="ManyToOne"||relation.type=="OneToOne")
+        <div class="fitem" style="width:100%">
+			<label>${relation.relation.model.alies}:</label>
+			${include("../form/combobox_read.httl#pp_html")}${pp_html}
+		</div>
+		#end
+		#end
+       	#for(PanelPerporty pp:panel.perporties)
+        <div class="fitem" style="width:100%">
+			<label>${pp.alies}:</label>
+            ${include("../"+pp.type+"/"+pp.template+".httl#pp_html")}${pp_html}           
+        </div>
+        #end
+    </form>
+</div>
+<div id="panel_read_buttons_${page.name}">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_read_${page.name}').dialog('close')">关闭</a>
+</div> 
+#end

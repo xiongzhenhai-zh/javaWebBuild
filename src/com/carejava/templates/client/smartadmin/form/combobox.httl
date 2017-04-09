@@ -1,0 +1,18 @@
+## CSS
+#macro(pp_css)#end
+
+## JavaScprit
+#macro(pp_js)
+#set(Relation relation,Page page,Panel panel)
+#if(panel.template=="add"||panel.template=="sub_add")
+lc.ns.${page.name}.init${relation.relation.model.name}Combobox = function(){
+	$(".form_input_combo_${page.name}_${relation.name}").combobox({
+	    url:"private/${relation.relation.model.lowName}/combo.action"
+	});
+}
+#end
+#end
+
+## HTML
+#macro(pp_html)
+#set(Relation relation,Page page,Panel panel)<input name="${relation.name}.id" class="form_input_combo_${page.name}_${relation.name}" style="width:120px;"/>#end

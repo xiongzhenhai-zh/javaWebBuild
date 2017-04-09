@@ -1,0 +1,230 @@
+<div class="jarviswidget some-cool-class" id="my-id-here" data-widget-fullscreenbutton="false">
+    <header style="border-bottom:0">
+        <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+        <h2>
+           	 角色列表
+        </h2>
+    </header>
+	<div class="widget-body" style="padding:0;border:0px;">
+		<table id="panel_list_auth" idField="id"
+	        pagination="true" fitColumns="true" singleSelect="true" pageSize="20"
+	        toolbar="#panel_search_auth" style="width:100%;height:590px;border:0px;" border="false">
+		    <thead>
+			  <tr>
+				<th field="userName" width="100">用户</th>
+		    	<th field="name" width="100">名字</th>
+		    	<th field="id" formatter="lc.ns.auth.formatAction" width="150">操作</th>
+		      </tr>
+		    </thead>
+		</table>
+	</div>
+</div>
+
+<div id="panel_search_auth" style="padding:2px 5px;">
+	<form id="form_search_auth">
+		名字:<input name="name" class="easyui-textbox" style="width:120px;"/>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="lc.ns.auth.search()">查询</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="lc.ns.auth.openAddPanel()">添加</a>
+	</form>
+</div>
+
+<div id="panel_add_auth" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_add_buttons_auth" title="添加角色">
+    <div class="ftitle">添加角色</div>
+    <form id="form_add_auth" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>用户:</label>
+			<input name="user.id" class="form_input_combo_auth_user" style="width:120px;"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>名字:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_add_buttons_auth">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.auth.addSave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_add_auth').dialog('close')">取消</a>
+</div> 
+
+
+<div id="panel_modify_auth" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_modify_buttons_auth" title="修改角色">
+    <div class="ftitle">修改角色</div>
+    <form id="form_modify_auth" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>用户:</label>
+			<input name="user.id" class="form_input_combo_auth_user" style="width:120px;"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>名字:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_modify_buttons_auth">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.auth.modifySave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_modify_auth').dialog('close')">取消</a>
+</div> 
+
+<div id="panel_read_auth" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_read_buttons_auth" title="查看角色详情">
+    <div class="ftitle">查看角色详情</div>
+    <form id="form_read_auth" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>用户:</label>
+			<input name="userName" class="easyui-textbox" style="width:120px;" readonly="readonly"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>名字:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_read_buttons_auth">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_read_auth').dialog('close')">关闭</a>
+</div> 
+
+
+<script type="text/javascript">
+lc.initNs("auth");
+lc.ns.auth.loadList = function(data){
+	data = data==null?{}:data;
+	$("#panel_list_auth").datagrid({
+		url:"private/auth/list.action",
+		queryParams:data
+	});
+}
+
+lc.ns.auth.formatAction = function(val,row,index){
+    var html =
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.auth.openReadPanel(\''+val+'\')">查看</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.auth.openModifyPanel(\''+val+'\')">编辑</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.auth.destroy(\''+val+'\')">删除</a>';
+    return html;
+}
+
+
+
+lc.ns.auth.search = function(){
+	var params = $("#form_search_auth").formToObject();
+	lc.ns.auth.loadList(params);
+}
+
+lc.ns.auth.openAddPanel = function(){
+	$("#panel_add_auth").dialog("open");
+    $("#form_add_auth").form("reset");
+}
+lc.ns.auth.addSave = function(){
+	$("#form_add_auth").form("submit",{
+        url: "private/auth/add.action",
+        onSubmit: function(){
+            return $(this).form("validate");
+        },
+        success: function(result){
+            var result = eval("("+result+")");
+            if (result&&result.success){
+            	$("#panel_add_auth").dialog("close");
+            	if(lc.ns.auth.onPageChange){
+            		lc.ns.auth.onPageChange();
+            	}
+            } else {
+                $.messager.show({
+                    title: "保存失败",
+                    msg: result.message
+                });
+            }
+        }
+    });
+}
+lc.ns.auth.initUserCombobox = function(){
+	$(".form_input_combo_auth_user").combobox({
+	    url:"private/user/combo.action"
+	});
+}
+
+
+lc.ns.auth.destroy = function(id){
+	id?$("#panel_list_auth").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_auth").datagrid("getSelected");
+    if (row){
+		 $.messager.confirm("提示","你确定要删除该角色?",function(r){
+	        if (r){
+	            $.post("private/auth/remove.action",{"id":row.id},function(result){
+		            if (result&&result.success){
+		                if(lc.ns.auth.onPageChange){
+		            		lc.ns.auth.onPageChange();
+		            	}
+		            } else {
+		                $.messager.show({
+		                    title: "删除失败",
+		                    msg: result.message
+		                });
+		            }
+	            },"json");
+	        }
+	    });
+	}
+}
+
+lc.ns.auth.openModifyPanel = function(id){
+    id?$("#panel_list_auth").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_auth").datagrid("getSelected");
+    if (row){
+		$("#panel_modify_auth").dialog("open");
+        $("#form_modify_auth").form("load",row);
+    }else{
+    	console.log("...");
+    }
+}
+lc.ns.auth.modifySave = function(){
+	var row = $("#panel_list_auth").datagrid("getSelected");
+	if(row){
+		$("#form_modify_auth").form("submit",{
+	        url: "private/auth/modify.action?id="+row.id,
+	        onSubmit: function(){
+	            return $(this).form("validate");
+	        },
+	        success: function(result){
+	            var result = eval("("+result+")");
+	            if (result&&result.success){
+	            	$("#panel_modify_auth").dialog("close");
+	                if(lc.ns.auth.onPageChange){
+	            		lc.ns.auth.onPageChange();
+	            	}
+	            } else {
+	                $.messager.show({
+	                    title: "保存失败",
+	                    msg: result.message
+	                });
+	            }
+	        }
+	    });
+	}
+}
+
+
+lc.ns.auth.openReadPanel = function(id){
+    id?$("#panel_list_auth").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_auth").datagrid("getSelected");
+    if (row){
+		$("#panel_read_auth").dialog("open");
+        $("#form_read_auth").form("load",row);
+    }
+}
+
+
+
+lc.ns.auth.onPageChange = function(){
+	$("#panel_list_auth").datagrid("reload");
+}
+
+lc.currPageInit = function(){
+	lc.ns.auth.loadList();
+	lc.ns.auth.initUserCombobox();
+}
+$(function(){
+	lc.currPageInit();
+	$.parser.parse("#lc_content");
+});
+</script>

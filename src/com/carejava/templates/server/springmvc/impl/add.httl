@@ -1,0 +1,140 @@
+## ---------------- 持久层接口  ---------------
+## 持久层接口导包
+#macro(idao_import)#end
+
+## 持久层接口属性
+#macro(idao_perporty)#end
+
+## 持久层接口方法
+#macro(idao_method)
+	#set(Project project,Model model)
+    /**	
+	 * Name:保存${model.alies}	
+	 * Params:	
+	 *		${model.lowName}:${model.alies}实例	
+	 * Return:	
+	 *		String:新增${model.alies}ID	
+	 */	
+	public String save(${model.name} ${model.lowName}) throws Exception;
+	
+#end
+
+## ---------------- 持久层实现  ---------------
+## 持久层实现导包
+#macro(dao_import)#end
+
+## 持久层实现属性
+#macro(dao_perporty)#end
+
+## 持久层实现方法
+#macro(dao_method)
+	#set(Project project,Model model)
+	public String save(${model.name} ${model.lowName}) throws Exception {	
+		return (String) hibernateTemplate.save(${model.lowName});	
+	}
+	  
+#end
+
+## ---------------- 业务层接口  ---------------
+## 业务层接口导包
+#macro(iservice_import)#end
+
+## 业务层接口属性
+#macro(iservice_perporty)#end
+
+## 业务层接口方法
+#macro(iservice_method)
+    #set(Project project,Model model)
+    /**	
+	 * Name:保存${model.alies}	
+	 * Params:	
+	 *		${model.lowName}:${model.alies}实例	
+	 * Return:	
+	 *		String:新增${model.alies}ID	
+	 */	
+	public String add(${model.name} ${model.lowName}) throws Exception;
+	
+#end
+
+## ---------------- 业务层实现  ---------------
+## 业务层实现导包
+#macro(service_import)
+#set(Project project,Model model,Function function)
+#for(Relation relation:model.relations)
+#if((relation.type=="ManyToOne"||relation.type=="OneToOne")&&relation.name!="parent")
+import ${project.pkgName}.entry.${relation.relation.model.name};
+import ${project.pkgName}.dao.I${relation.relation.model.name}DAO;
+#end
+#end
+#end
+
+## 业务层实现属性
+#macro(service_perporty)
+#set(Project project,Model model,Function function)
+#for(Relation relation:model.relations)
+#if((relation.type=="ManyToOne"||relation.type=="OneToOne")&&relation.name!="parent")
+	@Autowired
+	private I${relation.relation.model.name}DAO ${relation.relation.model.lowName}DAO;
+	
+#end
+#end
+#end
+
+## 业务层实现方法
+#macro(service_method)
+    #set(Project project,Model model,Function function)
+    public String add(${model.name} ${model.lowName}) throws Exception {
+    	${model.name} temp${model.name} = new ${model.name}();
+		#for(ModelAttribute attr:function.inputs)
+		temp${model.name}.set${attr.upName}(${model.lowName}.get${attr.upName}());
+		#end
+		#for(Relation relation:model.relations)
+		#if(relation.type=="ManyToOne"||relation.type=="OneToOne")
+		if(${model.lowName}.get${relation.upName}()!=null&&${model.lowName}.get${relation.upName}().getId()!=null&&${model.lowName}.get${relation.upName}().getId().trim().length()>0){
+			${relation.relation.model.name} ${relation.relation.model.lowName}Temp = ${relation.relation.model.lowName}DAO.get(${model.lowName}.get${relation.upName}().getId());
+			if(${relation.relation.model.lowName}Temp!=null){
+				temp${model.name}.set${relation.upName}(${relation.relation.model.lowName}Temp);
+				#set(tag = 1)
+				#for(ModelAttribute attr:relation.relation.model.attributes)
+				#if(tag==1&&attr.name=="alies")
+				temp${model.name}.set${relation.upName}Name(${relation.relation.model.lowName}Temp.getAlies());
+				#set(tag = 2)
+				#else(tag==1&&attr.name=="name")
+				temp${model.name}.set${relation.upName}Name(${relation.relation.model.lowName}Temp.getName());
+				#set(tag = 2)
+				#end
+				#end
+				#if(tag==1)
+				temp${model.name}.set${relation.upName}Name(${relation.relation.model.lowName}Temp.getId());
+				#end
+			}
+		}
+		#end
+		#end
+		return ${model.lowName}DAO.save(temp${model.name});	
+	}
+	
+#end
+
+## ---------------- 控制层实现  ---------------
+## 控制层实现导包
+#macro(action_import)#end
+
+## 控制层实现属性
+#macro(action_perporty)#end
+
+## 控制层实现方法
+#macro(action_method)
+    #set(Project project,Model model)
+    @RequestMapping("/private/${model.lowName}/add")	
+    @ResponseBody
+	public JsonResult<${model.name}> add(${model.name} ${model.lowName}) throws Exception {
+		JsonResult<${model.name}> result = new JsonResult<${model.name}>();
+		String id = ${model.lowName}Service.add(${model.lowName});	
+		${model.lowName}.setId(id);
+		result.setSuccess(true);
+		result.setData(${model.lowName});
+		return result;
+	}	
+	
+#end

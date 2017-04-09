@@ -1,0 +1,95 @@
+<div class="jarviswidget some-cool-class" id="my-id-here" data-widget-fullscreenbutton="false">
+    <header style="border-bottom:0">
+        <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+        <h2>
+           	 角色列表
+        </h2>
+    </header>
+	<div class="widget-body" style="padding:0;border:0px;">
+		<table id="panel_list_auth_list" idField="id"
+	        pagination="true" fitColumns="true" singleSelect="true" pageSize="20"
+	        toolbar="#panel_search_auth_list" style="width:100%;height:590px;border:0px;" border="false">
+		    <thead>
+			  <tr>
+				<th field="userName" width="100">用户</th>
+		    	<th field="name" width="100">名字</th>
+		    	<th field="id" formatter="lc.ns.auth_list.formatAction" width="100">操作</th>
+		      </tr>
+		    </thead>
+		</table>
+	</div>
+</div>
+
+<div id="panel_search_auth_list" style="padding:2px 5px;">
+	<form id="form_search_auth_list">
+		名字:<input name="name" class="easyui-textbox" style="width:120px;"/>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="lc.ns.auth_list.search()">查询</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="lc.ns.auth_list.openAddPanel()">添加</a>
+	</form>
+</div>
+
+<div id="panel_read_auth_list" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_read_buttons_auth_list" title="查看角色详情">
+    <div class="ftitle">查看角色详情</div>
+    <form id="form_read_auth_list" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>用户:</label>
+			<input name="userName" class="easyui-textbox" style="width:120px;" readonly="readonly"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>名字:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_read_buttons_auth_list">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_read_auth_list').dialog('close')">关闭</a>
+</div> 
+
+
+<script type="text/javascript">
+lc.initNs("auth_list");
+lc.ns.auth_list.loadList = function(data){
+	data = data==null?{}:data;
+	$("#panel_list_auth_list").datagrid({
+		url:"private/auth/list.action",
+		queryParams:data
+	});
+}
+
+lc.ns.auth_list.formatAction = function(val,row,index){
+    var html =
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.auth_list.openReadPanel(\''+val+'\')">查看</a>&nbsp;';
+    return html;
+}
+
+
+
+lc.ns.auth_list.search = function(){
+	var params = $("#form_search_auth_list").formToObject();
+	lc.ns.auth_list.loadList(params);
+}
+
+lc.ns.auth_list.openReadPanel = function(id){
+    id?$("#panel_list_auth_list").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_auth_list").datagrid("getSelected");
+    if (row){
+		$("#panel_read_auth_list").dialog("open");
+        $("#form_read_auth_list").form("load",row);
+    }
+}
+
+
+
+lc.ns.auth_list.onPageChange = function(){
+	$("#panel_list_auth_list").datagrid("reload");
+}
+
+lc.currPageInit = function(){
+	lc.ns.auth_list.loadList();
+}
+$(function(){
+	lc.currPageInit();
+	$.parser.parse("#lc_content");
+});
+</script>

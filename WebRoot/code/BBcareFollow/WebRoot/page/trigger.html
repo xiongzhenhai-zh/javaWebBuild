@@ -1,0 +1,290 @@
+<div class="jarviswidget some-cool-class" id="my-id-here" data-widget-fullscreenbutton="false">
+    <header style="border-bottom:0">
+        <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+        <h2>
+           	 触发器列表
+        </h2>
+    </header>
+	<div class="widget-body" style="padding:0;border:0px;">
+		<table id="panel_list_trigger" idField="id"
+	        pagination="true" fitColumns="true" singleSelect="true" pageSize="20"
+	        toolbar="#panel_search_trigger" style="width:100%;height:590px;border:0px;" border="false">
+		    <thead>
+			  <tr>
+				<th field="executiveTemplateName" width="100">随访模版</th>
+		    	<th field="name" width="100">触发器名称</th>
+		    	<th field="status" width="100">状态</th>
+		    	<th field="event" width="100">触发事件</th>
+		    	<th field="type" width="100">类型</th>
+		    	<th field="condition" width="100">触发条件</th>
+		    	<th field="id" formatter="lc.ns.trigger.formatAction" width="150">操作</th>
+		      </tr>
+		    </thead>
+		</table>
+	</div>
+</div>
+
+<div id="panel_search_trigger" style="padding:2px 5px;">
+	<form id="form_search_trigger">
+		触发器名称:<input name="name" class="easyui-textbox" style="width:120px;"/>
+		状态:<input name="status" class="easyui-textbox" style="width:120px;"/>
+		触发事件:<input name="event" class="easyui-textbox" style="width:120px;"/>
+		类型:<input name="type" class="easyui-textbox" style="width:120px;"/>
+		触发条件:<input name="condition" class="easyui-textbox" style="width:120px;"/>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="lc.ns.trigger.search()">查询</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="lc.ns.trigger.openAddPanel()">添加</a>
+	</form>
+</div>
+
+<div id="panel_add_trigger" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_add_buttons_trigger" title="添加触发器">
+    <div class="ftitle">添加触发器</div>
+    <form id="form_add_trigger" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>随访模版:</label>
+			<input name="executiveTemplate.id" class="form_input_combo_trigger_executiveTemplate" style="width:120px;"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>触发器名称:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>状态:</label>
+            <input name="status" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>触发事件:</label>
+            <input name="event" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>类型:</label>
+            <input name="type" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>触发条件:</label>
+            <input name="condition" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_add_buttons_trigger">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.trigger.addSave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_add_trigger').dialog('close')">取消</a>
+</div> 
+
+
+<div id="panel_modify_trigger" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_modify_buttons_trigger" title="修改触发器">
+    <div class="ftitle">修改触发器</div>
+    <form id="form_modify_trigger" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>随访模版:</label>
+			<input name="executiveTemplate.id" class="form_input_combo_trigger_executiveTemplate" style="width:120px;"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>触发器名称:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>状态:</label>
+            <input name="status" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>触发事件:</label>
+            <input name="event" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>类型:</label>
+            <input name="type" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>触发条件:</label>
+            <input name="condition" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_modify_buttons_trigger">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.trigger.modifySave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_modify_trigger').dialog('close')">取消</a>
+</div> 
+
+<div id="panel_read_trigger" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_read_buttons_trigger" title="查看触发器详情">
+    <div class="ftitle">查看触发器详情</div>
+    <form id="form_read_trigger" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>随访模版:</label>
+			<input name="executiveTemplateName" class="easyui-textbox" style="width:120px;" readonly="readonly"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>触发器名称:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>状态:</label>
+            <input name="status" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>触发事件:</label>
+            <input name="event" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>类型:</label>
+            <input name="type" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>触发条件:</label>
+            <input name="condition" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_read_buttons_trigger">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_read_trigger').dialog('close')">关闭</a>
+</div> 
+
+
+<script type="text/javascript">
+lc.initNs("trigger");
+lc.ns.trigger.loadList = function(data){
+	data = data==null?{}:data;
+	$("#panel_list_trigger").datagrid({
+		url:"private/trigger/list.action",
+		queryParams:data
+	});
+}
+
+
+
+
+
+lc.ns.trigger.formatAction = function(val,row,index){
+    var html =
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.trigger.openReadPanel(\''+val+'\')">查看</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.trigger.openModifyPanel(\''+val+'\')">编辑</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.trigger.destroy(\''+val+'\')">删除</a>';
+    return html;
+}
+
+
+
+lc.ns.trigger.search = function(){
+	var params = $("#form_search_trigger").formToObject();
+	lc.ns.trigger.loadList(params);
+}
+
+lc.ns.trigger.openAddPanel = function(){
+	$("#panel_add_trigger").dialog("open");
+    $("#form_add_trigger").form("reset");
+}
+lc.ns.trigger.addSave = function(){
+	$("#form_add_trigger").form("submit",{
+        url: "private/trigger/add.action",
+        onSubmit: function(){
+            return $(this).form("validate");
+        },
+        success: function(result){
+            var result = eval("("+result+")");
+            if (result&&result.success){
+            	$("#panel_add_trigger").dialog("close");
+            	if(lc.ns.trigger.onPageChange){
+            		lc.ns.trigger.onPageChange();
+            	}
+            } else {
+                $.messager.show({
+                    title: "保存失败",
+                    msg: result.message
+                });
+            }
+        }
+    });
+}
+lc.ns.trigger.initFollowTemplateCombobox = function(){
+	$(".form_input_combo_trigger_executiveTemplate").combobox({
+	    url:"private/followTemplate/combo.action"
+	});
+}
+
+
+lc.ns.trigger.destroy = function(id){
+	id?$("#panel_list_trigger").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_trigger").datagrid("getSelected");
+    if (row){
+		 $.messager.confirm("提示","你确定要删除该触发器?",function(r){
+	        if (r){
+	            $.post("private/trigger/remove.action",{"id":row.id},function(result){
+		            if (result&&result.success){
+		                if(lc.ns.trigger.onPageChange){
+		            		lc.ns.trigger.onPageChange();
+		            	}
+		            } else {
+		                $.messager.show({
+		                    title: "删除失败",
+		                    msg: result.message
+		                });
+		            }
+	            },"json");
+	        }
+	    });
+	}
+}
+
+lc.ns.trigger.openModifyPanel = function(id){
+    id?$("#panel_list_trigger").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_trigger").datagrid("getSelected");
+    if (row){
+		$("#panel_modify_trigger").dialog("open");
+        $("#form_modify_trigger").form("load",row);
+    }else{
+    	console.log("...");
+    }
+}
+lc.ns.trigger.modifySave = function(){
+	var row = $("#panel_list_trigger").datagrid("getSelected");
+	if(row){
+		$("#form_modify_trigger").form("submit",{
+	        url: "private/trigger/modify.action?id="+row.id,
+	        onSubmit: function(){
+	            return $(this).form("validate");
+	        },
+	        success: function(result){
+	            var result = eval("("+result+")");
+	            if (result&&result.success){
+	            	$("#panel_modify_trigger").dialog("close");
+	                if(lc.ns.trigger.onPageChange){
+	            		lc.ns.trigger.onPageChange();
+	            	}
+	            } else {
+	                $.messager.show({
+	                    title: "保存失败",
+	                    msg: result.message
+	                });
+	            }
+	        }
+	    });
+	}
+}
+
+
+lc.ns.trigger.openReadPanel = function(id){
+    id?$("#panel_list_trigger").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_trigger").datagrid("getSelected");
+    if (row){
+		$("#panel_read_trigger").dialog("open");
+        $("#form_read_trigger").form("load",row);
+    }
+}
+
+
+
+lc.ns.trigger.onPageChange = function(){
+	$("#panel_list_trigger").datagrid("reload");
+}
+
+lc.currPageInit = function(){
+	lc.ns.trigger.loadList();
+	lc.ns.trigger.initFollowTemplateCombobox();
+}
+$(function(){
+	lc.currPageInit();
+	$.parser.parse("#lc_content");
+});
+</script>

@@ -1,0 +1,283 @@
+<!-- widget grid -->
+<div class="alert alert-block alert-info">
+	<input name="projectName" id = "projectName"/>
+    <a href="javascript:void(0);" onclick="addModel()" class="btn btn-primary btn-lg">添加模型</a>
+    <a href="javascript:void(0);" onclick="submit()" class="btn btn-primary btn-lg">提交</a>
+</div>
+<section id="widget-grid" class="">
+    <!-- row -->
+    <div class="row" id="model">
+        <!-- NEW WIDGET START -->
+        <article class="col-sm-12 col-md-12 col-lg-3" id="model_1">
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false">
+                <header>
+                    <h2>模型</h2>
+                </header>
+                <!-- widget div-->
+                <div>
+                    <!-- widget edit box -->
+                    <div class="jarviswidget-editbox">
+                        <!-- This area used as dropdown edit box -->
+                    </div>
+                    <!-- end widget edit box -->
+                    <!-- widget content -->
+                    <div class="widget-body no-padding">
+                        <!-- Error states for elements -->
+                        <form action="" class="smart-form">
+                            <header class="input">
+                                模型名称(英文)
+                                <input type="text" name="modelName" class="modelName" />
+                                    模型名称(中文)
+                                <input type="text" name="modelChinaName" class="modelChinaName" />
+                                
+                                <br/> OneToMany
+                                <input type="text" name="OneToMany" class="OneToMany" />
+                                <br/> ManyToOne
+                                <input type="text" name="ManyToOne" class="ManyToOne" />
+                            </header>
+                            <fieldset id="model_1_1" class="attribute">
+                                <div class="col-sm-12 col-md-12 col-lg-3">
+                                    <section>
+                                        <label class="label">名称</label>
+                                        <label class="input">
+                                            <input type="text" class="name" name="name" style="width:75px">
+                                        </label>
+                                    </section>
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-3">
+                                    <section>
+                                        <label class="label">alias</label>
+                                        <label class="input">
+                                            <input type="text" class="alias" name="aliasName" style="width:75px">
+                                        </label>
+                                    </section>
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-3">
+                                    <section>
+                                        <label class="label">类型</label>
+                                        <label class="select state-success">
+                                            <select name="type" style="width:75px">
+                                                <option value="String">String</option>
+                                                <option value="Date">Date</option>
+                                                <option value="Integer">Integer</option>
+                                                <option value="Boolean">Boolean</option>
+                                                <option value="Double">Double</option>
+                                            </select>
+                                        </label>
+                                    </section>
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-3">
+                                    <section>
+                                        <label class="label"></label>
+                                        <br/>
+                                        <label>
+                                            <a href="javascript:void(0);" onclick="addAttribute('model_1')" class="btn"><span class="glyphicon glyphicon-plus"></span></a>
+                                            <a href="javascript:void(0);" onclick="remove('model_1_1')" class="btn"><span class="glyphicon glyphicon-minus"></span></a>
+                                        </label>
+                                    </section>
+                                </div>
+                            </fieldset>
+                        </form>
+                        <!--/ Error states for elements -->
+                    </div>
+                    <!-- end widget content -->
+                </div>
+                <!-- end widget div -->
+            </div>
+            <!-- end widget -->
+        </article>
+        <!-- WIDGET END -->
+    </div>
+    <!-- end row -->
+</section>
+<!-- end widget grid -->
+<script type="text/javascript">
+//pageSetUp();
+var pagefunction = function() {};
+pagefunction();
+addAttribute = function(modelId) {
+    var num = $('#' + modelId + " fieldset").length;
+    num++;
+    var modelNum = parseInt(modelId.substring(modelId.lastIndexOf("_") + 1, modelId.length));
+    var html = '<fieldset  class="attribute" id="model_' + modelNum + '_' + num + '">' +
+        '    <div class="col-sm-12 col-md-12 col-lg-3">' +
+        '        <section>' +
+        '           <label class="label">名称</label>' +
+        '            <label class="input">' +
+        '                <input type="text" class="name" name="name"  style="width:100px">' +
+        '            </label>' +
+        '        </section>' +
+        '    </div>' +
+        ' 	 <div class="col-sm-12 col-md-12 col-lg-3">' +
+        '            <section>' +
+        '                <label class="label">alias</label>' +
+        '                <label class="input">' +
+        '                    <input type="text" class="alias" name="aliasName" style="width:100px">' +
+        '                </label>' +
+        '            </section>' +
+        '    </div>' +
+        '    <div class="col-sm-12 col-md-12 col-lg-3">' +
+        '        <section>' +
+        '			<label class="label">类型</label>' +
+        '	        <label class="select state-success">' +
+        '	            <select name="type" style="width:75px">' +
+        '	            	<option value="String">String</option>' +
+        '	            	<option value="Date">Date</option>' +
+        '	            	<option value="Integer">Integer</option>' +
+        '	            	<option value="Boolean">Boolean</option>' +
+        '	            	<option value="Double">Double</option>' +
+        '	            </select>' +
+        '	        </label>' +
+        '        </section>' +
+        '    </div>' +
+        '    <div class="col-sm-12 col-md-12 col-lg-3">' +
+        '        <section>' +
+        '            <label class="label"></label>' +
+        '            <br/>' +
+        '            <label>' +
+        '                <a href="javascript:void(0);" onclick="addAttribute(\'model_' + modelNum + '\')" class="btn"><span class="glyphicon glyphicon-plus"></span></a>' +
+        '                <a href="javascript:void(0);" onclick="remove(\'model_' + modelNum + '_' + num + '\')" class="btn"><span class="glyphicon glyphicon-minus"></span></a>' +
+        '            </label>' +
+        '        </section>' +
+        '    </div>' +
+        '</fieldset>';
+    console.info($("#" + modelId).children("form"));
+    $("#" + modelId).find("form").append(html);
+}
+remove = function(attributeId) {
+    var modelId = attributeId.substring(0, attributeId.lastIndexOf("_"));
+    if ($('#' + modelId + " fieldset").length > 0) {
+        $("#" + attributeId).remove();
+    }
+
+}
+addModel = function() {
+    var num = $("#model article").length;
+    num++;
+    var html = '<article class="col-sm-12 col-md-12 col-lg-3" id="model_' + num + '">' +
+        '<div class="jarviswidget" id="wid-id-' + num + '" data-widget-colorbutton="false" data-widget-editbutton="false">' +
+        '    <header>' +
+        '        <h2>模型</h2>' +
+        '     </header>' +
+        '     <div>' +
+        '       <div class="jarviswidget-editbox">' +
+        '        </div>' +
+        '        <div class="widget-body no-padding">' +
+        '            <form action="" class="smart-form">' +
+        '                <header class="input">模型名称' +
+        '					<input type="text" class="modelName" name="modelName"/><br/>' +
+        '                    OneToMany<input type="text" name="OneToMany" class="OneToMany"/><br/>' +
+        '                   ManyToOne<input type="text" name="ManyToOne" class="ManyToOne"/>' +
+        '                </header>' +
+        '                <fieldset id="model_1_1"  class="attribute">' +
+        '                    <div class="col-sm-12 col-md-12 col-lg-3">' +
+        '                        <section>' +
+        '                            <label class="label">名称</label>' +
+        '                            <label class="input">' +
+        '                                <input type="text" class="name" name="name" style="width:100px">' +
+        '                            </label>' +
+        '                        </section>' +
+        '                    </div>' +
+        ' 	 				<div class="col-sm-12 col-md-12 col-lg-3">' +
+        '       			     <section>' +
+        '     		  	         <label class="label">alias</label>' +
+        '      				       <label class="input">' +
+        '        			            <input type="text" class="alias" name="aliasName" style="width:100px">' +
+        '       	 		        </label>' +
+        '          				  </section>' +
+        '   				 </div>' +
+        '                    <div class="col-sm-12 col-md-12 col-lg-3">' +
+        '                        <section>' +
+        '							<label class="label">类型</label>' +
+        '	       					 <label class="select state-success">' +
+        '	         				   <select name="type" style="width:75px">' +
+        '	            					<option value="String">String</option>' +
+        '	           					 	<option value="Date">Date</option>' +
+        '	            					<option value="Integer">Integer</option>' +
+        '	            					<option value="Boolean">Boolean</option>' +
+        '	            					<option value="Double">Double</option>' +
+        '	            				</select>' +
+        '	       					 </label>' +
+        '                        </section>' +
+        '                    </div>' +
+        '                    <div class="col-sm-12 col-md-12 col-lg-3">' +
+        '                        <section>' +
+        '                            <label class="label"></label>' +
+        '                            <br/>' +
+        '                            <label>' +
+        '                                <a href="javascript:void(0);" onclick="addAttribute(\'model_' + num + '\')" class="btn"><span class="glyphicon glyphicon-plus"></span></a>' +
+        '                                <a href="javascript:void(0);" onclick="remove(\'model_' + num + '_1\')" class="btn"><span class="glyphicon glyphicon-minus"></span></a>' +
+        '                            </label>' +
+        '                        </section>' +
+        '                    </div>' +
+        '                </fieldset>' +
+        '            </form>' +
+        '        </div>' +
+        '    </div>' +
+        '</div>' +
+        '</article>';
+    $("#model").append(html);
+    $("#widget-grid").trigger("create");
+}
+
+submit = function() {
+    /*alert($("#model").find("input").val());
+    alert($("#model").find("fieldset").find("input").val());*/
+    var jsons = '{"Model": [';
+    $("#model").find("article").each(function() {
+        jsons += '{"modelName": "' + $(this).find("input.modelName").val() + '","modelChinaName":"'+$(this).find("input.modelChinaName").val()+'",';
+        jsons += '"Attribute": [';
+        $(this).find(".attribute").each(function() {
+            $(this).find("input.name").each(function() {
+                jsons += '{"attributeName":"' + $(this).val() + '",';
+            });
+            $(this).find("input.alias").each(function() {
+                jsons += '"attributeChinaName": "' + $(this).val() + '",';
+            });
+            jsons += '"attributeType":"' + $(this).find("select").val() + '"},';
+
+        });
+        jsons = jsons.substring(0, jsons.length - 1);
+        jsons += '],';
+        jsons += '"OneToMany":[';
+        var OneToMany = $(this).find("input.OneToMany").val().split(",");
+        for (var i = 0; i < OneToMany.length; i++) {
+            if (OneToMany[i] != "") {
+                jsons += '{"many":"' + OneToMany[i] + '"},';
+            } else {
+                jsons += ',';
+            };
+
+        };
+        jsons = jsons.substring(0, jsons.length - 1);
+        jsons += ']';
+
+        jsons += ',"ManyToOne":[';
+        var ManyToOne = $(this).find("input.ManyToOne").val().split(",");
+        for (var i = 0; i < ManyToOne.length; i++) {
+            if (ManyToOne[i] != "") {
+                jsons += '{"one":"' + ManyToOne[i] + '"},';
+            } else {
+                jsons += ',';
+            };
+        };
+        jsons = jsons.substring(0, jsons.length - 1);
+        jsons += ']},';
+    });
+    jsons = jsons.substring(0, jsons.length - 1);
+    jsons += "]}";
+    console.info(jsons);
+//    alert(jsons);
+    $.post("private/projectData/add.action",{"json":jsons,"projectName":$("#projectName").val()},function(result){
+        if (result&&result.success){
+            alert("添加");
+        } else {
+            $.messager.show({
+                title: "删除失败",
+                msg: result.message
+            });
+        }
+    },"json");
+}
+</script>

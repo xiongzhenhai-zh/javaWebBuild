@@ -1,0 +1,17 @@
+## CSS
+#macro(panel_css)#end
+
+## JavaScprit
+#macro(panel_js)#end
+
+## HTML
+#macro(panel_html)
+#set(Project project,Navbar navbar)
+<ul>
+#for(Navbar nav:navbar.children)
+	<li class="">
+		<a href="page/${nav.page}" title="${nav.alies}"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">${nav.alies}</span></a>
+	</li>
+#end
+</ul>
+#end

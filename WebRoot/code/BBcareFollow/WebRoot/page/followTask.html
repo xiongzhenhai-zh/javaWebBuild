@@ -1,0 +1,283 @@
+<div class="jarviswidget some-cool-class" id="my-id-here" data-widget-fullscreenbutton="false">
+    <header style="border-bottom:0">
+        <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+        <h2>
+           	 随访任务列表
+        </h2>
+    </header>
+	<div class="widget-body" style="padding:0;border:0px;">
+		<table id="panel_list_followTask" idField="id"
+	        pagination="true" fitColumns="true" singleSelect="true" pageSize="20"
+	        toolbar="#panel_search_followTask" style="width:100%;height:590px;border:0px;" border="false">
+		    <thead>
+			  <tr>
+				<th field="followPlanName" width="100">随访计划</th>
+				<th field="followTaskTypeName" width="100">随访任务类型</th>
+		    	<th field="taskTime" width="100">任务时间</th>
+		    	<th field="status" width="100">任务状态</th>
+		    	<th field="modelId" width="100">执行模版</th>
+		    	<th field="id" formatter="lc.ns.followTask.formatAction" width="150">操作</th>
+		      </tr>
+		    </thead>
+		</table>
+	</div>
+</div>
+
+<div id="panel_search_followTask" style="padding:2px 5px;">
+	<form id="form_search_followTask">
+		任务时间:<input name="taskTime" class="easyui-textbox" style="width:120px;"/>
+		任务状态:<input name="status" class="easyui-textbox" style="width:120px;"/>
+		执行模版:<input name="modelId" class="easyui-textbox" style="width:120px;"/>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="lc.ns.followTask.search()">查询</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="lc.ns.followTask.openAddPanel()">添加</a>
+	</form>
+</div>
+
+<div id="panel_add_followTask" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_add_buttons_followTask" title="添加随访任务">
+    <div class="ftitle">添加随访任务</div>
+    <form id="form_add_followTask" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>随访计划:</label>
+			<input name="followPlan.id" class="form_input_combo_followTask_followPlan" style="width:120px;"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>随访任务类型:</label>
+			<input name="followTaskType.id" class="form_input_combo_followTask_followTaskType" style="width:120px;"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>任务时间:</label>
+            <input name="taskTime" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>任务状态:</label>
+            <input name="status" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>执行模版:</label>
+            <input name="modelId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_add_buttons_followTask">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.followTask.addSave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_add_followTask').dialog('close')">取消</a>
+</div> 
+
+
+<div id="panel_modify_followTask" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_modify_buttons_followTask" title="修改随访任务">
+    <div class="ftitle">修改随访任务</div>
+    <form id="form_modify_followTask" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>随访计划:</label>
+			<input name="followPlan.id" class="form_input_combo_followTask_followPlan" style="width:120px;"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>随访任务类型:</label>
+			<input name="followTaskType.id" class="form_input_combo_followTask_followTaskType" style="width:120px;"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>任务时间:</label>
+            <input name="taskTime" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>任务状态:</label>
+            <input name="status" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>执行模版:</label>
+            <input name="modelId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_modify_buttons_followTask">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.followTask.modifySave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_modify_followTask').dialog('close')">取消</a>
+</div> 
+
+<div id="panel_read_followTask" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_read_buttons_followTask" title="查看随访任务详情">
+    <div class="ftitle">查看随访任务详情</div>
+    <form id="form_read_followTask" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>随访计划:</label>
+			<input name="followPlanName" class="easyui-textbox" style="width:120px;" readonly="readonly"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>随访任务类型:</label>
+			<input name="followTaskTypeName" class="easyui-textbox" style="width:120px;" readonly="readonly"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>任务时间:</label>
+            <input name="taskTime" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>任务状态:</label>
+            <input name="status" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>执行模版:</label>
+            <input name="modelId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_read_buttons_followTask">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_read_followTask').dialog('close')">关闭</a>
+</div> 
+
+
+<script type="text/javascript">
+lc.initNs("followTask");
+lc.ns.followTask.loadList = function(data){
+	data = data==null?{}:data;
+	$("#panel_list_followTask").datagrid({
+		url:"private/followTask/list.action",
+		queryParams:data
+	});
+}
+
+
+
+lc.ns.followTask.formatAction = function(val,row,index){
+    var html =
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.followTask.openReadPanel(\''+val+'\')">查看</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.followTask.openModifyPanel(\''+val+'\')">编辑</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.followTask.destroy(\''+val+'\')">删除</a>';
+    return html;
+}
+
+
+
+
+lc.ns.followTask.search = function(){
+	var params = $("#form_search_followTask").formToObject();
+	lc.ns.followTask.loadList(params);
+}
+
+lc.ns.followTask.openAddPanel = function(){
+	$("#panel_add_followTask").dialog("open");
+    $("#form_add_followTask").form("reset");
+}
+lc.ns.followTask.addSave = function(){
+	$("#form_add_followTask").form("submit",{
+        url: "private/followTask/add.action",
+        onSubmit: function(){
+            return $(this).form("validate");
+        },
+        success: function(result){
+            var result = eval("("+result+")");
+            if (result&&result.success){
+            	$("#panel_add_followTask").dialog("close");
+            	if(lc.ns.followTask.onPageChange){
+            		lc.ns.followTask.onPageChange();
+            	}
+            } else {
+                $.messager.show({
+                    title: "保存失败",
+                    msg: result.message
+                });
+            }
+        }
+    });
+}
+lc.ns.followTask.initFollowPlanCombobox = function(){
+	$(".form_input_combo_followTask_followPlan").combobox({
+	    url:"private/followPlan/combo.action"
+	});
+}
+
+lc.ns.followTask.initFollowTaskTypeCombobox = function(){
+	$(".form_input_combo_followTask_followTaskType").combobox({
+	    url:"private/followTaskType/combo.action"
+	});
+}
+
+
+lc.ns.followTask.destroy = function(id){
+	id?$("#panel_list_followTask").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_followTask").datagrid("getSelected");
+    if (row){
+		 $.messager.confirm("提示","你确定要删除该随访任务?",function(r){
+	        if (r){
+	            $.post("private/followTask/remove.action",{"id":row.id},function(result){
+		            if (result&&result.success){
+		                if(lc.ns.followTask.onPageChange){
+		            		lc.ns.followTask.onPageChange();
+		            	}
+		            } else {
+		                $.messager.show({
+		                    title: "删除失败",
+		                    msg: result.message
+		                });
+		            }
+	            },"json");
+	        }
+	    });
+	}
+}
+
+lc.ns.followTask.openModifyPanel = function(id){
+    id?$("#panel_list_followTask").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_followTask").datagrid("getSelected");
+    if (row){
+		$("#panel_modify_followTask").dialog("open");
+        $("#form_modify_followTask").form("load",row);
+    }else{
+    	console.log("...");
+    }
+}
+lc.ns.followTask.modifySave = function(){
+	var row = $("#panel_list_followTask").datagrid("getSelected");
+	if(row){
+		$("#form_modify_followTask").form("submit",{
+	        url: "private/followTask/modify.action?id="+row.id,
+	        onSubmit: function(){
+	            return $(this).form("validate");
+	        },
+	        success: function(result){
+	            var result = eval("("+result+")");
+	            if (result&&result.success){
+	            	$("#panel_modify_followTask").dialog("close");
+	                if(lc.ns.followTask.onPageChange){
+	            		lc.ns.followTask.onPageChange();
+	            	}
+	            } else {
+	                $.messager.show({
+	                    title: "保存失败",
+	                    msg: result.message
+	                });
+	            }
+	        }
+	    });
+	}
+}
+
+
+
+lc.ns.followTask.openReadPanel = function(id){
+    id?$("#panel_list_followTask").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_followTask").datagrid("getSelected");
+    if (row){
+		$("#panel_read_followTask").dialog("open");
+        $("#form_read_followTask").form("load",row);
+    }
+}
+
+
+
+
+lc.ns.followTask.onPageChange = function(){
+	$("#panel_list_followTask").datagrid("reload");
+}
+
+lc.currPageInit = function(){
+	lc.ns.followTask.loadList();
+	lc.ns.followTask.initFollowPlanCombobox();
+	lc.ns.followTask.initFollowTaskTypeCombobox();
+}
+$(function(){
+	lc.currPageInit();
+	$.parser.parse("#lc_content");
+});
+</script>

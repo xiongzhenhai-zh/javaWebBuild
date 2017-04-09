@@ -1,0 +1,17 @@
+#set(Project project,Model model)
+package ${project.pkgName}.service;
+
+import ${project.pkgName}.entry.${model.name};
+#for(Function function:model.functions)${include("impl/"+function.name+".httl#iservice_import")}${idao_import}#end
+
+/**
+ * @name:${model.alies}	持久层接口
+ * @author:	${project.author}
+ * @createTime: ${now()}
+ */	
+	
+public interface I${model.name}Service {	
+	
+	#for(Function function:model.functions)${include("impl/"+function.name+".httl#iservice_perporty")}${iservice_perporty}#end
+	#for(Function function:model.functions)${include("impl/"+function.name+".httl#iservice_method")}${iservice_method}#end
+}

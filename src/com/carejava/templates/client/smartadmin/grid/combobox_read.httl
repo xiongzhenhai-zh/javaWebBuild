@@ -1,0 +1,9 @@
+## CSS
+#macro(pp_css)#end
+
+## JavaScprit
+#macro(pp_js)#end
+
+## HTML
+#macro(pp_html)
+#set(Relation relation,Page page)<th field="${relation.name}Name" width="100">${relation.relation.model.alies}</th>#end

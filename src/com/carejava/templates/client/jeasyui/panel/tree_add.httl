@@ -1,0 +1,66 @@
+## CSS
+#macro(panel_css)#end
+
+## JavaScprit
+#macro(panel_js)
+#set(Project project,Page page,Panel panel)
+lc.ns.${page.name}.openAddPanel = function(){
+	$("#panel_add_${page.name}").dialog("open");
+    $("#form_add_${page.name}").form("reset");
+    if(lc.ns.${page.name}.data&&lc.ns.${page.name}.data.params&&lc.ns.${page.name}.data.params["parent.id"]){
+    	$("#form_input_${page.name}_parent_id").val(lc.ns.${page.name}.data.params["parent.id"]);
+        $("#form_input_${page.name}_parent_text").textbox("setText",lc.ns.${page.name}.data.params["text"]);
+    }else{
+        $("#form_input_${page.name}_parent_text").textbox("setText","根节点");
+    }
+        	
+}
+lc.ns.${page.name}.addSave = function(){
+	$("#form_add_${page.name}").form("submit",{
+        url: "private/${panel.store.model.lowName}/${panel.store.function.name}.action",
+        onSubmit: function(){
+            return $(this).form("validate");
+        },
+        success: function(result){
+            var result = eval("("+result+")");
+            if (result&&result.success){
+                $("#panel_add_${page.name}").dialog("close");
+                if(lc.ns.${page.name}.onPageChange){
+            		lc.ns.${page.name}.onPageChange();
+            	}
+            } else {
+                $.messager.show({
+                    title: "保存失败",
+                    msg: result.message
+                });
+            }
+        }
+    });
+}
+#end
+
+## HTML
+#macro(panel_html)
+#set(Project project,Panel panel,Page page)
+<div id="panel_add_${page.name}" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_add_buttons_${page.name}" title="${panel.alies}">
+    <div class="ftitle">${panel.alies}</div>
+    <form id="form_add_${page.name}" method="post" novalidate>
+       	<div class="fitem" style="width:100%">
+			<label>父节点</label>
+            <input id="form_input_${page.name}_parent_id" name="parent.id" type="hidden"/>
+            <input id="form_input_${page.name}_parent_text" class="easyui-textbox" style="width:120px;"/>
+        </div>
+       	#for(PanelPerporty pp:panel.perporties)
+        <div class="fitem" style="width:100%">
+			<label>${pp.alies}:</label>
+            ${include("../"+pp.type+"/"+pp.template+".httl#pp_html")}${pp_html}           
+        </div>
+        #end
+    </form>
+</div>
+<div id="panel_add_buttons_${page.name}">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.${page.name}.addSave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_add_${page.name}').dialog('close')">取消</a>
+</div> 
+#end

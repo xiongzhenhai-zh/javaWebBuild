@@ -1,0 +1,32 @@
+#set(Project project)
+package ${project.pkgName}.vo;	
+
+import java.util.List;
+
+/**
+ * @name:列表	数据对象模型
+ * @author:	${project.author}
+ * @createTime: 
+ */	
+public class VListResult<T> {
+
+	private List<T> rows;
+	
+	private Long total;
+	
+	public List<T> getRows(){
+		return this.rows;
+	}
+	
+	public void setRows(List<T> rows){
+		this.rows = rows;
+	}
+	
+	public Long getTotal(){
+		return this.total;
+	}
+	
+	public void setTotal(Long total){
+		this.total = total;
+	}
+}

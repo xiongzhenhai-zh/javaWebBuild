@@ -1,0 +1,267 @@
+<div class="jarviswidget some-cool-class" id="my-id-here" data-widget-fullscreenbutton="false">
+    <header style="border-bottom:0">
+        <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+        <h2>
+           	 内容单位列表
+        </h2>
+    </header>
+	<div class="widget-body" style="padding:0;border:0px;">
+		<table id="panel_list_contentUnit" idField="id"
+	        pagination="true" fitColumns="true" singleSelect="true" pageSize="20"
+	        toolbar="#panel_search_contentUnit" style="width:100%;height:590px;border:0px;" border="false">
+		    <thead>
+			  <tr>
+		    	<th field="name" width="100">单位名称</th>
+		    	<th field="symbol" width="100">单位符号</th>
+		    	<th field="note" width="100">单位备注</th>
+		    	<th field="type" width="100">单位类别</th>
+		    	<th field="writerId" width="100">所属人ID</th>
+		    	<th field="id" formatter="lc.ns.contentUnit.formatAction" width="150">操作</th>
+		      </tr>
+		    </thead>
+		</table>
+	</div>
+</div>
+
+<div id="panel_search_contentUnit" style="padding:2px 5px;">
+	<form id="form_search_contentUnit">
+		单位名称:<input name="name" class="easyui-textbox" style="width:120px;"/>
+		单位符号:<input name="symbol" class="easyui-textbox" style="width:120px;"/>
+		单位备注:<input name="note" class="easyui-textbox" style="width:120px;"/>
+		单位类别:<input name="type" class="easyui-textbox" style="width:120px;"/>
+		所属人ID:<input name="writerId" class="easyui-textbox" style="width:120px;"/>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="lc.ns.contentUnit.search()">查询</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="lc.ns.contentUnit.openAddPanel()">添加</a>
+	</form>
+</div>
+
+<div id="panel_add_contentUnit" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_add_buttons_contentUnit" title="添加内容单位">
+    <div class="ftitle">添加内容单位</div>
+    <form id="form_add_contentUnit" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>单位名称:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>单位符号:</label>
+            <input name="symbol" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>单位备注:</label>
+            <input name="note" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>单位类别:</label>
+            <input name="type" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>所属人ID:</label>
+            <input name="writerId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_add_buttons_contentUnit">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.contentUnit.addSave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_add_contentUnit').dialog('close')">取消</a>
+</div> 
+
+
+<div id="panel_modify_contentUnit" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_modify_buttons_contentUnit" title="修改内容单位">
+    <div class="ftitle">修改内容单位</div>
+    <form id="form_modify_contentUnit" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>单位名称:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>单位符号:</label>
+            <input name="symbol" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>单位备注:</label>
+            <input name="note" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>单位类别:</label>
+            <input name="type" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>所属人ID:</label>
+            <input name="writerId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_modify_buttons_contentUnit">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.contentUnit.modifySave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_modify_contentUnit').dialog('close')">取消</a>
+</div> 
+
+<div id="panel_read_contentUnit" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_read_buttons_contentUnit" title="查看内容单位详情">
+    <div class="ftitle">查看内容单位详情</div>
+    <form id="form_read_contentUnit" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>单位名称:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>单位符号:</label>
+            <input name="symbol" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>单位备注:</label>
+            <input name="note" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>单位类别:</label>
+            <input name="type" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>所属人ID:</label>
+            <input name="writerId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_read_buttons_contentUnit">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_read_contentUnit').dialog('close')">关闭</a>
+</div> 
+
+
+<script type="text/javascript">
+lc.initNs("contentUnit");
+lc.ns.contentUnit.loadList = function(data){
+	data = data==null?{}:data;
+	$("#panel_list_contentUnit").datagrid({
+		url:"private/contentUnit/list.action",
+		queryParams:data
+	});
+}
+
+
+
+
+
+lc.ns.contentUnit.formatAction = function(val,row,index){
+    var html =
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.contentUnit.openReadPanel(\''+val+'\')">查看</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.contentUnit.openModifyPanel(\''+val+'\')">编辑</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.contentUnit.destroy(\''+val+'\')">删除</a>';
+    return html;
+}
+
+
+lc.ns.contentUnit.search = function(){
+	var params = $("#form_search_contentUnit").formToObject();
+	lc.ns.contentUnit.loadList(params);
+}
+
+lc.ns.contentUnit.openAddPanel = function(){
+	$("#panel_add_contentUnit").dialog("open");
+    $("#form_add_contentUnit").form("reset");
+}
+lc.ns.contentUnit.addSave = function(){
+	$("#form_add_contentUnit").form("submit",{
+        url: "private/contentUnit/add.action",
+        onSubmit: function(){
+            return $(this).form("validate");
+        },
+        success: function(result){
+            var result = eval("("+result+")");
+            if (result&&result.success){
+            	$("#panel_add_contentUnit").dialog("close");
+            	if(lc.ns.contentUnit.onPageChange){
+            		lc.ns.contentUnit.onPageChange();
+            	}
+            } else {
+                $.messager.show({
+                    title: "保存失败",
+                    msg: result.message
+                });
+            }
+        }
+    });
+}
+
+lc.ns.contentUnit.destroy = function(id){
+	id?$("#panel_list_contentUnit").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_contentUnit").datagrid("getSelected");
+    if (row){
+		 $.messager.confirm("提示","你确定要删除该内容单位?",function(r){
+	        if (r){
+	            $.post("private/contentUnit/remove.action",{"id":row.id},function(result){
+		            if (result&&result.success){
+		                if(lc.ns.contentUnit.onPageChange){
+		            		lc.ns.contentUnit.onPageChange();
+		            	}
+		            } else {
+		                $.messager.show({
+		                    title: "删除失败",
+		                    msg: result.message
+		                });
+		            }
+	            },"json");
+	        }
+	    });
+	}
+}
+
+lc.ns.contentUnit.openModifyPanel = function(id){
+    id?$("#panel_list_contentUnit").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_contentUnit").datagrid("getSelected");
+    if (row){
+		$("#panel_modify_contentUnit").dialog("open");
+        $("#form_modify_contentUnit").form("load",row);
+    }else{
+    	console.log("...");
+    }
+}
+lc.ns.contentUnit.modifySave = function(){
+	var row = $("#panel_list_contentUnit").datagrid("getSelected");
+	if(row){
+		$("#form_modify_contentUnit").form("submit",{
+	        url: "private/contentUnit/modify.action?id="+row.id,
+	        onSubmit: function(){
+	            return $(this).form("validate");
+	        },
+	        success: function(result){
+	            var result = eval("("+result+")");
+	            if (result&&result.success){
+	            	$("#panel_modify_contentUnit").dialog("close");
+	                if(lc.ns.contentUnit.onPageChange){
+	            		lc.ns.contentUnit.onPageChange();
+	            	}
+	            } else {
+	                $.messager.show({
+	                    title: "保存失败",
+	                    msg: result.message
+	                });
+	            }
+	        }
+	    });
+	}
+}
+
+lc.ns.contentUnit.openReadPanel = function(id){
+    id?$("#panel_list_contentUnit").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_contentUnit").datagrid("getSelected");
+    if (row){
+		$("#panel_read_contentUnit").dialog("open");
+        $("#form_read_contentUnit").form("load",row);
+    }
+}
+
+
+lc.ns.contentUnit.onPageChange = function(){
+	$("#panel_list_contentUnit").datagrid("reload");
+}
+
+lc.currPageInit = function(){
+	lc.ns.contentUnit.loadList();
+}
+$(function(){
+	lc.currPageInit();
+	$.parser.parse("#lc_content");
+});
+</script>

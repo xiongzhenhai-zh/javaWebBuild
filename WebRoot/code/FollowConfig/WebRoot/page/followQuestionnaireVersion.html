@@ -1,0 +1,275 @@
+<div class="jarviswidget some-cool-class" id="my-id-here" data-widget-fullscreenbutton="false">
+    <header style="border-bottom:0">
+        <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+        <h2>
+           	 随访问卷版本列表
+        </h2>
+    </header>
+	<div class="widget-body" style="padding:0;border:0px;">
+		<table id="panel_list_followQuestionnaireVersion" idField="id"
+	        pagination="true" fitColumns="true" singleSelect="true" pageSize="20"
+	        toolbar="#panel_search_followQuestionnaireVersion" style="width:100%;height:590px;border:0px;" border="false">
+		    <thead>
+			  <tr>
+				<th field="followQuestionnaireName" width="100">随访问卷版本</th>
+		    	<th field="note" width="100">备注</th>
+		    	<th field="status" width="100">状态</th>
+		    	<th field="json" width="100">版本数据</th>
+		    	<th field="createTime" width="100">创建时间</th>
+		    	<th field="id" formatter="lc.ns.followQuestionnaireVersion.formatAction" width="150">操作</th>
+		      </tr>
+		    </thead>
+		</table>
+	</div>
+</div>
+
+<div id="panel_search_followQuestionnaireVersion" style="padding:2px 5px;">
+	<form id="form_search_followQuestionnaireVersion">
+		备注:<input name="note" class="easyui-textbox" style="width:120px;"/>
+		状态:<input name="status" class="easyui-textbox" style="width:120px;"/>
+		版本数据:<input name="json" class="easyui-textbox" style="width:120px;"/>
+		创建时间:<input name="createTime" class="easyui-textbox" style="width:120px;"/>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="lc.ns.followQuestionnaireVersion.search()">查询</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="lc.ns.followQuestionnaireVersion.openAddPanel()">添加</a>
+	</form>
+</div>
+
+<div id="panel_add_followQuestionnaireVersion" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_add_buttons_followQuestionnaireVersion" title="添加随访问卷版本">
+    <div class="ftitle">添加随访问卷版本</div>
+    <form id="form_add_followQuestionnaireVersion" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>随访问卷版本:</label>
+			<input name="followQuestionnaire.id" class="form_input_combo_followQuestionnaireVersion_followQuestionnaire" style="width:120px;"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>备注:</label>
+            <input name="note" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>状态:</label>
+            <input name="status" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>版本数据:</label>
+            <input name="json" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>创建时间:</label>
+            <input name="createTime" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_add_buttons_followQuestionnaireVersion">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.followQuestionnaireVersion.addSave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_add_followQuestionnaireVersion').dialog('close')">取消</a>
+</div> 
+
+
+<div id="panel_modify_followQuestionnaireVersion" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_modify_buttons_followQuestionnaireVersion" title="修改随访问卷版本">
+    <div class="ftitle">修改随访问卷版本</div>
+    <form id="form_modify_followQuestionnaireVersion" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>随访问卷版本:</label>
+			<input name="followQuestionnaire.id" class="form_input_combo_followQuestionnaireVersion_followQuestionnaire" style="width:120px;"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>备注:</label>
+            <input name="note" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>状态:</label>
+            <input name="status" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>版本数据:</label>
+            <input name="json" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>创建时间:</label>
+            <input name="createTime" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_modify_buttons_followQuestionnaireVersion">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.followQuestionnaireVersion.modifySave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_modify_followQuestionnaireVersion').dialog('close')">取消</a>
+</div> 
+
+<div id="panel_read_followQuestionnaireVersion" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_read_buttons_followQuestionnaireVersion" title="查看随访问卷版本详情">
+    <div class="ftitle">查看随访问卷版本详情</div>
+    <form id="form_read_followQuestionnaireVersion" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>随访问卷版本:</label>
+			<input name="followQuestionnaireName" class="easyui-textbox" style="width:120px;" readonly="readonly"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>备注:</label>
+            <input name="note" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>状态:</label>
+            <input name="status" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>版本数据:</label>
+            <input name="json" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>创建时间:</label>
+            <input name="createTime" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_read_buttons_followQuestionnaireVersion">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_read_followQuestionnaireVersion').dialog('close')">关闭</a>
+</div> 
+
+
+<script type="text/javascript">
+lc.initNs("followQuestionnaireVersion");
+lc.ns.followQuestionnaireVersion.loadList = function(data){
+	data = data==null?{}:data;
+	$("#panel_list_followQuestionnaireVersion").datagrid({
+		url:"private/followQuestionnaireVersion/list.action",
+		queryParams:data
+	});
+}
+
+
+
+
+lc.ns.followQuestionnaireVersion.formatAction = function(val,row,index){
+    var html =
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.followQuestionnaireVersion.openReadPanel(\''+val+'\')">查看</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.followQuestionnaireVersion.openModifyPanel(\''+val+'\')">编辑</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.followQuestionnaireVersion.destroy(\''+val+'\')">删除</a>';
+    return html;
+}
+
+
+
+lc.ns.followQuestionnaireVersion.search = function(){
+	var params = $("#form_search_followQuestionnaireVersion").formToObject();
+	lc.ns.followQuestionnaireVersion.loadList(params);
+}
+
+lc.ns.followQuestionnaireVersion.openAddPanel = function(){
+	$("#panel_add_followQuestionnaireVersion").dialog("open");
+    $("#form_add_followQuestionnaireVersion").form("reset");
+}
+lc.ns.followQuestionnaireVersion.addSave = function(){
+	$("#form_add_followQuestionnaireVersion").form("submit",{
+        url: "private/followQuestionnaireVersion/add.action",
+        onSubmit: function(){
+            return $(this).form("validate");
+        },
+        success: function(result){
+            var result = eval("("+result+")");
+            if (result&&result.success){
+            	$("#panel_add_followQuestionnaireVersion").dialog("close");
+            	if(lc.ns.followQuestionnaireVersion.onPageChange){
+            		lc.ns.followQuestionnaireVersion.onPageChange();
+            	}
+            } else {
+                $.messager.show({
+                    title: "保存失败",
+                    msg: result.message
+                });
+            }
+        }
+    });
+}
+lc.ns.followQuestionnaireVersion.initFollowQuestionnaireCombobox = function(){
+	$(".form_input_combo_followQuestionnaireVersion_followQuestionnaire").combobox({
+	    url:"private/followQuestionnaire/combo.action"
+	});
+}
+
+
+lc.ns.followQuestionnaireVersion.destroy = function(id){
+	id?$("#panel_list_followQuestionnaireVersion").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_followQuestionnaireVersion").datagrid("getSelected");
+    if (row){
+		 $.messager.confirm("提示","你确定要删除该随访问卷版本?",function(r){
+	        if (r){
+	            $.post("private/followQuestionnaireVersion/remove.action",{"id":row.id},function(result){
+		            if (result&&result.success){
+		                if(lc.ns.followQuestionnaireVersion.onPageChange){
+		            		lc.ns.followQuestionnaireVersion.onPageChange();
+		            	}
+		            } else {
+		                $.messager.show({
+		                    title: "删除失败",
+		                    msg: result.message
+		                });
+		            }
+	            },"json");
+	        }
+	    });
+	}
+}
+
+lc.ns.followQuestionnaireVersion.openModifyPanel = function(id){
+    id?$("#panel_list_followQuestionnaireVersion").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_followQuestionnaireVersion").datagrid("getSelected");
+    if (row){
+		$("#panel_modify_followQuestionnaireVersion").dialog("open");
+        $("#form_modify_followQuestionnaireVersion").form("load",row);
+    }else{
+    	console.log("...");
+    }
+}
+lc.ns.followQuestionnaireVersion.modifySave = function(){
+	var row = $("#panel_list_followQuestionnaireVersion").datagrid("getSelected");
+	if(row){
+		$("#form_modify_followQuestionnaireVersion").form("submit",{
+	        url: "private/followQuestionnaireVersion/modify.action?id="+row.id,
+	        onSubmit: function(){
+	            return $(this).form("validate");
+	        },
+	        success: function(result){
+	            var result = eval("("+result+")");
+	            if (result&&result.success){
+	            	$("#panel_modify_followQuestionnaireVersion").dialog("close");
+	                if(lc.ns.followQuestionnaireVersion.onPageChange){
+	            		lc.ns.followQuestionnaireVersion.onPageChange();
+	            	}
+	            } else {
+	                $.messager.show({
+	                    title: "保存失败",
+	                    msg: result.message
+	                });
+	            }
+	        }
+	    });
+	}
+}
+
+
+lc.ns.followQuestionnaireVersion.openReadPanel = function(id){
+    id?$("#panel_list_followQuestionnaireVersion").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_followQuestionnaireVersion").datagrid("getSelected");
+    if (row){
+		$("#panel_read_followQuestionnaireVersion").dialog("open");
+        $("#form_read_followQuestionnaireVersion").form("load",row);
+    }
+}
+
+
+
+lc.ns.followQuestionnaireVersion.onPageChange = function(){
+	$("#panel_list_followQuestionnaireVersion").datagrid("reload");
+}
+
+lc.currPageInit = function(){
+	lc.ns.followQuestionnaireVersion.loadList();
+	lc.ns.followQuestionnaireVersion.initFollowQuestionnaireCombobox();
+}
+$(function(){
+	lc.currPageInit();
+	$.parser.parse("#lc_content");
+});
+</script>

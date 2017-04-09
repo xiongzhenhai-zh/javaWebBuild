@@ -1,0 +1,342 @@
+<div class="jarviswidget some-cool-class" id="my-id-here" data-widget-fullscreenbutton="false">
+    <header style="border-bottom:0">
+        <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+        <h2>
+           	 随访队列列表
+        </h2>
+    </header>
+	<div class="widget-body" style="padding:0;border:0px;">
+		<table id="panel_list_followQueue" idField="id"
+	        pagination="true" fitColumns="true" singleSelect="true" pageSize="20"
+	        toolbar="#panel_search_followQueue" style="width:100%;height:590px;border:0px;" border="false">
+		    <thead>
+			  <tr>
+		    	<th field="name" width="100">队列名称</th>
+		    	<th field="masterType" width="100">所属人类型</th>
+		    	<th field="masterName" width="100">所属人名称</th>
+		    	<th field="masterId" width="100">所属人Id</th>
+		    	<th field="introduction" width="100">简介</th>
+		    	<th field="note" width="100">备注</th>
+		    	<th field="status" width="100">队列状态</th>
+		    	<th field="targerNumber" width="100">目标人数</th>
+		    	<th field="usedNumber" width="100">已用人数</th>
+		    	<th field="createTime" width="100">创建时间</th>
+		    	<th field="id" formatter="lc.ns.followQueue.formatAction" width="150">操作</th>
+		      </tr>
+		    </thead>
+		</table>
+	</div>
+</div>
+
+<div id="panel_search_followQueue" style="padding:2px 5px;">
+	<form id="form_search_followQueue">
+		队列名称:<input name="name" class="easyui-textbox" style="width:120px;"/>
+		所属人类型:<input name="masterType" class="easyui-textbox" style="width:120px;"/>
+		所属人名称:<input name="masterName" class="easyui-textbox" style="width:120px;"/>
+		所属人Id:<input name="masterId" class="easyui-textbox" style="width:120px;"/>
+		简介:<input name="introduction" class="easyui-textbox" style="width:120px;"/>
+		备注:<input name="note" class="easyui-textbox" style="width:120px;"/>
+		队列状态:<input name="status" class="easyui-textbox" style="width:120px;"/>
+		目标人数:<input name="targerNumber" class="easyui-textbox" style="width:120px;"/>
+		已用人数:<input name="usedNumber" class="easyui-textbox" style="width:120px;"/>
+		创建时间:<input name="createTime" class="easyui-textbox" style="width:120px;"/>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="lc.ns.followQueue.search()">查询</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="lc.ns.followQueue.openAddPanel()">添加</a>
+	</form>
+</div>
+
+<div id="panel_add_followQueue" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_add_buttons_followQueue" title="添加随访队列">
+    <div class="ftitle">添加随访队列</div>
+    <form id="form_add_followQueue" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>队列名称:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>所属人类型:</label>
+            <input name="masterType" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>所属人名称:</label>
+            <input name="masterName" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>所属人Id:</label>
+            <input name="masterId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>简介:</label>
+            <input name="introduction" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>备注:</label>
+            <input name="note" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>队列状态:</label>
+            <input name="status" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>目标人数:</label>
+            <input name="targerNumber" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>已用人数:</label>
+            <input name="usedNumber" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>创建时间:</label>
+            <input name="createTime" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_add_buttons_followQueue">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.followQueue.addSave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_add_followQueue').dialog('close')">取消</a>
+</div> 
+
+
+<div id="panel_modify_followQueue" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_modify_buttons_followQueue" title="修改随访队列">
+    <div class="ftitle">修改随访队列</div>
+    <form id="form_modify_followQueue" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>队列名称:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>所属人类型:</label>
+            <input name="masterType" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>所属人名称:</label>
+            <input name="masterName" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>所属人Id:</label>
+            <input name="masterId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>简介:</label>
+            <input name="introduction" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>备注:</label>
+            <input name="note" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>队列状态:</label>
+            <input name="status" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>目标人数:</label>
+            <input name="targerNumber" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>已用人数:</label>
+            <input name="usedNumber" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>创建时间:</label>
+            <input name="createTime" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_modify_buttons_followQueue">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.followQueue.modifySave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_modify_followQueue').dialog('close')">取消</a>
+</div> 
+
+<div id="panel_read_followQueue" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_read_buttons_followQueue" title="查看随访队列详情">
+    <div class="ftitle">查看随访队列详情</div>
+    <form id="form_read_followQueue" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>队列名称:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>所属人类型:</label>
+            <input name="masterType" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>所属人名称:</label>
+            <input name="masterName" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>所属人Id:</label>
+            <input name="masterId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>简介:</label>
+            <input name="introduction" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>备注:</label>
+            <input name="note" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>队列状态:</label>
+            <input name="status" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>目标人数:</label>
+            <input name="targerNumber" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>已用人数:</label>
+            <input name="usedNumber" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>创建时间:</label>
+            <input name="createTime" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_read_buttons_followQueue">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_read_followQueue').dialog('close')">关闭</a>
+</div> 
+
+
+<script type="text/javascript">
+lc.initNs("followQueue");
+lc.ns.followQueue.loadList = function(data){
+	data = data==null?{}:data;
+	$("#panel_list_followQueue").datagrid({
+		url:"private/followQueue/list.action",
+		queryParams:data
+	});
+}
+
+
+
+
+
+
+
+
+
+
+lc.ns.followQueue.formatAction = function(val,row,index){
+    var html =
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.followQueue.openReadPanel(\''+val+'\')">查看</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.followQueue.openModifyPanel(\''+val+'\')">编辑</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.followQueue.destroy(\''+val+'\')">删除</a>';
+    return html;
+}
+
+
+lc.ns.followQueue.search = function(){
+	var params = $("#form_search_followQueue").formToObject();
+	lc.ns.followQueue.loadList(params);
+}
+
+lc.ns.followQueue.openAddPanel = function(){
+	$("#panel_add_followQueue").dialog("open");
+    $("#form_add_followQueue").form("reset");
+}
+lc.ns.followQueue.addSave = function(){
+	$("#form_add_followQueue").form("submit",{
+        url: "private/followQueue/add.action",
+        onSubmit: function(){
+            return $(this).form("validate");
+        },
+        success: function(result){
+            var result = eval("("+result+")");
+            if (result&&result.success){
+            	$("#panel_add_followQueue").dialog("close");
+            	if(lc.ns.followQueue.onPageChange){
+            		lc.ns.followQueue.onPageChange();
+            	}
+            } else {
+                $.messager.show({
+                    title: "保存失败",
+                    msg: result.message
+                });
+            }
+        }
+    });
+}
+
+lc.ns.followQueue.destroy = function(id){
+	id?$("#panel_list_followQueue").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_followQueue").datagrid("getSelected");
+    if (row){
+		 $.messager.confirm("提示","你确定要删除该随访队列?",function(r){
+	        if (r){
+	            $.post("private/followQueue/remove.action",{"id":row.id},function(result){
+		            if (result&&result.success){
+		                if(lc.ns.followQueue.onPageChange){
+		            		lc.ns.followQueue.onPageChange();
+		            	}
+		            } else {
+		                $.messager.show({
+		                    title: "删除失败",
+		                    msg: result.message
+		                });
+		            }
+	            },"json");
+	        }
+	    });
+	}
+}
+
+lc.ns.followQueue.openModifyPanel = function(id){
+    id?$("#panel_list_followQueue").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_followQueue").datagrid("getSelected");
+    if (row){
+		$("#panel_modify_followQueue").dialog("open");
+        $("#form_modify_followQueue").form("load",row);
+    }else{
+    	console.log("...");
+    }
+}
+lc.ns.followQueue.modifySave = function(){
+	var row = $("#panel_list_followQueue").datagrid("getSelected");
+	if(row){
+		$("#form_modify_followQueue").form("submit",{
+	        url: "private/followQueue/modify.action?id="+row.id,
+	        onSubmit: function(){
+	            return $(this).form("validate");
+	        },
+	        success: function(result){
+	            var result = eval("("+result+")");
+	            if (result&&result.success){
+	            	$("#panel_modify_followQueue").dialog("close");
+	                if(lc.ns.followQueue.onPageChange){
+	            		lc.ns.followQueue.onPageChange();
+	            	}
+	            } else {
+	                $.messager.show({
+	                    title: "保存失败",
+	                    msg: result.message
+	                });
+	            }
+	        }
+	    });
+	}
+}
+
+lc.ns.followQueue.openReadPanel = function(id){
+    id?$("#panel_list_followQueue").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_followQueue").datagrid("getSelected");
+    if (row){
+		$("#panel_read_followQueue").dialog("open");
+        $("#form_read_followQueue").form("load",row);
+    }
+}
+
+
+lc.ns.followQueue.onPageChange = function(){
+	$("#panel_list_followQueue").datagrid("reload");
+}
+
+lc.currPageInit = function(){
+	lc.ns.followQueue.loadList();
+}
+$(function(){
+	lc.currPageInit();
+	$.parser.parse("#lc_content");
+});
+</script>

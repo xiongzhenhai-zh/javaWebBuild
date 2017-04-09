@@ -1,0 +1,18 @@
+## CSS
+#macro(pp_css)#end
+
+## JavaScprit
+#macro(pp_js)
+#set(PanelPerporty pp,Panel panel,Page page)
+lc.ns.${page.name}.formatReview = function(val,row,index){
+	if(row.status==1){
+    	return '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.${page.name}.review(\''+row.id+'\',2)">撤销</a>&nbsp;';
+	}else{
+		return '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.${page.name}.review(\''+row.id+'\',1)">审核</a>&nbsp;';
+	}
+}
+#end
+
+## HTML
+#macro(pp_html)
+#set(PanelPerporty pp,Page page)<th field="${pp.name}" formatter="lc.ns.${page.name}.formatReview"  width="100">${pp.alies}</th>#end

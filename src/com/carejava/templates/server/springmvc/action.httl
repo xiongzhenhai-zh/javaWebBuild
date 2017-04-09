@@ -1,0 +1,42 @@
+#set(Project project,Model model)
+package ${project.pkgName}.action;
+
+#for(ModelAttribute attr : model.attributes)
+#if(attr.type=="Date")
+import java.util.Date;
+#end
+#end
+import java.util.Map;
+import ${project.pkgName}.entry.${model.name};
+import ${project.pkgName}.util.MyActionSupport;
+import ${project.pkgName}.service.I${model.name}Service;
+import com.opensymphony.xwork2.ModelDriven;
+import org.hibernate.criterion.DetachedCriteria;
+import org.springframework.stereotype.Controller;
+import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.Result;
+import org.apache.struts2.convention.annotation.Results;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.struts2.convention.annotation.ParentPackage;
+
+#for(Function function:model.functions)${include("impl/"+function.name+".httl#action_import")}${idao_import}#end
+
+/**
+ * @name:${model.alies}控制层实现
+ * @author:	${project.author}
+ * @createTime: ${now()}
+ */	
+
+@Controller	
+public class ${model.name}Action extends BBcareControl<${model.name}> {	
+	
+	private static final long serialVersionUID = 1L;	
+	
+	@Autowired	
+	private I${model.name}Service ${model.lowName}Service;
+	
+	#for(Function function:model.functions)${include("impl/"+function.name+".httl#action_perporty")}${action_perporty}#end
+	#for(Function function:model.functions)${include("impl/"+function.name+".httl#action_method")}${action_method}#end
+	
+	
+}

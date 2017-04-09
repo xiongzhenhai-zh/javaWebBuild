@@ -1,0 +1,207 @@
+<div class="jarviswidget some-cool-class" id="my-id-here" data-widget-fullscreenbutton="false">
+    <header style="border-bottom:0">
+        <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+        <h2>
+           	 随访记录列表
+        </h2>
+    </header>
+	<div class="widget-body" style="padding:0;border:0px;">
+		<table id="panel_list_doctorNote" idField="id"
+	        pagination="true" fitColumns="true" singleSelect="true" pageSize="20"
+	        toolbar="#panel_search_doctorNote" style="width:100%;height:590px;border:0px;" border="false">
+		    <thead>
+			  <tr>
+		    	<th field="cszk" width="100">出生状况</th>
+		    	<th field="id" formatter="lc.ns.doctorNote.formatAction" width="150">操作</th>
+		      </tr>
+		    </thead>
+		</table>
+	</div>
+</div>
+
+<div id="panel_search_doctorNote" style="padding:2px 5px;">
+	<form id="form_search_doctorNote">
+		出生状况:<input name="cszk" class="easyui-textbox" style="width:120px;"/>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="lc.ns.doctorNote.search()">查询</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="lc.ns.doctorNote.openAddPanel()">添加</a>
+	</form>
+</div>
+
+<div id="panel_add_doctorNote" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_add_buttons_doctorNote" title="添加随访记录">
+    <div class="ftitle">添加随访记录</div>
+    <form id="form_add_doctorNote" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>出生状况:</label>
+            <input name="cszk" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_add_buttons_doctorNote">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.doctorNote.addSave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_add_doctorNote').dialog('close')">取消</a>
+</div> 
+
+
+<div id="panel_modify_doctorNote" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_modify_buttons_doctorNote" title="修改随访记录">
+    <div class="ftitle">修改随访记录</div>
+    <form id="form_modify_doctorNote" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>出生状况:</label>
+            <input name="cszk" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_modify_buttons_doctorNote">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.doctorNote.modifySave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_modify_doctorNote').dialog('close')">取消</a>
+</div> 
+
+<div id="panel_read_doctorNote" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_read_buttons_doctorNote" title="查看随访记录详情">
+    <div class="ftitle">查看随访记录详情</div>
+    <form id="form_read_doctorNote" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>出生状况:</label>
+            <input name="cszk" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_read_buttons_doctorNote">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_read_doctorNote').dialog('close')">关闭</a>
+</div> 
+
+
+<script type="text/javascript">
+lc.initNs("doctorNote");
+lc.ns.doctorNote.loadList = function(data){
+	data = data==null?{}:data;
+	$("#panel_list_doctorNote").datagrid({
+		url:"private/doctorNote/list.action",
+		queryParams:data
+	});
+}
+
+lc.ns.doctorNote.formatAction = function(val,row,index){
+    var html =
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.doctorNote.openReadPanel(\''+val+'\')">查看</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.doctorNote.openModifyPanel(\''+val+'\')">编辑</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.doctorNote.destroy(\''+val+'\')">删除</a>';
+    return html;
+}
+
+
+lc.ns.doctorNote.search = function(){
+	var params = $("#form_search_doctorNote").formToObject();
+	lc.ns.doctorNote.loadList(params);
+}
+
+lc.ns.doctorNote.openAddPanel = function(){
+	$("#panel_add_doctorNote").dialog("open");
+    $("#form_add_doctorNote").form("reset");
+}
+lc.ns.doctorNote.addSave = function(){
+	$("#form_add_doctorNote").form("submit",{
+        url: "private/doctorNote/add.action",
+        onSubmit: function(){
+            return $(this).form("validate");
+        },
+        success: function(result){
+            var result = eval("("+result+")");
+            if (result&&result.success){
+            	$("#panel_add_doctorNote").dialog("close");
+            	if(lc.ns.doctorNote.onPageChange){
+            		lc.ns.doctorNote.onPageChange();
+            	}
+            } else {
+                $.messager.show({
+                    title: "保存失败",
+                    msg: result.message
+                });
+            }
+        }
+    });
+}
+
+lc.ns.doctorNote.destroy = function(id){
+	id?$("#panel_list_doctorNote").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_doctorNote").datagrid("getSelected");
+    if (row){
+		 $.messager.confirm("提示","你确定要删除该随访记录?",function(r){
+	        if (r){
+	            $.post("private/doctorNote/remove.action",{"id":row.id},function(result){
+		            if (result&&result.success){
+		                if(lc.ns.doctorNote.onPageChange){
+		            		lc.ns.doctorNote.onPageChange();
+		            	}
+		            } else {
+		                $.messager.show({
+		                    title: "删除失败",
+		                    msg: result.message
+		                });
+		            }
+	            },"json");
+	        }
+	    });
+	}
+}
+
+lc.ns.doctorNote.openModifyPanel = function(id){
+    id?$("#panel_list_doctorNote").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_doctorNote").datagrid("getSelected");
+    if (row){
+		$("#panel_modify_doctorNote").dialog("open");
+        $("#form_modify_doctorNote").form("load",row);
+    }else{
+    	console.log("...");
+    }
+}
+lc.ns.doctorNote.modifySave = function(){
+	var row = $("#panel_list_doctorNote").datagrid("getSelected");
+	if(row){
+		$("#form_modify_doctorNote").form("submit",{
+	        url: "private/doctorNote/modify.action?id="+row.id,
+	        onSubmit: function(){
+	            return $(this).form("validate");
+	        },
+	        success: function(result){
+	            var result = eval("("+result+")");
+	            if (result&&result.success){
+	            	$("#panel_modify_doctorNote").dialog("close");
+	                if(lc.ns.doctorNote.onPageChange){
+	            		lc.ns.doctorNote.onPageChange();
+	            	}
+	            } else {
+	                $.messager.show({
+	                    title: "保存失败",
+	                    msg: result.message
+	                });
+	            }
+	        }
+	    });
+	}
+}
+
+lc.ns.doctorNote.openReadPanel = function(id){
+    id?$("#panel_list_doctorNote").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_doctorNote").datagrid("getSelected");
+    if (row){
+		$("#panel_read_doctorNote").dialog("open");
+        $("#form_read_doctorNote").form("load",row);
+    }
+}
+
+
+lc.ns.doctorNote.onPageChange = function(){
+	$("#panel_list_doctorNote").datagrid("reload");
+}
+
+lc.currPageInit = function(){
+	lc.ns.doctorNote.loadList();
+}
+$(function(){
+	lc.currPageInit();
+	$.parser.parse("#lc_content");
+});
+</script>

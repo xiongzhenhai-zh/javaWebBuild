@@ -1,0 +1,275 @@
+<div class="jarviswidget some-cool-class" id="my-id-here" data-widget-fullscreenbutton="false">
+    <header style="border-bottom:0">
+        <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+        <h2>
+           	 医生归档详情列表
+        </h2>
+    </header>
+	<div class="widget-body" style="padding:0;border:0px;">
+		<table id="panel_list_doctorFollowDecordDetail " idField="id"
+	        pagination="true" fitColumns="true" singleSelect="true" pageSize="20"
+	        toolbar="#panel_search_doctorFollowDecordDetail " style="width:100%;height:590px;border:0px;" border="false">
+		    <thead>
+			  <tr>
+				<th field="doctorFollowDecordName" width="100">医生归档档案</th>
+		    	<th field="name" width="100">归档名称</th>
+		    	<th field="question" width="100">问题</th>
+		    	<th field="answer" width="100">答案</th>
+		    	<th field="createTime" width="100">归档时间</th>
+		    	<th field="id" formatter="lc.ns.doctorFollowDecordDetail .formatAction" width="150">操作</th>
+		      </tr>
+		    </thead>
+		</table>
+	</div>
+</div>
+
+<div id="panel_search_doctorFollowDecordDetail " style="padding:2px 5px;">
+	<form id="form_search_doctorFollowDecordDetail ">
+		归档名称:<input name="name" class="easyui-textbox" style="width:120px;"/>
+		问题:<input name="question" class="easyui-textbox" style="width:120px;"/>
+		答案:<input name="answer" class="easyui-textbox" style="width:120px;"/>
+		归档时间:<input name="createTime" class="easyui-textbox" style="width:120px;"/>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="lc.ns.doctorFollowDecordDetail .search()">查询</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="lc.ns.doctorFollowDecordDetail .openAddPanel()">添加</a>
+	</form>
+</div>
+
+<div id="panel_add_doctorFollowDecordDetail " class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_add_buttons_doctorFollowDecordDetail " title="添加医生归档详情">
+    <div class="ftitle">添加医生归档详情</div>
+    <form id="form_add_doctorFollowDecordDetail " method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>医生归档档案:</label>
+			<input name="doctorFollowDecord.id" class="form_input_combo_doctorFollowDecordDetail _doctorFollowDecord" style="width:120px;"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>归档名称:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>问题:</label>
+            <input name="question" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>答案:</label>
+            <input name="answer" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>归档时间:</label>
+            <input name="createTime" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_add_buttons_doctorFollowDecordDetail ">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.doctorFollowDecordDetail .addSave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_add_doctorFollowDecordDetail ').dialog('close')">取消</a>
+</div> 
+
+
+<div id="panel_modify_doctorFollowDecordDetail " class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_modify_buttons_doctorFollowDecordDetail " title="修改医生归档详情">
+    <div class="ftitle">修改医生归档详情</div>
+    <form id="form_modify_doctorFollowDecordDetail " method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>医生归档档案:</label>
+			<input name="doctorFollowDecord.id" class="form_input_combo_doctorFollowDecordDetail _doctorFollowDecord" style="width:120px;"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>归档名称:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>问题:</label>
+            <input name="question" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>答案:</label>
+            <input name="answer" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>归档时间:</label>
+            <input name="createTime" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_modify_buttons_doctorFollowDecordDetail ">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.doctorFollowDecordDetail .modifySave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_modify_doctorFollowDecordDetail ').dialog('close')">取消</a>
+</div> 
+
+<div id="panel_read_doctorFollowDecordDetail " class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_read_buttons_doctorFollowDecordDetail " title="查看医生归档详情详情">
+    <div class="ftitle">查看医生归档详情详情</div>
+    <form id="form_read_doctorFollowDecordDetail " method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>医生归档档案:</label>
+			<input name="doctorFollowDecordName" class="easyui-textbox" style="width:120px;" readonly="readonly"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>归档名称:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>问题:</label>
+            <input name="question" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>答案:</label>
+            <input name="answer" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>归档时间:</label>
+            <input name="createTime" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_read_buttons_doctorFollowDecordDetail ">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_read_doctorFollowDecordDetail ').dialog('close')">关闭</a>
+</div> 
+
+
+<script type="text/javascript">
+lc.initNs("doctorFollowDecordDetail ");
+lc.ns.doctorFollowDecordDetail .loadList = function(data){
+	data = data==null?{}:data;
+	$("#panel_list_doctorFollowDecordDetail ").datagrid({
+		url:"private/doctorFollowDecordDetail /list.action",
+		queryParams:data
+	});
+}
+
+
+
+
+lc.ns.doctorFollowDecordDetail .formatAction = function(val,row,index){
+    var html =
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.doctorFollowDecordDetail .openReadPanel(\''+val+'\')">查看</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.doctorFollowDecordDetail .openModifyPanel(\''+val+'\')">编辑</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.doctorFollowDecordDetail .destroy(\''+val+'\')">删除</a>';
+    return html;
+}
+
+
+
+lc.ns.doctorFollowDecordDetail .search = function(){
+	var params = $("#form_search_doctorFollowDecordDetail ").formToObject();
+	lc.ns.doctorFollowDecordDetail .loadList(params);
+}
+
+lc.ns.doctorFollowDecordDetail .openAddPanel = function(){
+	$("#panel_add_doctorFollowDecordDetail ").dialog("open");
+    $("#form_add_doctorFollowDecordDetail ").form("reset");
+}
+lc.ns.doctorFollowDecordDetail .addSave = function(){
+	$("#form_add_doctorFollowDecordDetail ").form("submit",{
+        url: "private/doctorFollowDecordDetail /add.action",
+        onSubmit: function(){
+            return $(this).form("validate");
+        },
+        success: function(result){
+            var result = eval("("+result+")");
+            if (result&&result.success){
+            	$("#panel_add_doctorFollowDecordDetail ").dialog("close");
+            	if(lc.ns.doctorFollowDecordDetail .onPageChange){
+            		lc.ns.doctorFollowDecordDetail .onPageChange();
+            	}
+            } else {
+                $.messager.show({
+                    title: "保存失败",
+                    msg: result.message
+                });
+            }
+        }
+    });
+}
+lc.ns.doctorFollowDecordDetail .initDoctorFollowDecord Combobox = function(){
+	$(".form_input_combo_doctorFollowDecordDetail _doctorFollowDecord").combobox({
+	    url:"private/doctorFollowDecord /combo.action"
+	});
+}
+
+
+lc.ns.doctorFollowDecordDetail .destroy = function(id){
+	id?$("#panel_list_doctorFollowDecordDetail ").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_doctorFollowDecordDetail ").datagrid("getSelected");
+    if (row){
+		 $.messager.confirm("提示","你确定要删除该医生归档详情?",function(r){
+	        if (r){
+	            $.post("private/doctorFollowDecordDetail /remove.action",{"id":row.id},function(result){
+		            if (result&&result.success){
+		                if(lc.ns.doctorFollowDecordDetail .onPageChange){
+		            		lc.ns.doctorFollowDecordDetail .onPageChange();
+		            	}
+		            } else {
+		                $.messager.show({
+		                    title: "删除失败",
+		                    msg: result.message
+		                });
+		            }
+	            },"json");
+	        }
+	    });
+	}
+}
+
+lc.ns.doctorFollowDecordDetail .openModifyPanel = function(id){
+    id?$("#panel_list_doctorFollowDecordDetail ").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_doctorFollowDecordDetail ").datagrid("getSelected");
+    if (row){
+		$("#panel_modify_doctorFollowDecordDetail ").dialog("open");
+        $("#form_modify_doctorFollowDecordDetail ").form("load",row);
+    }else{
+    	console.log("...");
+    }
+}
+lc.ns.doctorFollowDecordDetail .modifySave = function(){
+	var row = $("#panel_list_doctorFollowDecordDetail ").datagrid("getSelected");
+	if(row){
+		$("#form_modify_doctorFollowDecordDetail ").form("submit",{
+	        url: "private/doctorFollowDecordDetail /modify.action?id="+row.id,
+	        onSubmit: function(){
+	            return $(this).form("validate");
+	        },
+	        success: function(result){
+	            var result = eval("("+result+")");
+	            if (result&&result.success){
+	            	$("#panel_modify_doctorFollowDecordDetail ").dialog("close");
+	                if(lc.ns.doctorFollowDecordDetail .onPageChange){
+	            		lc.ns.doctorFollowDecordDetail .onPageChange();
+	            	}
+	            } else {
+	                $.messager.show({
+	                    title: "保存失败",
+	                    msg: result.message
+	                });
+	            }
+	        }
+	    });
+	}
+}
+
+
+lc.ns.doctorFollowDecordDetail .openReadPanel = function(id){
+    id?$("#panel_list_doctorFollowDecordDetail ").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_doctorFollowDecordDetail ").datagrid("getSelected");
+    if (row){
+		$("#panel_read_doctorFollowDecordDetail ").dialog("open");
+        $("#form_read_doctorFollowDecordDetail ").form("load",row);
+    }
+}
+
+
+
+lc.ns.doctorFollowDecordDetail .onPageChange = function(){
+	$("#panel_list_doctorFollowDecordDetail ").datagrid("reload");
+}
+
+lc.currPageInit = function(){
+	lc.ns.doctorFollowDecordDetail .loadList();
+	lc.ns.doctorFollowDecordDetail .initDoctorFollowDecord Combobox();
+}
+$(function(){
+	lc.currPageInit();
+	$.parser.parse("#lc_content");
+});
+</script>

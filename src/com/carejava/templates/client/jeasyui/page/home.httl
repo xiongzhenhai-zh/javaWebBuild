@@ -1,0 +1,30 @@
+#set(Project project,Page page)
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>${project.alies}</title>
+    <link rel="stylesheet" type="text/css" href="css/theme/bootstrap/easyui.css">
+    <link rel="stylesheet" type="text/css" href="css/theme/icon.css">
+    <link rel="stylesheet" type="text/css" href="css/home.css">
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="js/jquery.portal.js"></script>
+    <script type="text/javascript" src="js/datagrid-detailview.js"></script>
+    <script type="text/javascript" src="js/lc.js"></script>
+    <script type="text/javascript">
+${include("../panel/navbar_top.httl#panel_js")}${panel_js}
+    </script>
+</head>
+<body>
+  <div class="easyui-layout" fit="true">
+	<div data-options="region:'north'" style="height:62px">
+${include("../panel/navbar_top.httl#panel_html")}${panel_html}
+	</div>
+	<div data-options="region:'west'" style="width:180px;" id="lc_nav">
+	</div>
+	<div data-options="region:'center'" id="lc_main">
+	</div>
+  </div>
+</body>
+</html>

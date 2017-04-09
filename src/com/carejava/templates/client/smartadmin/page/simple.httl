@@ -1,0 +1,10 @@
+#set(Project project,Page page)
+#for(Panel panel:page.panels)
+${include("../panel/"+panel.template+".httl#panel_html")}${panel_html}
+#end
+
+<script type="text/javascript">
+#for(Panel panel:page.panels)
+${include("../panel/"+panel.template+".httl#panel_js")}${panel_js}
+#end
+</script>

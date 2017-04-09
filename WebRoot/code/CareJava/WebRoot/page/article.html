@@ -1,0 +1,305 @@
+<div class="jarviswidget some-cool-class" id="my-id-here" data-widget-fullscreenbutton="false">
+    <header style="border-bottom:0">
+        <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+        <h2>
+           	 文章列表
+        </h2>
+    </header>
+	<div class="widget-body" style="padding:0;border:0px;">
+		<table id="panel_list_article" idField="id"
+	        pagination="true" fitColumns="true" singleSelect="true" pageSize="20"
+	        toolbar="#panel_search_article" style="width:100%;height:590px;border:0px;" border="false">
+		    <thead>
+			  <tr>
+				<th field="userName" width="100">用户表</th>
+		    	<th field="title" width="100">标题</th>
+		    	<th field="createTime" width="100">注册时间</th>
+		    	<th field="keyWord" width="100">关键字</th>
+		    	<th field="content" width="100">内容</th>
+		    	<th field="status" width="100">状态</th>
+		    	<th field="type" width="100">类型</th>
+		    	<th field="id" formatter="lc.ns.article.formatAction" width="150">操作</th>
+		      </tr>
+		    </thead>
+		</table>
+	</div>
+</div>
+
+<div id="panel_search_article" style="padding:2px 5px;">
+	<form id="form_search_article">
+		标题:<input name="title" class="easyui-textbox" style="width:120px;"/>
+		注册时间:<input name="createTime" class="easyui-textbox" style="width:120px;"/>
+		关键字:<input name="keyWord" class="easyui-textbox" style="width:120px;"/>
+		内容:<input name="content" class="easyui-textbox" style="width:120px;"/>
+		状态:<input name="status" class="easyui-textbox" style="width:120px;"/>
+		类型:<input name="type" class="easyui-textbox" style="width:120px;"/>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="lc.ns.article.search()">查询</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="lc.ns.article.openAddPanel()">添加</a>
+	</form>
+</div>
+
+<div id="panel_add_article" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_add_buttons_article" title="添加文章">
+    <div class="ftitle">添加文章</div>
+    <form id="form_add_article" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>用户表:</label>
+			<input name="user.id" class="form_input_combo_article_user" style="width:120px;"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>标题:</label>
+            <input name="title" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>注册时间:</label>
+            <input name="createTime" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>关键字:</label>
+            <input name="keyWord" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>内容:</label>
+            <input name="content" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>状态:</label>
+            <input name="status" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>类型:</label>
+            <input name="type" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_add_buttons_article">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.article.addSave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_add_article').dialog('close')">取消</a>
+</div> 
+
+
+<div id="panel_modify_article" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_modify_buttons_article" title="修改文章">
+    <div class="ftitle">修改文章</div>
+    <form id="form_modify_article" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>用户表:</label>
+			<input name="user.id" class="form_input_combo_article_user" style="width:120px;"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>标题:</label>
+            <input name="title" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>注册时间:</label>
+            <input name="createTime" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>关键字:</label>
+            <input name="keyWord" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>内容:</label>
+            <input name="content" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>状态:</label>
+            <input name="status" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>类型:</label>
+            <input name="type" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_modify_buttons_article">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.article.modifySave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_modify_article').dialog('close')">取消</a>
+</div> 
+
+<div id="panel_read_article" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_read_buttons_article" title="查看文章详情">
+    <div class="ftitle">查看文章详情</div>
+    <form id="form_read_article" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>用户表:</label>
+			<input name="userName" class="easyui-textbox" style="width:120px;" readonly="readonly"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>标题:</label>
+            <input name="title" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>注册时间:</label>
+            <input name="createTime" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>关键字:</label>
+            <input name="keyWord" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>内容:</label>
+            <input name="content" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>状态:</label>
+            <input name="status" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>类型:</label>
+            <input name="type" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_read_buttons_article">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_read_article').dialog('close')">关闭</a>
+</div> 
+
+
+<script type="text/javascript">
+lc.initNs("article");
+lc.ns.article.loadList = function(data){
+	data = data==null?{}:data;
+	$("#panel_list_article").datagrid({
+		url:"private/article/list.action",
+		queryParams:data
+	});
+}
+
+
+
+
+
+
+lc.ns.article.formatAction = function(val,row,index){
+    var html =
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.article.openReadPanel(\''+val+'\')">查看</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.article.openModifyPanel(\''+val+'\')">编辑</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.article.destroy(\''+val+'\')">删除</a>';
+    return html;
+}
+
+
+
+lc.ns.article.search = function(){
+	var params = $("#form_search_article").formToObject();
+	lc.ns.article.loadList(params);
+}
+
+lc.ns.article.openAddPanel = function(){
+	$("#panel_add_article").dialog("open");
+    $("#form_add_article").form("reset");
+}
+lc.ns.article.addSave = function(){
+	$("#form_add_article").form("submit",{
+        url: "private/article/add.action",
+        onSubmit: function(){
+            return $(this).form("validate");
+        },
+        success: function(result){
+            var result = eval("("+result+")");
+            if (result&&result.success){
+            	$("#panel_add_article").dialog("close");
+            	if(lc.ns.article.onPageChange){
+            		lc.ns.article.onPageChange();
+            	}
+            } else {
+                $.messager.show({
+                    title: "保存失败",
+                    msg: result.message
+                });
+            }
+        }
+    });
+}
+lc.ns.article.initUserCombobox = function(){
+	$(".form_input_combo_article_user").combobox({
+	    url:"private/user/combo.action"
+	});
+}
+
+
+lc.ns.article.destroy = function(id){
+	id?$("#panel_list_article").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_article").datagrid("getSelected");
+    if (row){
+		 $.messager.confirm("提示","你确定要删除该文章?",function(r){
+	        if (r){
+	            $.post("private/article/remove.action",{"id":row.id},function(result){
+		            if (result&&result.success){
+		                if(lc.ns.article.onPageChange){
+		            		lc.ns.article.onPageChange();
+		            	}
+		            } else {
+		                $.messager.show({
+		                    title: "删除失败",
+		                    msg: result.message
+		                });
+		            }
+	            },"json");
+	        }
+	    });
+	}
+}
+
+lc.ns.article.openModifyPanel = function(id){
+    id?$("#panel_list_article").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_article").datagrid("getSelected");
+    if (row){
+		$("#panel_modify_article").dialog("open");
+        $("#form_modify_article").form("load",row);
+    }else{
+    	console.log("...");
+    }
+}
+lc.ns.article.modifySave = function(){
+	var row = $("#panel_list_article").datagrid("getSelected");
+	if(row){
+		$("#form_modify_article").form("submit",{
+	        url: "private/article/modify.action?id="+row.id,
+	        onSubmit: function(){
+	            return $(this).form("validate");
+	        },
+	        success: function(result){
+	            var result = eval("("+result+")");
+	            if (result&&result.success){
+	            	$("#panel_modify_article").dialog("close");
+	                if(lc.ns.article.onPageChange){
+	            		lc.ns.article.onPageChange();
+	            	}
+	            } else {
+	                $.messager.show({
+	                    title: "保存失败",
+	                    msg: result.message
+	                });
+	            }
+	        }
+	    });
+	}
+}
+
+
+lc.ns.article.openReadPanel = function(id){
+    id?$("#panel_list_article").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_article").datagrid("getSelected");
+    if (row){
+		$("#panel_read_article").dialog("open");
+        $("#form_read_article").form("load",row);
+    }
+}
+
+
+
+lc.ns.article.onPageChange = function(){
+	$("#panel_list_article").datagrid("reload");
+}
+
+lc.currPageInit = function(){
+	lc.ns.article.loadList();
+	lc.ns.article.initUserCombobox();
+}
+$(function(){
+	lc.currPageInit();
+	$.parser.parse("#lc_content");
+});
+</script>

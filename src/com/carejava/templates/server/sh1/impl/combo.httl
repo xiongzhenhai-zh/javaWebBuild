@@ -1,0 +1,94 @@
+﻿## ---------------- 持久层接口  ---------------
+## 持久层接口导包
+#macro(idao_import)#end
+
+## 持久层接口属性
+#macro(idao_perporty)#end
+
+## 持久层接口方法
+#macro(idao_method)#end
+
+## ---------------- 持久层实现  ---------------
+## 持久层实现导包
+#macro(dao_import)#end
+
+## 持久层实现属性
+#macro(dao_perporty)#end
+
+## 持久层实现方法
+#macro(dao_method)#end
+
+## ---------------- 业务层接口  ---------------
+## 业务层接口导包
+#macro(iservice_import)
+import java.util.Map;
+#end
+
+## 业务层接口属性
+#macro(iservice_perporty)#end
+
+## 业务层接口方法
+#macro(iservice_method)
+    #set(Project project,Model model)
+    /**	
+	 * Name:查询${model.alies}列表	
+	 * Params:	
+	 *		dc:离线查询器	
+	 *		page:页码	
+	 *		rows:每页行数	
+	 * Return:	
+	 *		List<Map<String,String>>:${model.alies}列表	
+	 */
+	public List<Map<String,String>> combo(DetachedCriteria dc,int page,int rows) throws Exception;
+	
+#end
+
+## ---------------- 业务层实现  ---------------
+## 业务层实现导包
+#macro(service_import)
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+#end
+
+## 业务层实现属性
+#macro(service_perporty)#end
+
+## 业务层实现方法
+#macro(service_method)
+    #set(Project project,Model model)
+    public List<Map<String,String>> combo(final DetachedCriteria dc,final int page,final int rows) throws Exception {	
+		List<Map<String,String>> list = new ArrayList<Map<String,String>>();
+		List<${model.name}> ${model.lowName}s = ${model.lowName}DAO.list(dc, page, rows);
+		for(${model.name} ${model.lowName}:${model.lowName}s){
+			Map<String,String> obj = new HashMap<String,String>();
+			obj.put("value",${model.lowName}.getId());
+			#set(tag = 1)
+			#for(ModelAttribute attr:model.attributes)
+			#if(tag==1&&attr.name=="alies")
+			obj.put("text",${model.lowName}.getAlies());
+			#set(tag = 2)
+			#else(tag==1&&attr.name=="name")
+			obj.put("text",${model.lowName}.getName());
+			#set(tag = 2)
+			#end
+			#end
+			#if(tag==1)
+			obj.put("text",${model.lowName}.getId());
+			#end
+			list.add(obj);
+		}
+		return list;	
+	}	
+	
+#end
+
+## ---------------- 控制层实现  ---------------
+## 控制层实现导包
+#macro(action_import)#end
+
+## 控制层实现属性
+#macro(action_perporty)#end
+
+## 控制层实现方法
+#macro(action_method)#end

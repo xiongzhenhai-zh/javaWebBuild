@@ -1,0 +1,27 @@
+## CSS
+#macro(panel_css)#end
+
+## JavaScprit
+#macro(panel_js)
+#set(Project project,Navbar navbar)
+lc.initSubPage = function(){
+	#for(Navbar nav:navbar.children)
+	#if(for.first)
+	lc.subnav('${nav.page}');
+	#end
+	#end
+};
+lc.initSubPage();
+#end
+
+## HTML
+#macro(panel_html)
+#set(Project project,Navbar navbar)
+#for(Navbar nav:navbar.children)
+#if(for.first)
+<a herf="javascprit:void(0)" onclick="lc.subnav('${nav.page}')">${nav.alies}</a><br/>
+#else
+<a herf="javascprit:void(0)" onclick="lc.subnav('${nav.page}')">${nav.alies}</a><br/>
+#end
+#end
+#end

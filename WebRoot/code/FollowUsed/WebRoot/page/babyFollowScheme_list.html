@@ -1,0 +1,130 @@
+<div class="jarviswidget some-cool-class" id="my-id-here" data-widget-fullscreenbutton="false">
+    <header style="border-bottom:0">
+        <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+        <h2>
+           	 宝宝随访方案列表
+        </h2>
+    </header>
+	<div class="widget-body" style="padding:0;border:0px;">
+		<table id="panel_list_babyFollowScheme_list" idField="id"
+	        pagination="true" fitColumns="true" singleSelect="true" pageSize="20"
+	        toolbar="#panel_search_babyFollowScheme_list" style="width:100%;height:590px;border:0px;" border="false">
+		    <thead>
+			  <tr>
+				<th field="followUserName" width="100">随访用户</th>
+		    	<th field="name" width="100">方案名称</th>
+		    	<th field="userId" width="100">宝宝Id</th>
+		    	<th field="followSchemeId" width="100">方案Id</th>
+		    	<th field="followSchemeVersion" width="100">方案版本</th>
+		    	<th field="followSchemeVersionId" width="100">方案版本Id</th>
+		    	<th field="createTime" width="100">创建时间</th>
+		    	<th field="id" formatter="lc.ns.babyFollowScheme_list.formatAction" width="100">操作</th>
+		      </tr>
+		    </thead>
+		</table>
+	</div>
+</div>
+
+<div id="panel_search_babyFollowScheme_list" style="padding:2px 5px;">
+	<form id="form_search_babyFollowScheme_list">
+		方案名称:<input name="name" class="easyui-textbox" style="width:120px;"/>
+		宝宝Id:<input name="userId" class="easyui-textbox" style="width:120px;"/>
+		方案Id:<input name="followSchemeId" class="easyui-textbox" style="width:120px;"/>
+		方案版本:<input name="followSchemeVersion" class="easyui-textbox" style="width:120px;"/>
+		方案版本Id:<input name="followSchemeVersionId" class="easyui-textbox" style="width:120px;"/>
+		创建时间:<input name="createTime" class="easyui-textbox" style="width:120px;"/>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="lc.ns.babyFollowScheme_list.search()">查询</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="lc.ns.babyFollowScheme_list.openAddPanel()">添加</a>
+	</form>
+</div>
+
+<div id="panel_read_babyFollowScheme_list" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_read_buttons_babyFollowScheme_list" title="查看宝宝随访方案详情">
+    <div class="ftitle">查看宝宝随访方案详情</div>
+    <form id="form_read_babyFollowScheme_list" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>随访用户:</label>
+			<input name="followUserName" class="easyui-textbox" style="width:120px;" readonly="readonly"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>方案名称:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>宝宝Id:</label>
+            <input name="userId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>方案Id:</label>
+            <input name="followSchemeId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>方案版本:</label>
+            <input name="followSchemeVersion" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>方案版本Id:</label>
+            <input name="followSchemeVersionId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>创建时间:</label>
+            <input name="createTime" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_read_buttons_babyFollowScheme_list">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_read_babyFollowScheme_list').dialog('close')">关闭</a>
+</div> 
+
+
+<script type="text/javascript">
+lc.initNs("babyFollowScheme_list");
+lc.ns.babyFollowScheme_list.loadList = function(data){
+	data = data==null?{}:data;
+	$("#panel_list_babyFollowScheme_list").datagrid({
+		url:"private/babyFollowScheme/list.action",
+		queryParams:data
+	});
+}
+
+
+
+
+
+
+lc.ns.babyFollowScheme_list.formatAction = function(val,row,index){
+    var html =
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.babyFollowScheme_list.openReadPanel(\''+val+'\')">查看</a>&nbsp;';
+    return html;
+}
+
+
+
+lc.ns.babyFollowScheme_list.search = function(){
+	var params = $("#form_search_babyFollowScheme_list").formToObject();
+	lc.ns.babyFollowScheme_list.loadList(params);
+}
+
+lc.ns.babyFollowScheme_list.openReadPanel = function(id){
+    id?$("#panel_list_babyFollowScheme_list").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_babyFollowScheme_list").datagrid("getSelected");
+    if (row){
+		$("#panel_read_babyFollowScheme_list").dialog("open");
+        $("#form_read_babyFollowScheme_list").form("load",row);
+    }
+}
+
+
+
+lc.ns.babyFollowScheme_list.onPageChange = function(){
+	$("#panel_list_babyFollowScheme_list").datagrid("reload");
+}
+
+lc.currPageInit = function(){
+	lc.ns.babyFollowScheme_list.loadList();
+}
+$(function(){
+	lc.currPageInit();
+	$.parser.parse("#lc_content");
+});
+</script>

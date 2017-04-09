@@ -1,0 +1,18 @@
+#set(Project project,Model model)
+package ${project.pkgName}.dao;
+
+import ${project.pkgName}.entry.${model.name};
+import java.io.Serializable;
+#for(Function function:model.functions)${include("impl/"+function.name+".httl#idao_import")}${idao_import}#end
+
+/**
+ * @name:${model.alies}	持久层接口
+ * @author:	${project.author}
+ * @createTime: 
+ */	
+	
+public interface I${model.name}DAO {	
+	
+	#for(Function function:model.functions)${include("impl/"+function.name+".httl#idao_perporty")}${idao_perporty}#end
+	#for(Function function:model.functions)${include("impl/"+function.name+".httl#idao_method")}${idao_method}#end
+}

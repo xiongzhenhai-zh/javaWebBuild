@@ -1,0 +1,359 @@
+<div class="jarviswidget some-cool-class" id="my-id-here" data-widget-fullscreenbutton="false">
+    <header style="border-bottom:0">
+        <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+        <h2>
+           	 随访内容列表
+        </h2>
+    </header>
+	<div class="widget-body" style="padding:0;border:0px;">
+		<table id="panel_list_followContent" idField="id"
+	        pagination="true" fitColumns="true" singleSelect="true" pageSize="20"
+	        toolbar="#panel_search_followContent" style="width:100%;height:590px;border:0px;" border="false">
+		    <thead>
+			  <tr>
+				<th field="contentClassName" width="100">内容分类</th>
+				<th field="contentTypeName" width="100">内容类型</th>
+				<th field="contentUnitName" width="100">内容单位</th>
+				<th field="followTemplateName" width="100">随访模版</th>
+		    	<th field="name" width="100">内容名称</th>
+		    	<th field="isNull" width="100">是否必填</th>
+		    	<th field="config" width="100">配置信息</th>
+		    	<th field="sort" width="100">排序</th>
+		    	<th field="writerId" width="100">所属人ID</th>
+		    	<th field="id" formatter="lc.ns.followContent.formatAction" width="150">操作</th>
+		      </tr>
+		    </thead>
+		</table>
+	</div>
+</div>
+
+<div id="panel_search_followContent" style="padding:2px 5px;">
+	<form id="form_search_followContent">
+		内容名称:<input name="name" class="easyui-textbox" style="width:120px;"/>
+		是否必填:<input name="isNull" class="easyui-textbox" style="width:120px;"/>
+		配置信息:<input name="config" class="easyui-textbox" style="width:120px;"/>
+		排序:<input name="sort" class="easyui-textbox" style="width:120px;"/>
+		所属人ID:<input name="writerId" class="easyui-textbox" style="width:120px;"/>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="lc.ns.followContent.search()">查询</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="lc.ns.followContent.openAddPanel()">添加</a>
+	</form>
+</div>
+
+<div id="panel_add_followContent" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_add_buttons_followContent" title="添加随访内容">
+    <div class="ftitle">添加随访内容</div>
+    <form id="form_add_followContent" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>内容分类:</label>
+			<input name="contentClass.id" class="form_input_combo_followContent_contentClass" style="width:120px;"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>内容类型:</label>
+			<input name="contentType.id" class="form_input_combo_followContent_contentType" style="width:120px;"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>内容单位:</label>
+			<input name="contentUnit.id" class="form_input_combo_followContent_contentUnit" style="width:120px;"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>随访模版:</label>
+			<input name="followTemplate.id" class="form_input_combo_followContent_followTemplate" style="width:120px;"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>内容名称:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>是否必填:</label>
+            <input name="isNull" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>配置信息:</label>
+            <input name="config" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>排序:</label>
+            <input name="sort" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>所属人ID:</label>
+            <input name="writerId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_add_buttons_followContent">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.followContent.addSave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_add_followContent').dialog('close')">取消</a>
+</div> 
+
+
+<div id="panel_modify_followContent" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_modify_buttons_followContent" title="修改随访内容">
+    <div class="ftitle">修改随访内容</div>
+    <form id="form_modify_followContent" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>内容分类:</label>
+			<input name="contentClass.id" class="form_input_combo_followContent_contentClass" style="width:120px;"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>内容类型:</label>
+			<input name="contentType.id" class="form_input_combo_followContent_contentType" style="width:120px;"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>内容单位:</label>
+			<input name="contentUnit.id" class="form_input_combo_followContent_contentUnit" style="width:120px;"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>随访模版:</label>
+			<input name="followTemplate.id" class="form_input_combo_followContent_followTemplate" style="width:120px;"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>内容名称:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>是否必填:</label>
+            <input name="isNull" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>配置信息:</label>
+            <input name="config" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>排序:</label>
+            <input name="sort" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>所属人ID:</label>
+            <input name="writerId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_modify_buttons_followContent">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.followContent.modifySave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_modify_followContent').dialog('close')">取消</a>
+</div> 
+
+<div id="panel_read_followContent" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_read_buttons_followContent" title="查看随访内容详情">
+    <div class="ftitle">查看随访内容详情</div>
+    <form id="form_read_followContent" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>内容分类:</label>
+			<input name="contentClassName" class="easyui-textbox" style="width:120px;" readonly="readonly"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>内容类型:</label>
+			<input name="contentTypeName" class="easyui-textbox" style="width:120px;" readonly="readonly"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>内容单位:</label>
+			<input name="contentUnitName" class="easyui-textbox" style="width:120px;" readonly="readonly"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>随访模版:</label>
+			<input name="followTemplateName" class="easyui-textbox" style="width:120px;" readonly="readonly"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>内容名称:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>是否必填:</label>
+            <input name="isNull" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>配置信息:</label>
+            <input name="config" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>排序:</label>
+            <input name="sort" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>所属人ID:</label>
+            <input name="writerId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_read_buttons_followContent">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_read_followContent').dialog('close')">关闭</a>
+</div> 
+
+
+<script type="text/javascript">
+lc.initNs("followContent");
+lc.ns.followContent.loadList = function(data){
+	data = data==null?{}:data;
+	$("#panel_list_followContent").datagrid({
+		url:"private/followContent/list.action",
+		queryParams:data
+	});
+}
+
+
+
+
+
+lc.ns.followContent.formatAction = function(val,row,index){
+    var html =
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.followContent.openReadPanel(\''+val+'\')">查看</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.followContent.openModifyPanel(\''+val+'\')">编辑</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.followContent.destroy(\''+val+'\')">删除</a>';
+    return html;
+}
+
+
+
+
+
+
+lc.ns.followContent.search = function(){
+	var params = $("#form_search_followContent").formToObject();
+	lc.ns.followContent.loadList(params);
+}
+
+lc.ns.followContent.openAddPanel = function(){
+	$("#panel_add_followContent").dialog("open");
+    $("#form_add_followContent").form("reset");
+}
+lc.ns.followContent.addSave = function(){
+	$("#form_add_followContent").form("submit",{
+        url: "private/followContent/add.action",
+        onSubmit: function(){
+            return $(this).form("validate");
+        },
+        success: function(result){
+            var result = eval("("+result+")");
+            if (result&&result.success){
+            	$("#panel_add_followContent").dialog("close");
+            	if(lc.ns.followContent.onPageChange){
+            		lc.ns.followContent.onPageChange();
+            	}
+            } else {
+                $.messager.show({
+                    title: "保存失败",
+                    msg: result.message
+                });
+            }
+        }
+    });
+}
+lc.ns.followContent.initContentClassCombobox = function(){
+	$(".form_input_combo_followContent_contentClass").combobox({
+	    url:"private/contentClass/combo.action"
+	});
+}
+
+lc.ns.followContent.initContentTypeCombobox = function(){
+	$(".form_input_combo_followContent_contentType").combobox({
+	    url:"private/contentType/combo.action"
+	});
+}
+
+lc.ns.followContent.initContentUnitCombobox = function(){
+	$(".form_input_combo_followContent_contentUnit").combobox({
+	    url:"private/contentUnit/combo.action"
+	});
+}
+
+lc.ns.followContent.initFollowTemplateCombobox = function(){
+	$(".form_input_combo_followContent_followTemplate").combobox({
+	    url:"private/followTemplate/combo.action"
+	});
+}
+
+
+lc.ns.followContent.destroy = function(id){
+	id?$("#panel_list_followContent").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_followContent").datagrid("getSelected");
+    if (row){
+		 $.messager.confirm("提示","你确定要删除该随访内容?",function(r){
+	        if (r){
+	            $.post("private/followContent/remove.action",{"id":row.id},function(result){
+		            if (result&&result.success){
+		                if(lc.ns.followContent.onPageChange){
+		            		lc.ns.followContent.onPageChange();
+		            	}
+		            } else {
+		                $.messager.show({
+		                    title: "删除失败",
+		                    msg: result.message
+		                });
+		            }
+	            },"json");
+	        }
+	    });
+	}
+}
+
+lc.ns.followContent.openModifyPanel = function(id){
+    id?$("#panel_list_followContent").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_followContent").datagrid("getSelected");
+    if (row){
+		$("#panel_modify_followContent").dialog("open");
+        $("#form_modify_followContent").form("load",row);
+    }else{
+    	console.log("...");
+    }
+}
+lc.ns.followContent.modifySave = function(){
+	var row = $("#panel_list_followContent").datagrid("getSelected");
+	if(row){
+		$("#form_modify_followContent").form("submit",{
+	        url: "private/followContent/modify.action?id="+row.id,
+	        onSubmit: function(){
+	            return $(this).form("validate");
+	        },
+	        success: function(result){
+	            var result = eval("("+result+")");
+	            if (result&&result.success){
+	            	$("#panel_modify_followContent").dialog("close");
+	                if(lc.ns.followContent.onPageChange){
+	            		lc.ns.followContent.onPageChange();
+	            	}
+	            } else {
+	                $.messager.show({
+	                    title: "保存失败",
+	                    msg: result.message
+	                });
+	            }
+	        }
+	    });
+	}
+}
+
+
+
+
+
+lc.ns.followContent.openReadPanel = function(id){
+    id?$("#panel_list_followContent").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_followContent").datagrid("getSelected");
+    if (row){
+		$("#panel_read_followContent").dialog("open");
+        $("#form_read_followContent").form("load",row);
+    }
+}
+
+
+
+
+
+
+lc.ns.followContent.onPageChange = function(){
+	$("#panel_list_followContent").datagrid("reload");
+}
+
+lc.currPageInit = function(){
+	lc.ns.followContent.loadList();
+	lc.ns.followContent.initContentClassCombobox();
+	lc.ns.followContent.initContentTypeCombobox();
+	lc.ns.followContent.initContentUnitCombobox();
+	lc.ns.followContent.initFollowTemplateCombobox();
+}
+$(function(){
+	lc.currPageInit();
+	$.parser.parse("#lc_content");
+});
+</script>

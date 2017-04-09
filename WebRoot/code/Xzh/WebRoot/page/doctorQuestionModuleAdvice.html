@@ -1,0 +1,297 @@
+<div class="jarviswidget some-cool-class" id="my-id-here" data-widget-fullscreenbutton="false">
+    <header style="border-bottom:0">
+        <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+        <h2>
+           	 医生模块建议列表
+        </h2>
+    </header>
+	<div class="widget-body" style="padding:0;border:0px;">
+		<table id="panel_list_doctorQuestionModuleAdvice" idField="id"
+	        pagination="true" fitColumns="true" singleSelect="true" pageSize="20"
+	        toolbar="#panel_search_doctorQuestionModuleAdvice" style="width:100%;height:590px;border:0px;" border="false">
+		    <thead>
+			  <tr>
+		    	<th field="cordon" width="100">警戒值</th>
+		    	<th field="average" width="100">平均分</th>
+		    	<th field="score" width="100">获得分数</th>
+		    	<th field="qoctorQuestionRecordId" width="100">记录Id</th>
+		    	<th field="title" width="100">标题</th>
+		    	<th field="title" width="100">标题</th>
+		    	<th field="note" width="100">指导</th>
+		    	<th field="id" formatter="lc.ns.doctorQuestionModuleAdvice.formatAction" width="150">操作</th>
+		      </tr>
+		    </thead>
+		</table>
+	</div>
+</div>
+
+<div id="panel_search_doctorQuestionModuleAdvice" style="padding:2px 5px;">
+	<form id="form_search_doctorQuestionModuleAdvice">
+		警戒值:<input name="cordon" class="easyui-textbox" style="width:120px;"/>
+		平均分:<input name="average" class="easyui-textbox" style="width:120px;"/>
+		获得分数:<input name="score" class="easyui-textbox" style="width:120px;"/>
+		记录Id:<input name="qoctorQuestionRecordId" class="easyui-textbox" style="width:120px;"/>
+		标题:<input name="title" class="easyui-textbox" style="width:120px;"/>
+		标题:<input name="title" class="easyui-textbox" style="width:120px;"/>
+		指导:<input name="note" class="easyui-textbox" style="width:120px;"/>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="lc.ns.doctorQuestionModuleAdvice.search()">查询</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="lc.ns.doctorQuestionModuleAdvice.openAddPanel()">添加</a>
+	</form>
+</div>
+
+<div id="panel_add_doctorQuestionModuleAdvice" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_add_buttons_doctorQuestionModuleAdvice" title="添加医生模块建议">
+    <div class="ftitle">添加医生模块建议</div>
+    <form id="form_add_doctorQuestionModuleAdvice" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>警戒值:</label>
+            <input name="cordon" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>平均分:</label>
+            <input name="average" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>获得分数:</label>
+            <input name="score" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>记录Id:</label>
+            <input name="qoctorQuestionRecordId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>标题:</label>
+            <input name="title" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>标题:</label>
+            <input name="title" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>指导:</label>
+            <input name="note" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_add_buttons_doctorQuestionModuleAdvice">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.doctorQuestionModuleAdvice.addSave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_add_doctorQuestionModuleAdvice').dialog('close')">取消</a>
+</div> 
+
+
+<div id="panel_modify_doctorQuestionModuleAdvice" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_modify_buttons_doctorQuestionModuleAdvice" title="修改医生模块建议">
+    <div class="ftitle">修改医生模块建议</div>
+    <form id="form_modify_doctorQuestionModuleAdvice" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>警戒值:</label>
+            <input name="cordon" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>平均分:</label>
+            <input name="average" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>获得分数:</label>
+            <input name="score" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>记录Id:</label>
+            <input name="qoctorQuestionRecordId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>标题:</label>
+            <input name="title" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>标题:</label>
+            <input name="title" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>指导:</label>
+            <input name="note" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_modify_buttons_doctorQuestionModuleAdvice">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.doctorQuestionModuleAdvice.modifySave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_modify_doctorQuestionModuleAdvice').dialog('close')">取消</a>
+</div> 
+
+<div id="panel_read_doctorQuestionModuleAdvice" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_read_buttons_doctorQuestionModuleAdvice" title="查看医生模块建议详情">
+    <div class="ftitle">查看医生模块建议详情</div>
+    <form id="form_read_doctorQuestionModuleAdvice" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>警戒值:</label>
+            <input name="cordon" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>平均分:</label>
+            <input name="average" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>获得分数:</label>
+            <input name="score" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>记录Id:</label>
+            <input name="qoctorQuestionRecordId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>标题:</label>
+            <input name="title" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>标题:</label>
+            <input name="title" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>指导:</label>
+            <input name="note" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_read_buttons_doctorQuestionModuleAdvice">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_read_doctorQuestionModuleAdvice').dialog('close')">关闭</a>
+</div> 
+
+
+<script type="text/javascript">
+lc.initNs("doctorQuestionModuleAdvice");
+lc.ns.doctorQuestionModuleAdvice.loadList = function(data){
+	data = data==null?{}:data;
+	$("#panel_list_doctorQuestionModuleAdvice").datagrid({
+		url:"private/doctorQuestionModuleAdvice/list.action",
+		queryParams:data
+	});
+}
+
+
+
+
+
+
+
+lc.ns.doctorQuestionModuleAdvice.formatAction = function(val,row,index){
+    var html =
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.doctorQuestionModuleAdvice.openReadPanel(\''+val+'\')">查看</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.doctorQuestionModuleAdvice.openModifyPanel(\''+val+'\')">编辑</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.doctorQuestionModuleAdvice.destroy(\''+val+'\')">删除</a>';
+    return html;
+}
+
+
+lc.ns.doctorQuestionModuleAdvice.search = function(){
+	var params = $("#form_search_doctorQuestionModuleAdvice").formToObject();
+	lc.ns.doctorQuestionModuleAdvice.loadList(params);
+}
+
+lc.ns.doctorQuestionModuleAdvice.openAddPanel = function(){
+	$("#panel_add_doctorQuestionModuleAdvice").dialog("open");
+    $("#form_add_doctorQuestionModuleAdvice").form("reset");
+}
+lc.ns.doctorQuestionModuleAdvice.addSave = function(){
+	$("#form_add_doctorQuestionModuleAdvice").form("submit",{
+        url: "private/doctorQuestionModuleAdvice/add.action",
+        onSubmit: function(){
+            return $(this).form("validate");
+        },
+        success: function(result){
+            var result = eval("("+result+")");
+            if (result&&result.success){
+            	$("#panel_add_doctorQuestionModuleAdvice").dialog("close");
+            	if(lc.ns.doctorQuestionModuleAdvice.onPageChange){
+            		lc.ns.doctorQuestionModuleAdvice.onPageChange();
+            	}
+            } else {
+                $.messager.show({
+                    title: "保存失败",
+                    msg: result.message
+                });
+            }
+        }
+    });
+}
+
+lc.ns.doctorQuestionModuleAdvice.destroy = function(id){
+	id?$("#panel_list_doctorQuestionModuleAdvice").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_doctorQuestionModuleAdvice").datagrid("getSelected");
+    if (row){
+		 $.messager.confirm("提示","你确定要删除该医生模块建议?",function(r){
+	        if (r){
+	            $.post("private/doctorQuestionModuleAdvice/remove.action",{"id":row.id},function(result){
+		            if (result&&result.success){
+		                if(lc.ns.doctorQuestionModuleAdvice.onPageChange){
+		            		lc.ns.doctorQuestionModuleAdvice.onPageChange();
+		            	}
+		            } else {
+		                $.messager.show({
+		                    title: "删除失败",
+		                    msg: result.message
+		                });
+		            }
+	            },"json");
+	        }
+	    });
+	}
+}
+
+lc.ns.doctorQuestionModuleAdvice.openModifyPanel = function(id){
+    id?$("#panel_list_doctorQuestionModuleAdvice").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_doctorQuestionModuleAdvice").datagrid("getSelected");
+    if (row){
+		$("#panel_modify_doctorQuestionModuleAdvice").dialog("open");
+        $("#form_modify_doctorQuestionModuleAdvice").form("load",row);
+    }else{
+    	console.log("...");
+    }
+}
+lc.ns.doctorQuestionModuleAdvice.modifySave = function(){
+	var row = $("#panel_list_doctorQuestionModuleAdvice").datagrid("getSelected");
+	if(row){
+		$("#form_modify_doctorQuestionModuleAdvice").form("submit",{
+	        url: "private/doctorQuestionModuleAdvice/modify.action?id="+row.id,
+	        onSubmit: function(){
+	            return $(this).form("validate");
+	        },
+	        success: function(result){
+	            var result = eval("("+result+")");
+	            if (result&&result.success){
+	            	$("#panel_modify_doctorQuestionModuleAdvice").dialog("close");
+	                if(lc.ns.doctorQuestionModuleAdvice.onPageChange){
+	            		lc.ns.doctorQuestionModuleAdvice.onPageChange();
+	            	}
+	            } else {
+	                $.messager.show({
+	                    title: "保存失败",
+	                    msg: result.message
+	                });
+	            }
+	        }
+	    });
+	}
+}
+
+lc.ns.doctorQuestionModuleAdvice.openReadPanel = function(id){
+    id?$("#panel_list_doctorQuestionModuleAdvice").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_doctorQuestionModuleAdvice").datagrid("getSelected");
+    if (row){
+		$("#panel_read_doctorQuestionModuleAdvice").dialog("open");
+        $("#form_read_doctorQuestionModuleAdvice").form("load",row);
+    }
+}
+
+
+lc.ns.doctorQuestionModuleAdvice.onPageChange = function(){
+	$("#panel_list_doctorQuestionModuleAdvice").datagrid("reload");
+}
+
+lc.currPageInit = function(){
+	lc.ns.doctorQuestionModuleAdvice.loadList();
+}
+$(function(){
+	lc.currPageInit();
+	$.parser.parse("#lc_content");
+});
+</script>

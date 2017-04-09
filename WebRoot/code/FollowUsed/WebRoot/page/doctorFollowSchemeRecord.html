@@ -1,0 +1,302 @@
+<table id="panel_list_doctorFollowSchemeRecord" title="会员随访记录列表" idField="id"
+        pagination="true" fitColumns="true" singleSelect="true" fit="true" pageSize="20"
+        toolbar="#panel_search_doctorFollowSchemeRecord">
+    <thead>
+		<tr>
+        	<th field="name" width="100">计划名称</th>
+        	<th field="type" width="100">记录类型</th>
+        	<th field="status" width="100">状态</th>
+        	<th field="babyFollowSchemeRecordId" width="100">宝宝记录Id</th>
+        	<th field="completeTime" width="100">完成时间</th>
+        	<th field="createTime" width="100">创建时间</th>
+        	<th field="id" formatter="lc.ns.doctorFollowSchemeRecord.formatAction" width="150">操作</th>
+        </tr>
+    </thead>
+</table>
+
+<table id="panel_list_doctorFollowSchemeRecord" title="会员随访记录内容列表" idField="id"
+        pagination="true" fitColumns="true" singleSelect="true" fit="true" pageSize="20"
+        toolbar="#panel_search_doctorFollowSchemeRecord">
+    <thead>
+		<tr>
+        	<th field="name" width="100">名称</th>
+        	<th field="babyFollowSchemeRecordDetailId" width="100">会员详情id</th>
+        	<th field="questionId" width="100">问题id</th>
+        	<th field="type" width="100">内容类型</th>
+        	<th field="answer" width="100">答案</th>
+        	<th field="status" width="100">状态</th>
+        	<th field="followSchemeVersionId" width="100">方案版本Id</th>
+        	<th field="createTime" width="100">创建时间</th>
+        	<th field="id" formatter="lc.ns.doctorFollowSchemeRecord.formatAction" width="150">操作</th>
+        </tr>
+    </thead>
+</table>
+
+<div id="panel_search_doctorFollowSchemeRecord" style="padding:2px 5px;">
+	<form id="form_search_doctorFollowSchemeRecord">
+		计划名称:<input name="name" class="easyui-textbox" style="width:120px;"/>
+		记录类型:<input name="type" class="easyui-textbox" style="width:120px;"/>
+		状态:<input name="status" class="easyui-textbox" style="width:120px;"/>
+		宝宝记录Id:<input name="babyFollowSchemeRecordId" class="easyui-textbox" style="width:120px;"/>
+		完成时间:<input name="completeTime" class="easyui-textbox" style="width:120px;"/>
+		创建时间:<input name="createTime" class="easyui-textbox" style="width:120px;"/>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="lc.ns.doctorFollowSchemeRecord.search()">查询</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="lc.ns.doctorFollowSchemeRecord.openAddPanel()">添加</a>
+	</form>
+</div>
+
+<div id="panel_add_doctorFollowSchemeRecord" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_add_buttons_doctorFollowSchemeRecord" title="添加会员随访记录">
+    <div class="ftitle">添加会员随访记录</div>
+    <form id="form_add_doctorFollowSchemeRecord" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>计划名称:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>记录类型:</label>
+            <input name="type" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>状态:</label>
+            <input name="status" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>宝宝记录Id:</label>
+            <input name="babyFollowSchemeRecordId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>完成时间:</label>
+            <input name="completeTime" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>创建时间:</label>
+            <input name="createTime" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_add_buttons_doctorFollowSchemeRecord">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.doctorFollowSchemeRecord.addSave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_add_doctorFollowSchemeRecord').dialog('close')">取消</a>
+</div> 
+
+
+<div id="panel_modify_doctorFollowSchemeRecord" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_modify_buttons_doctorFollowSchemeRecord" title="修改会员随访记录">
+    <div class="ftitle">修改会员随访记录</div>
+    <form id="form_modify_doctorFollowSchemeRecord" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>计划名称:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>记录类型:</label>
+            <input name="type" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>状态:</label>
+            <input name="status" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>宝宝记录Id:</label>
+            <input name="babyFollowSchemeRecordId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>完成时间:</label>
+            <input name="completeTime" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>创建时间:</label>
+            <input name="createTime" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_modify_buttons_doctorFollowSchemeRecord">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.doctorFollowSchemeRecord.modifySave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_modify_doctorFollowSchemeRecord').dialog('close')">取消</a>
+</div> 
+
+<div id="panel_read_doctorFollowSchemeRecord" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_read_buttons_doctorFollowSchemeRecord" title="查看会员随访记录详情">
+    <div class="ftitle">查看会员随访记录详情</div>
+    <form id="form_read_doctorFollowSchemeRecord" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>计划名称:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>记录类型:</label>
+            <input name="type" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>状态:</label>
+            <input name="status" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>宝宝记录Id:</label>
+            <input name="babyFollowSchemeRecordId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>完成时间:</label>
+            <input name="completeTime" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>创建时间:</label>
+            <input name="createTime" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_read_buttons_doctorFollowSchemeRecord">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_read_doctorFollowSchemeRecord').dialog('close')">关闭</a>
+</div> 
+
+
+<script type="text/javascript">
+lc.initNs("doctorFollowSchemeRecord");
+lc.ns.doctorFollowSchemeRecord.loadList = function(data){
+	data = data==null?{}:data;
+	$("#panel_list_doctorFollowSchemeRecord").datagrid({
+		url:"private/doctorFollowSchemeRecordDetail/list.action",
+		queryParams:data,
+		view: detailview,
+        detailFormatter:function(index,row){
+        },
+	});
+}
+
+
+
+
+
+
+
+lc.ns.doctorFollowSchemeRecord.loadList = function(data){
+	data = data==null?{}:data;
+	$("#panel_list_doctorFollowSchemeRecord").datagrid({
+		url:"private//.action",
+		queryParams:data,
+		view: detailview,
+        detailFormatter:function(index,row){
+        },
+	});
+}
+
+
+
+
+
+
+
+lc.ns.doctorFollowSchemeRecord.search = function(){
+	var params = $("#form_search_doctorFollowSchemeRecord").formToObject();
+	lc.ns.doctorFollowSchemeRecord.loadList(params);
+}
+
+lc.ns.doctorFollowSchemeRecord.openAddPanel = function(){
+	$("#panel_add_doctorFollowSchemeRecord").dialog("open");
+    $("#form_add_doctorFollowSchemeRecord").form("reset");
+}
+lc.ns.doctorFollowSchemeRecord.addSave = function(){
+	$("#form_add_doctorFollowSchemeRecord").form("submit",{
+        url: "private/doctorFollowSchemeRecord/add.action",
+        onSubmit: function(){
+            return $(this).form("validate");
+        },
+        success: function(result){
+            var result = eval("("+result+")");
+            if (result&&result.success){
+            	$("#panel_add_doctorFollowSchemeRecord").dialog("close");
+            	if(lc.ns.doctorFollowSchemeRecord.onPageChange){
+            		lc.ns.doctorFollowSchemeRecord.onPageChange();
+            	}
+            } else {
+                $.messager.show({
+                    title: "保存失败",
+                    msg: result.message
+                });
+            }
+        }
+    });
+}
+
+lc.ns.doctorFollowSchemeRecord.destroy = function(id){
+	id?$("#panel_list_doctorFollowSchemeRecord").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_doctorFollowSchemeRecord").datagrid("getSelected");
+    if (row){
+		 $.messager.confirm("提示","你确定要删除该会员随访记录?",function(r){
+	        if (r){
+	            $.post("private/doctorFollowSchemeRecord/remove.action",{"id":row.id},function(result){
+		            if (result&&result.success){
+		                if(lc.ns.doctorFollowSchemeRecord.onPageChange){
+		            		lc.ns.doctorFollowSchemeRecord.onPageChange();
+		            	}
+		            } else {
+		                $.messager.show({
+		                    title: "删除失败",
+		                    msg: result.message
+		                });
+		            }
+	            },"json");
+	        }
+	    });
+	}
+}
+
+lc.ns.doctorFollowSchemeRecord.openModifyPanel = function(id){
+    id?$("#panel_list_doctorFollowSchemeRecord").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_doctorFollowSchemeRecord").datagrid("getSelected");
+    if (row){
+		$("#panel_modify_doctorFollowSchemeRecord").dialog("open");
+        $("#form_modify_doctorFollowSchemeRecord").form("load",row);
+    }else{
+    	console.log("...");
+    }
+}
+lc.ns.doctorFollowSchemeRecord.modifySave = function(){
+	var row = $("#panel_list_doctorFollowSchemeRecord").datagrid("getSelected");
+	if(row){
+		$("#form_modify_doctorFollowSchemeRecord").form("submit",{
+	        url: "private/doctorFollowSchemeRecord/modify.action?id="+row.id,
+	        onSubmit: function(){
+	            return $(this).form("validate");
+	        },
+	        success: function(result){
+	            var result = eval("("+result+")");
+	            if (result&&result.success){
+	            	$("#panel_add_doctorFollowSchemeRecord").dialog("close");
+	                if(lc.ns.doctorFollowSchemeRecord.onPageChange){
+	            		lc.ns.doctorFollowSchemeRecord.onPageChange();
+	            	}
+	            } else {
+	                $.messager.show({
+	                    title: "保存失败",
+	                    msg: result.message
+	                });
+	            }
+	        }
+	    });
+	}
+}
+
+lc.ns.doctorFollowSchemeRecord.openReadPanel = function(id){
+    id?$("#panel_list_doctorFollowSchemeRecord").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_doctorFollowSchemeRecord").datagrid("getSelected");
+    if (row){
+		$("#panel_read_doctorFollowSchemeRecord").dialog("open");
+        $("#form_read_doctorFollowSchemeRecord").form("load",row);
+    }
+}
+
+
+lc.ns.doctorFollowSchemeRecord.onPageChange = function(){
+	$("#panel_list_doctorFollowSchemeRecord").datagrid("reload");
+}
+
+lc.currPageInit = function(){
+	lc.ns.doctorFollowSchemeRecord.loadList();
+}
+$(function(){
+	lc.currPageInit();
+	$.parser.parse("#lc_content");
+});
+</script>

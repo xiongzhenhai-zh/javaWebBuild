@@ -1,0 +1,289 @@
+<div class="easyui-layout" fit="true">
+	<div data-options="region:'west'" style="width:40%;">
+	<ul id="panel_tree_modelClass_tree"></ul>
+
+	</div>
+	<div data-options="region:'center'">
+	<div class="jarviswidget some-cool-class" id="my-id-here" data-widget-fullscreenbutton="false">
+    <header style="border-bottom:0">
+        <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+        <h2>
+           	 模型分类列表
+        </h2>
+    </header>
+	<div class="widget-body" style="padding:0;border:0px;">
+		<table id="panel_list_modelClass_tree" idField="id"
+	        pagination="true" fitColumns="true" singleSelect="true" pageSize="20"
+	        toolbar="#panel_search_modelClass_tree" style="width:100%;height:590px;border:0px;" border="false">
+		    <thead>
+			  <tr>
+				<th field="parentName" width="100">模型分类</th>
+		    	<th field="name" width="100">分类名称</th>
+		    	<th field="sort" width="100">排序</th>
+		    	<th field="id" formatter="lc.ns.modelClass_tree.formatAction" width="150">操作</th>
+		      </tr>
+		    </thead>
+		</table>
+	</div>
+</div>
+
+	</div>
+</div>
+<div id="panel_search_modelClass_tree" style="padding:2px 5px;">
+	<form id="form_search_modelClass_tree">
+		分类名称:<input name="name" class="easyui-textbox" style="width:120px;"/>
+		排序:<input name="sort" class="easyui-textbox" style="width:120px;"/>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="lc.ns.modelClass_tree.search()">查询</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="lc.ns.modelClass_tree.openAddPanel()">添加</a>
+	</form>
+</div>
+
+<div id="panel_add_modelClass_tree" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_add_buttons_modelClass_tree" title="添加模型分类">
+    <div class="ftitle">添加模型分类</div>
+    <form id="form_add_modelClass_tree" method="post" novalidate>
+       	<div class="fitem" style="width:100%">
+			<label>父节点</label>
+            <input id="form_input_modelClass_tree_parent_id" name="parent.id" type="hidden"/>
+            <input id="form_input_modelClass_tree_parent_text" class="easyui-textbox" style="width:120px;"/>
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>分类名称:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>排序:</label>
+            <input name="sort" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_add_buttons_modelClass_tree">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.modelClass_tree.addSave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_add_modelClass_tree').dialog('close')">取消</a>
+</div> 
+
+
+<div id="panel_modify_modelClass_tree" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_modify_buttons_modelClass_tree" title="修改模型分类">
+    <div class="ftitle">修改模型分类</div>
+    <form id="form_modify_modelClass_tree" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>模型分类:</label>
+			<input name="parent.id" class="form_input_combo_modelClass_tree_parent" style="width:120px;"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>分类名称:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>排序:</label>
+            <input name="sort" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_modify_buttons_modelClass_tree">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.modelClass_tree.modifySave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_modify_modelClass_tree').dialog('close')">取消</a>
+</div> 
+
+<div id="panel_read_modelClass_tree" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_read_buttons_modelClass_tree" title="查看模型分类详情">
+    <div class="ftitle">查看模型分类详情</div>
+    <form id="form_read_modelClass_tree" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>模型分类:</label>
+			<input name="parentName" class="easyui-textbox" style="width:120px;" readonly="readonly"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>分类名称:</label>
+            <input name="name" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>排序:</label>
+            <input name="sort" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_read_buttons_modelClass_tree">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_read_modelClass_tree').dialog('close')">关闭</a>
+</div> 
+
+
+<script type="text/javascript">
+lc.initNs("modelClass_tree");
+lc.ns.modelClass_tree.data = {};
+lc.ns.modelClass_tree.tree = function(){
+	$("#panel_tree_modelClass_tree").tree({
+		url: "private/modelClass/tree.action",
+        method: "get",
+        animate: true,
+        loadFilter:function(data){
+			var array = new Array();
+			array[0] = {};
+			array[0].id = "-1";
+			array[0].text = "根节点"
+			if(data.rows&&data.rows.length>0){
+				array[0].children = lc.formatTreeData(data.rows,function(newData,oldData){
+					newData.name = oldData.name;
+					newData.sort = oldData.sort;
+					return newData;
+				});
+			}
+			return array;
+		},
+        onSelect:function(node){
+        	lc.ns.modelClass_tree.data.params = {};
+        	if(node.id!="-1"){
+	        	lc.ns.modelClass_tree.data.params["parent.id"] = node.id;
+	        	lc.ns.modelClass_tree.data.params["text"] = node.text;
+	        	lc.ns.modelClass_tree.loadList({"parent.id":node.id});
+        	}else{
+        		lc.ns.modelClass_tree.loadList();
+        	}
+        }
+	});
+}
+
+lc.ns.modelClass_tree.loadList = function(data){
+	data = data==null?{}:data;
+	$("#panel_list_modelClass_tree").datagrid({
+		url:"private/modelClass/list.action",
+		queryParams:data
+	});
+}
+
+
+lc.ns.modelClass_tree.formatAction = function(val,row,index){
+    var html =
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.modelClass_tree.openReadPanel(\''+val+'\')">查看</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.modelClass_tree.openModifyPanel(\''+val+'\')">编辑</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.modelClass_tree.destroy(\''+val+'\')">删除</a>';
+    return html;
+}
+
+
+
+lc.ns.modelClass_tree.search = function(){
+	var params = $("#form_search_modelClass_tree").formToObject();
+	lc.ns.modelClass_tree.loadList(params);
+}
+
+lc.ns.modelClass_tree.openAddPanel = function(){
+	$("#panel_add_modelClass_tree").dialog("open");
+    $("#form_add_modelClass_tree").form("reset");
+    if(lc.ns.modelClass_tree.data&&lc.ns.modelClass_tree.data.params&&lc.ns.modelClass_tree.data.params["parent.id"]){
+    	$("#form_input_modelClass_tree_parent_id").val(lc.ns.modelClass_tree.data.params["parent.id"]);
+        $("#form_input_modelClass_tree_parent_text").textbox("setText",lc.ns.modelClass_tree.data.params["text"]);
+    }else{
+        $("#form_input_modelClass_tree_parent_text").textbox("setText","根节点");
+    }
+        	
+}
+lc.ns.modelClass_tree.addSave = function(){
+	$("#form_add_modelClass_tree").form("submit",{
+        url: "private/modelClass/add.action",
+        onSubmit: function(){
+            return $(this).form("validate");
+        },
+        success: function(result){
+            var result = eval("("+result+")");
+            if (result&&result.success){
+                $("#panel_add_modelClass_tree").dialog("close");
+                if(lc.ns.modelClass_tree.onPageChange){
+            		lc.ns.modelClass_tree.onPageChange();
+            	}
+            } else {
+                $.messager.show({
+                    title: "保存失败",
+                    msg: result.message
+                });
+            }
+        }
+    });
+}
+
+lc.ns.modelClass_tree.destroy = function(id){
+	id?$("#panel_list_modelClass_tree").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_modelClass_tree").datagrid("getSelected");
+    if (row){
+		 $.messager.confirm("提示","你确定要删除该模型分类?",function(r){
+	        if (r){
+	            $.post("private/modelClass/remove.action",{"id":row.id},function(result){
+		            if (result&&result.success){
+		                if(lc.ns.modelClass_tree.onPageChange){
+		            		lc.ns.modelClass_tree.onPageChange();
+		            	}
+		            } else {
+		                $.messager.show({
+		                    title: "删除失败",
+		                    msg: result.message
+		                });
+		            }
+	            },"json");
+	        }
+	    });
+	}
+}
+
+lc.ns.modelClass_tree.openModifyPanel = function(id){
+    id?$("#panel_list_modelClass_tree").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_modelClass_tree").datagrid("getSelected");
+    if (row){
+		$("#panel_modify_modelClass_tree").dialog("open");
+        $("#form_modify_modelClass_tree").form("load",row);
+    }else{
+    	console.log("...");
+    }
+}
+lc.ns.modelClass_tree.modifySave = function(){
+	var row = $("#panel_list_modelClass_tree").datagrid("getSelected");
+	if(row){
+		$("#form_modify_modelClass_tree").form("submit",{
+	        url: "private/modelClass/modify.action?id="+row.id,
+	        onSubmit: function(){
+	            return $(this).form("validate");
+	        },
+	        success: function(result){
+	            var result = eval("("+result+")");
+	            if (result&&result.success){
+	            	$("#panel_modify_modelClass_tree").dialog("close");
+	                if(lc.ns.modelClass_tree.onPageChange){
+	            		lc.ns.modelClass_tree.onPageChange();
+	            	}
+	            } else {
+	                $.messager.show({
+	                    title: "保存失败",
+	                    msg: result.message
+	                });
+	            }
+	        }
+	    });
+	}
+}
+
+
+lc.ns.modelClass_tree.openReadPanel = function(id){
+    id?$("#panel_list_modelClass_tree").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_modelClass_tree").datagrid("getSelected");
+    if (row){
+		$("#panel_read_modelClass_tree").dialog("open");
+        $("#form_read_modelClass_tree").form("load",row);
+    }
+}
+
+
+
+lc.ns.modelClass_tree.onPageChange = function(){
+	$("#panel_list_modelClass_tree").datagrid("reload");
+	$("#panel_tree_modelClass_tree").tree("reload");
+}
+
+lc.currPageInit = function(){
+	lc.ns.modelClass_tree.loadList();
+	lc.ns.modelClass_tree.tree();
+}
+$(function(){
+	lc.currPageInit();
+	$.parser.parse("#lc_content");
+});
+</script>

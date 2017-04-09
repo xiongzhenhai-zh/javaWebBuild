@@ -1,0 +1,51 @@
+﻿## ---------------- 持久层接口  ---------------
+## 持久层接口导包
+#macro(idao_import)#end
+
+## 持久层接口属性
+#macro(idao_perporty)#end
+
+## 持久层接口方法
+#macro(idao_method)#end
+
+## ---------------- 持久层实现  ---------------
+## 持久层实现导包
+#macro(dao_import)#end
+
+## 持久层实现属性
+#macro(dao_perporty)#end
+
+## 持久层实现方法
+#macro(dao_method)#end
+
+## ---------------- 业务层接口  ---------------
+## 业务层接口导包
+#macro(iservice_import)#end
+
+## 业务层接口属性
+#macro(iservice_perporty)#end
+
+## 业务层接口方法
+#macro(iservice_method)#end
+
+## ---------------- 业务层实现  ---------------
+## 业务层实现导包
+#macro(service_import)#end
+
+## 业务层实现属性
+#macro(service_perporty)#end
+
+## 业务层实现方法
+#macro(service_method)#end
+
+## ---------------- 控制层实现  ---------------
+## 控制层实现导包
+#macro(action_import)#end
+
+## 控制层实现属性
+#macro(action_perporty)#end
+
+
+## 控制层实现方法
+#macro(action_method)#end
+   

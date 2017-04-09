@@ -1,0 +1,130 @@
+<div class="jarviswidget some-cool-class" id="my-id-here" data-widget-fullscreenbutton="false">
+    <header style="border-bottom:0">
+        <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+        <h2>
+           	 文章列表
+        </h2>
+    </header>
+	<div class="widget-body" style="padding:0;border:0px;">
+		<table id="panel_list_article_list" idField="id"
+	        pagination="true" fitColumns="true" singleSelect="true" pageSize="20"
+	        toolbar="#panel_search_article_list" style="width:100%;height:590px;border:0px;" border="false">
+		    <thead>
+			  <tr>
+				<th field="userName" width="100">用户表</th>
+		    	<th field="title" width="100">标题</th>
+		    	<th field="createTime" width="100">注册时间</th>
+		    	<th field="keyWord" width="100">关键字</th>
+		    	<th field="content" width="100">内容</th>
+		    	<th field="status" width="100">状态</th>
+		    	<th field="type" width="100">类型</th>
+		    	<th field="id" formatter="lc.ns.article_list.formatAction" width="100">操作</th>
+		      </tr>
+		    </thead>
+		</table>
+	</div>
+</div>
+
+<div id="panel_search_article_list" style="padding:2px 5px;">
+	<form id="form_search_article_list">
+		标题:<input name="title" class="easyui-textbox" style="width:120px;"/>
+		注册时间:<input name="createTime" class="easyui-textbox" style="width:120px;"/>
+		关键字:<input name="keyWord" class="easyui-textbox" style="width:120px;"/>
+		内容:<input name="content" class="easyui-textbox" style="width:120px;"/>
+		状态:<input name="status" class="easyui-textbox" style="width:120px;"/>
+		类型:<input name="type" class="easyui-textbox" style="width:120px;"/>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="lc.ns.article_list.search()">查询</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="lc.ns.article_list.openAddPanel()">添加</a>
+	</form>
+</div>
+
+<div id="panel_read_article_list" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_read_buttons_article_list" title="查看文章详情">
+    <div class="ftitle">查看文章详情</div>
+    <form id="form_read_article_list" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>用户表:</label>
+			<input name="userName" class="easyui-textbox" style="width:120px;" readonly="readonly"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>标题:</label>
+            <input name="title" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>注册时间:</label>
+            <input name="createTime" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>关键字:</label>
+            <input name="keyWord" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>内容:</label>
+            <input name="content" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>状态:</label>
+            <input name="status" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>类型:</label>
+            <input name="type" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_read_buttons_article_list">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_read_article_list').dialog('close')">关闭</a>
+</div> 
+
+
+<script type="text/javascript">
+lc.initNs("article_list");
+lc.ns.article_list.loadList = function(data){
+	data = data==null?{}:data;
+	$("#panel_list_article_list").datagrid({
+		url:"private/article/list.action",
+		queryParams:data
+	});
+}
+
+
+
+
+
+
+lc.ns.article_list.formatAction = function(val,row,index){
+    var html =
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.article_list.openReadPanel(\''+val+'\')">查看</a>&nbsp;';
+    return html;
+}
+
+
+
+lc.ns.article_list.search = function(){
+	var params = $("#form_search_article_list").formToObject();
+	lc.ns.article_list.loadList(params);
+}
+
+lc.ns.article_list.openReadPanel = function(id){
+    id?$("#panel_list_article_list").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_article_list").datagrid("getSelected");
+    if (row){
+		$("#panel_read_article_list").dialog("open");
+        $("#form_read_article_list").form("load",row);
+    }
+}
+
+
+
+lc.ns.article_list.onPageChange = function(){
+	$("#panel_list_article_list").datagrid("reload");
+}
+
+lc.currPageInit = function(){
+	lc.ns.article_list.loadList();
+}
+$(function(){
+	lc.currPageInit();
+	$.parser.parse("#lc_content");
+});
+</script>

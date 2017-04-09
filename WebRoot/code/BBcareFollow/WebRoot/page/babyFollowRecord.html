@@ -1,0 +1,260 @@
+<div class="jarviswidget some-cool-class" id="my-id-here" data-widget-fullscreenbutton="false">
+    <header style="border-bottom:0">
+        <span class="widget-icon"> <i class="fa fa-list"></i> </span>
+        <h2>
+           	 随访记录列表
+        </h2>
+    </header>
+	<div class="widget-body" style="padding:0;border:0px;">
+		<table id="panel_list_babyFollowRecord" idField="id"
+	        pagination="true" fitColumns="true" singleSelect="true" pageSize="20"
+	        toolbar="#panel_search_babyFollowRecord" style="width:100%;height:590px;border:0px;" border="false">
+		    <thead>
+			  <tr>
+				<th field="followPlanName" width="100">随访计划</th>
+		    	<th field="followTemplateId" width="100">随访模版</th>
+		    	<th field="followTime" width="100">随访时间</th>
+		    	<th field="babyId" width="100">随访对象</th>
+		    	<th field="id" formatter="lc.ns.babyFollowRecord.formatAction" width="150">操作</th>
+		      </tr>
+		    </thead>
+		</table>
+	</div>
+</div>
+
+<div id="panel_search_babyFollowRecord" style="padding:2px 5px;">
+	<form id="form_search_babyFollowRecord">
+		随访模版:<input name="followTemplateId" class="easyui-textbox" style="width:120px;"/>
+		随访时间:<input name="followTime" class="easyui-textbox" style="width:120px;"/>
+		随访对象:<input name="babyId" class="easyui-textbox" style="width:120px;"/>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="lc.ns.babyFollowRecord.search()">查询</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="lc.ns.babyFollowRecord.openAddPanel()">添加</a>
+	</form>
+</div>
+
+<div id="panel_add_babyFollowRecord" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_add_buttons_babyFollowRecord" title="添加随访记录">
+    <div class="ftitle">添加随访记录</div>
+    <form id="form_add_babyFollowRecord" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>随访计划:</label>
+			<input name="followPlan.id" class="form_input_combo_babyFollowRecord_followPlan" style="width:120px;"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>随访模版:</label>
+            <input name="followTemplateId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>随访时间:</label>
+            <input name="followTime" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>随访对象:</label>
+            <input name="babyId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_add_buttons_babyFollowRecord">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.babyFollowRecord.addSave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_add_babyFollowRecord').dialog('close')">取消</a>
+</div> 
+
+
+<div id="panel_modify_babyFollowRecord" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_modify_buttons_babyFollowRecord" title="修改随访记录">
+    <div class="ftitle">修改随访记录</div>
+    <form id="form_modify_babyFollowRecord" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>随访计划:</label>
+			<input name="followPlan.id" class="form_input_combo_babyFollowRecord_followPlan" style="width:120px;"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>随访模版:</label>
+            <input name="followTemplateId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>随访时间:</label>
+            <input name="followTime" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>随访对象:</label>
+            <input name="babyId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_modify_buttons_babyFollowRecord">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="lc.ns.babyFollowRecord.modifySave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_modify_babyFollowRecord').dialog('close')">取消</a>
+</div> 
+
+<div id="panel_read_babyFollowRecord" class="easyui-dialog" style="width:400px;height:400px;padding:10px 20px"
+        closed="true" buttons="#panel_read_buttons_babyFollowRecord" title="查看随访记录详情">
+    <div class="ftitle">查看随访记录详情</div>
+    <form id="form_read_babyFollowRecord" method="post" novalidate>
+        <div class="fitem" style="width:100%">
+			<label>随访计划:</label>
+			<input name="followPlanName" class="easyui-textbox" style="width:120px;" readonly="readonly"/>
+		</div>
+        <div class="fitem" style="width:100%">
+			<label>随访模版:</label>
+            <input name="followTemplateId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>随访时间:</label>
+            <input name="followTime" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+        <div class="fitem" style="width:100%">
+			<label>随访对象:</label>
+            <input name="babyId" class="easyui-textbox" style="width:120px;"/>           
+        </div>
+    </form>
+</div>
+<div id="panel_read_buttons_babyFollowRecord">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#panel_read_babyFollowRecord').dialog('close')">关闭</a>
+</div> 
+
+
+<script type="text/javascript">
+lc.initNs("babyFollowRecord");
+lc.ns.babyFollowRecord.loadList = function(data){
+	data = data==null?{}:data;
+	$("#panel_list_babyFollowRecord").datagrid({
+		url:"private/babyFollowRecord/list.action",
+		queryParams:data
+	});
+}
+
+
+
+lc.ns.babyFollowRecord.formatAction = function(val,row,index){
+    var html =
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.babyFollowRecord.openReadPanel(\''+val+'\')">查看</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.babyFollowRecord.openModifyPanel(\''+val+'\')">编辑</a>&nbsp;'+
+    '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="lc.ns.babyFollowRecord.destroy(\''+val+'\')">删除</a>';
+    return html;
+}
+
+
+
+lc.ns.babyFollowRecord.search = function(){
+	var params = $("#form_search_babyFollowRecord").formToObject();
+	lc.ns.babyFollowRecord.loadList(params);
+}
+
+lc.ns.babyFollowRecord.openAddPanel = function(){
+	$("#panel_add_babyFollowRecord").dialog("open");
+    $("#form_add_babyFollowRecord").form("reset");
+}
+lc.ns.babyFollowRecord.addSave = function(){
+	$("#form_add_babyFollowRecord").form("submit",{
+        url: "private/babyFollowRecord/add.action",
+        onSubmit: function(){
+            return $(this).form("validate");
+        },
+        success: function(result){
+            var result = eval("("+result+")");
+            if (result&&result.success){
+            	$("#panel_add_babyFollowRecord").dialog("close");
+            	if(lc.ns.babyFollowRecord.onPageChange){
+            		lc.ns.babyFollowRecord.onPageChange();
+            	}
+            } else {
+                $.messager.show({
+                    title: "保存失败",
+                    msg: result.message
+                });
+            }
+        }
+    });
+}
+lc.ns.babyFollowRecord.initFollowPlanCombobox = function(){
+	$(".form_input_combo_babyFollowRecord_followPlan").combobox({
+	    url:"private/followPlan/combo.action"
+	});
+}
+
+
+lc.ns.babyFollowRecord.destroy = function(id){
+	id?$("#panel_list_babyFollowRecord").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_babyFollowRecord").datagrid("getSelected");
+    if (row){
+		 $.messager.confirm("提示","你确定要删除该随访记录?",function(r){
+	        if (r){
+	            $.post("private/babyFollowRecord/remove.action",{"id":row.id},function(result){
+		            if (result&&result.success){
+		                if(lc.ns.babyFollowRecord.onPageChange){
+		            		lc.ns.babyFollowRecord.onPageChange();
+		            	}
+		            } else {
+		                $.messager.show({
+		                    title: "删除失败",
+		                    msg: result.message
+		                });
+		            }
+	            },"json");
+	        }
+	    });
+	}
+}
+
+lc.ns.babyFollowRecord.openModifyPanel = function(id){
+    id?$("#panel_list_babyFollowRecord").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_babyFollowRecord").datagrid("getSelected");
+    if (row){
+		$("#panel_modify_babyFollowRecord").dialog("open");
+        $("#form_modify_babyFollowRecord").form("load",row);
+    }else{
+    	console.log("...");
+    }
+}
+lc.ns.babyFollowRecord.modifySave = function(){
+	var row = $("#panel_list_babyFollowRecord").datagrid("getSelected");
+	if(row){
+		$("#form_modify_babyFollowRecord").form("submit",{
+	        url: "private/babyFollowRecord/modify.action?id="+row.id,
+	        onSubmit: function(){
+	            return $(this).form("validate");
+	        },
+	        success: function(result){
+	            var result = eval("("+result+")");
+	            if (result&&result.success){
+	            	$("#panel_modify_babyFollowRecord").dialog("close");
+	                if(lc.ns.babyFollowRecord.onPageChange){
+	            		lc.ns.babyFollowRecord.onPageChange();
+	            	}
+	            } else {
+	                $.messager.show({
+	                    title: "保存失败",
+	                    msg: result.message
+	                });
+	            }
+	        }
+	    });
+	}
+}
+
+
+lc.ns.babyFollowRecord.openReadPanel = function(id){
+    id?$("#panel_list_babyFollowRecord").datagrid("selectRecord",id):null;
+    var row = $("#panel_list_babyFollowRecord").datagrid("getSelected");
+    if (row){
+		$("#panel_read_babyFollowRecord").dialog("open");
+        $("#form_read_babyFollowRecord").form("load",row);
+    }
+}
+
+
+
+lc.ns.babyFollowRecord.onPageChange = function(){
+	$("#panel_list_babyFollowRecord").datagrid("reload");
+}
+
+lc.currPageInit = function(){
+	lc.ns.babyFollowRecord.loadList();
+	lc.ns.babyFollowRecord.initFollowPlanCombobox();
+}
+$(function(){
+	lc.currPageInit();
+	$.parser.parse("#lc_content");
+});
+</script>
