@@ -2,6 +2,8 @@
 package ${project.pkgName}.dao;
 
 import ${project.pkgName}.entry.${model.name};
+
+import org.hibernate.criterion.DetachedCriteria;
 #for(Function function:model.functions)${include("impl/"+function.name+".httl#idao_import")}${idao_import}#end
 
 /**

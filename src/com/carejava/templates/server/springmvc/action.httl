@@ -10,14 +10,15 @@ import java.util.Map;
 import ${project.pkgName}.entry.${model.name};
 import ${project.pkgName}.util.MyActionSupport;
 import ${project.pkgName}.service.I${model.name}Service;
-import com.opensymphony.xwork2.ModelDriven;
+import java.util.List;
 import org.hibernate.criterion.DetachedCriteria;
-import org.springframework.stereotype.Controller;
-import org.apache.struts2.convention.annotation.Action;
-import org.apache.struts2.convention.annotation.Result;
-import org.apache.struts2.convention.annotation.Results;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.apache.struts2.convention.annotation.ParentPackage;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 #for(Function function:model.functions)${include("impl/"+function.name+".httl#action_import")}${idao_import}#end
 
@@ -28,7 +29,7 @@ import org.apache.struts2.convention.annotation.ParentPackage;
  */	
 
 @Controller	
-public class ${model.name}Action extends BBcareControl<${model.name}> {	
+public class ${model.name}Action extends CareJavaControl<${model.name}> {	
 	
 	private static final long serialVersionUID = 1L;	
 	

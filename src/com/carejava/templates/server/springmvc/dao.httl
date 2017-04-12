@@ -3,9 +3,27 @@ package ${project.pkgName}.dao.impl;
 
 import ${project.pkgName}.entry.${model.name};
 import ${project.pkgName}.dao.I${model.name}DAO;
-import org.springframework.stereotype.Repository;
-import org.springframework.orm.hibernate3.HibernateTemplate;
+import java.sql.SQLException;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.criterion.CriteriaSpecification;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Projections;
+import org.hibernate.impl.CriteriaImpl;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.stereotype.Repository;
 #for(Function function:model.functions)${include("impl/"+function.name+".httl#dao_import")}${idao_import}#end
 
 /**

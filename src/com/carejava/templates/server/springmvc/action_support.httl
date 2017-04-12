@@ -1,13 +1,10 @@
 #set(Project project,Model model)
 package ${project.pkgName}.util;
 
-import java.util.HashMap;
+import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
-import com.opensymphony.xwork2.ActionSupport;
-
-public class BBcareControl<T> {
+public class CareJavaControl<T> {
 
 	private static final long serialVersionUID = 1L;
 

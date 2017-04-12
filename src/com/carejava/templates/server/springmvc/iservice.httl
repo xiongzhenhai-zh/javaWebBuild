@@ -1,6 +1,11 @@
 #set(Project project,Model model)
 package ${project.pkgName}.service;
 
+import java.util.List;
+import java.util.Map;
+
+import org.hibernate.criterion.DetachedCriteria;
+
 import ${project.pkgName}.entry.${model.name};
 #for(Function function:model.functions)${include("impl/"+function.name+".httl#iservice_import")}${idao_import}#end
 
